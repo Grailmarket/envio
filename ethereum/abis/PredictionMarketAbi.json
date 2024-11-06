@@ -476,9 +476,15 @@
         "internalType": "bytes32"
       },
       {
-        "name": "creator",
+        "name": "currency",
         "type": "address",
         "indexed": true,
+        "internalType": "Currency"
+      },
+      {
+        "name": "creator",
+        "type": "address",
+        "indexed": false,
         "internalType": "address"
       },
       {

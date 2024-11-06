@@ -122,3 +122,29 @@ PredictionMarket.ClaimRefund.handler(async ({ event, context }) => {
     });
   }
 });
+
+PredictionMarket.CreateMarket.handler(async ({ event, context }) => {
+  let marketId = event.chainId
+    .toString()
+    .concat("#")
+    .concat(event.params.id.toString())
+    .toLowerCase();
+
+  let market = await context.Market.get(marketId);
+  const DEFAULT_PROTOCOL_FEE_BPS = BigInt(1000); // 10%
+
+  if (market === undefined) {
+    context.Market.set({
+      id: marketId,
+      chainId: BigInt(event.chainId),
+      oracleId: event.params.id.toLowerCase(),
+      createdAt: BigInt(event.block.timestamp),
+      duration: event.params.duration,
+      currency: event.params.currency,
+      protocolFee: DEFAULT_PROTOCOL_FEE_BPS,
+      incentiveFee: DEFAULT_PROTOCOL_FEE_BPS,
+      minShareAmount: BigInt(0),
+      paused: false,
+    });
+  }
+});

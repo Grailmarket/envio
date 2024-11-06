@@ -13,7 +13,7 @@ contracts:
       - event: Bullish(bytes32 indexed id, uint256 indexed roundId, address indexed account, bytes32 positionId, uint256 stake)
       - event: Settle(bytes32 indexed id, uint256 indexed roundId, address indexed account, bytes32 positionId, uint256 reward)
       - event: ClaimRefund(bytes32 indexed id, uint256 indexed roundId, address indexed account, bytes32 positionId, uint256 stake)
-      - event: CreateMarket(bytes32 indexed id, bytes32 indexed oracleId, address indexed creator, uint256 duration)
+      - event: CreateMarket(bytes32 indexed id, bytes32 indexed oracleId, address indexed currency, address creator, uint256 duration)
       - event: SetMinStakeAmount(bytes32 indexed id, uint256 minStakeAmount)
       - event: NewRound(bytes32 indexed id, uint256 indexed roundId, uint256 openingTime, uint256 closingTime)
       - event: SetRoundPriceMark(bytes32 indexed id, uint256 indexed roundId, int256 priceMark, uint256 closingTime)
