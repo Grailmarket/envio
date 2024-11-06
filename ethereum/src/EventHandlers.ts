@@ -148,3 +148,43 @@ PredictionMarket.CreateMarket.handler(async ({ event, context }) => {
     });
   }
 });
+
+PredictionMarket.NewRound.handler(async ({ event, context }) => {
+  let roundId = event.chainId
+    .toString()
+    .concat("#")
+    .concat(
+      event.params.id
+        .toString()
+        .concat("#")
+        .concat(event.params.roundId.toString())
+    )
+    .toLowerCase();
+  let marketId = event.chainId
+    .toString()
+    .concat("#")
+    .concat(event.params.id.toString())
+    .toLowerCase();
+
+  let round = await context.Round.get(roundId);
+  if (round === undefined) {
+    context.Round.set({
+      id: roundId,
+      chainId: BigInt(event.chainId),
+      roundId: event.params.roundId,
+      market_id: marketId,
+      openingTime: event.params.openingTime,
+      closingTime: event.params.closingTime,
+      priceMark: BigInt(0),
+      closingPrice: BigInt(0),
+      bearishShares: BigInt(0),
+      bullishShares: BigInt(0),
+      totalShares: BigInt(0),
+      winningShares: BigInt(0),
+      rewardPool: BigInt(0),
+      createdAt: BigInt(event.block.timestamp),
+      status: "OPEN",
+      winningSide: "NONE",
+    });
+  }
+});
