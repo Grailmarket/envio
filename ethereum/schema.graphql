@@ -70,14 +70,14 @@ type Position {
   createdAt: BigInt!
 }
 
-type Account {
-  # account address
-  id: ID!
-  # this accounts positions
-  positions: [Position!]! @derivedFrom(field: "account")
-  # unix timestamp this account was created at
-  createdAt: BigInt!
-}
+# type Account {
+#   # account address
+#   id: ID!
+#   # this accounts positions
+#   positions: [Position!]! @derivedFrom(field: "account")
+#   # unix timestamp this account was created at
+#   createdAt: BigInt!
+# }
 
 type Market {
   # chainId + market identifier
@@ -108,7 +108,7 @@ type LeaderBoard {
   # chainId + marketId + account
   id: ID!
   # the account
-  account: Account!
+  account: String!
   # the market this leader board is for
   market: Market!
   # the number of positions opened on this market

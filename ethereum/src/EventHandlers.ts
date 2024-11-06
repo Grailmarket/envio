@@ -1,40 +1,43 @@
-import { Greeter, User } from "generated";
+import { PredictionMarket } from "generated";
 
-// Handler for the NewGreeting event
-Greeter.NewGreeting.handler(async ({ event, context }) => {
-  const userId = event.params.user;
-  const latestGreeting = event.params.greeting;
-  const currentUserEntity: User | undefined = await context.User.get(userId);
+PredictionMarket.Bearish.handler(async ({ event, context }) => {
+  let roundId = event.chainId
+    .toString()
+    .concat("#")
+    .concat(
+      event.params.id
+        .toString()
+        .concat("#")
+        .concat(event.params.roundId.toString())
+    )
+    .toLowerCase();
+  let positionId = event.chainId
+    .toString()
+    .concat("#")
+    .concat(event.params.positionId.toString())
+    .toLowerCase();
 
-  // Update or create a new User entity
-  const userEntity: User = currentUserEntity
-    ? {
-      id: userId,
-      latestGreeting,
-      numberOfGreetings: currentUserEntity.numberOfGreetings + 1,
-      greetings: [...currentUserEntity.greetings, latestGreeting],
-    }
-    : {
-      id: userId,
-      latestGreeting,
-      numberOfGreetings: 1,
-      greetings: [latestGreeting],
-    };
+  let round = await context.Round.get(roundId);
+  let position = await context.Position.get(positionId);
 
-  context.User.set(userEntity);
-});
+  if (round !== undefined && position === undefined) {
+    context.Position.set({
+      id: positionId,
+      chainId: BigInt(event.chainId),
+      account: event.params.account.toString().toLowerCase(),
+      createdAt: BigInt(event.block.timestamp),
+      claimed: false,
+      market_id: round.market_id,
+      option: "BEARISH",
+      reward: BigInt(0),
+      round_id: roundId,
+      share: event.params.stake,
+    });
 
-// Handler for the ClearGreeting event
-Greeter.ClearGreeting.handler(async ({ event, context }) => {
-  const userId = event.params.user;
-  const currentUserEntity: User | undefined = await context.User.get(userId);
-
-  if (currentUserEntity) {
-    // Clear the latestGreeting
-    context.User.set({
-      ...currentUserEntity,
-      latestGreeting: "",
+    context.Round.set({
+      ...round,
+      bearishShares: round.bearishShares + event.params.stake,
+      totalShares: round.totalShares + event.params.stake,
     });
   }
 });
-
