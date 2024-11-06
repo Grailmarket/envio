@@ -277,3 +277,27 @@ PredictionMarket.Settle.handler(async ({ event, context }) => {
     });
   }
 });
+
+PredictionMarket.SettleRound.handler(async ({ event, context }) => {
+  const roundId = event.chainId
+    .toString()
+    .concat("#")
+    .concat(
+      event.params.id
+        .toString()
+        .concat("#")
+        .concat(event.params.roundId.toString())
+    )
+    .toLowerCase();
+
+  let round = await context.Round.get(roundId);
+  if (round !== undefined) {
+    context.Round.set({
+      ...round,
+      closingPrice: event.params.closingPrice,
+      rewardPool: event.params.rewardPool,
+      winningShares: event.params.totalWinningStake,
+      status: event.params.isRefunding ? "CANCELLED" : "SETTLED",
+    });
+  }
+});
