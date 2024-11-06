@@ -188,3 +188,19 @@ PredictionMarket.NewRound.handler(async ({ event, context }) => {
     });
   }
 });
+
+PredictionMarket.Pause.handler(async ({ event, context }) => {
+  const marketId = event.chainId
+    .toString()
+    .concat("#")
+    .concat(event.params.id.toString())
+    .toLowerCase();
+
+  let market = await context.Market.get(marketId);
+  if (market) {
+    context.Market.set({
+      ...market,
+      paused: true,
+    });
+  }
+});
