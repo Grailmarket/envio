@@ -104,3 +104,21 @@ PredictionMarket.CancelRound.handler(async ({ event, context }) => {
     });
   }
 });
+
+PredictionMarket.ClaimRefund.handler(async ({ event, context }) => {
+  let positionId = event.chainId
+    .toString()
+    .concat("#")
+    .concat(event.params.positionId.toString())
+    .toLowerCase();
+
+  let prediction = await context.Position.get(positionId);
+
+  if (prediction !== undefined) {
+    context.Position.set({
+      ...prediction,
+      reward: event.params.stake,
+      claimed: true,
+    });
+  }
+});
