@@ -83,3 +83,24 @@ PredictionMarket.Bullish.handler(async ({ event, context }) => {
     });
   }
 });
+
+PredictionMarket.CancelRound.handler(async ({ event, context }) => {
+  let roundId = event.chainId
+    .toString()
+    .concat("#")
+    .concat(
+      event.params.id
+        .toString()
+        .concat("#")
+        .concat(event.params.roundId.toString())
+    )
+    .toLowerCase();
+
+  let round = await context.Round.get(roundId);
+  if (round !== undefined) {
+    context.Round.set({
+      ...round,
+      status: "CANCELLED",
+    });
+  }
+});
