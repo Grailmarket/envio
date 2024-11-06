@@ -236,3 +236,26 @@ PredictionMarket.SetMinStakeAmount.handler(async ({ event, context }) => {
     });
   }
 });
+
+PredictionMarket.SetRoundPriceMark.handler(async ({ event, context }) => {
+  const roundId = event.chainId
+    .toString()
+    .concat("#")
+    .concat(
+      event.params.id
+        .toString()
+        .concat("#")
+        .concat(event.params.roundId.toString())
+    )
+    .toLowerCase();
+
+  let round = await context.Round.get(roundId);
+  if (round !== undefined) {
+    context.Round.set({
+      ...round,
+      priceMark: event.params.priceMark,
+      closingTime: event.params.closingTime,
+      status: "ENTRY_CLOSED",
+    });
+  }
+});
