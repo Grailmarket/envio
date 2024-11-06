@@ -220,3 +220,19 @@ PredictionMarket.SetMarketDuration.handler(async ({ event, context }) => {
     });
   }
 });
+
+PredictionMarket.SetMinStakeAmount.handler(async ({ event, context }) => {
+  const marketId = event.chainId
+    .toString()
+    .concat("#")
+    .concat(event.params.id.toString())
+    .toLowerCase();
+
+  let market = await context.Market.get(marketId);
+  if (market !== undefined) {
+    context.Market.set({
+      ...market,
+      minShareAmount: event.params.minStakeAmount,
+    });
+  }
+});
