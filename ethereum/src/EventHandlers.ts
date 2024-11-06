@@ -259,3 +259,21 @@ PredictionMarket.SetRoundPriceMark.handler(async ({ event, context }) => {
     });
   }
 });
+
+PredictionMarket.Settle.handler(async ({ event, context }) => {
+  const positionId = event.chainId
+    .toString()
+    .concat("#")
+    .concat(event.params.positionId.toString())
+    .toLowerCase();
+
+  let prediction = await context.Position.get(positionId);
+
+  if (prediction !== undefined) {
+    context.Position.set({
+      ...prediction,
+      reward: event.params.reward,
+      claimed: true,
+    });
+  }
+});
