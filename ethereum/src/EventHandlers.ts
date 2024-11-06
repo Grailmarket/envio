@@ -204,3 +204,19 @@ PredictionMarket.Pause.handler(async ({ event, context }) => {
     });
   }
 });
+
+PredictionMarket.SetMarketDuration.handler(async ({ event, context }) => {
+  let marketId = event.chainId
+    .toString()
+    .concat("#")
+    .concat(event.params.id.toString())
+    .toLowerCase();
+
+  let market = await context.Market.get(marketId);
+  if (market !== undefined) {
+    context.Market.set({
+      ...market,
+      duration: event.params.duration,
+    });
+  }
+});
