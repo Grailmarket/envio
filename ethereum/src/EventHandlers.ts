@@ -39,6 +39,31 @@ PredictionMarket.Bearish.handler(async ({ event, context }) => {
       bearishShares: round.bearishShares + event.params.stake,
       totalShares: round.totalShares + event.params.stake,
     });
+
+    // update the leader board
+    const leaderboardId = round.market_id
+      .concat("#")
+      .concat(event.params.account.toLowerCase())
+      .toLowerCase();
+
+    let leaderboard = await context.LeaderBoard.get(leaderboardId);
+
+    if (leaderboard === undefined) {
+      context.LeaderBoard.set({
+        id: leaderboardId,
+        account: event.params.account.toLowerCase(),
+        market_id: round.market_id,
+        rounds: BigInt(1),
+        shares: event.params.stake,
+        reward: BigInt(0),
+      });
+    } else {
+      context.LeaderBoard.set({
+        ...leaderboard,
+        shares: leaderboard.shares + event.params.stake,
+        rounds: leaderboard.rounds + BigInt(1),
+      });
+    }
   }
 });
 
@@ -81,6 +106,31 @@ PredictionMarket.Bullish.handler(async ({ event, context }) => {
       bullishShares: round.bullishShares + event.params.stake,
       totalShares: round.totalShares + event.params.stake,
     });
+
+    // update the leader board
+    const leaderboardId = round.market_id
+      .concat("#")
+      .concat(event.params.account.toLowerCase())
+      .toLowerCase();
+
+    let leaderboard = await context.LeaderBoard.get(leaderboardId);
+
+    if (leaderboard === undefined) {
+      context.LeaderBoard.set({
+        id: leaderboardId,
+        account: event.params.account.toLowerCase(),
+        market_id: round.market_id,
+        rounds: BigInt(1),
+        shares: event.params.stake,
+        reward: BigInt(0),
+      });
+    } else {
+      context.LeaderBoard.set({
+        ...leaderboard,
+        shares: leaderboard.shares + event.params.stake,
+        rounds: leaderboard.rounds + BigInt(1),
+      });
+    }
   }
 });
 
@@ -112,14 +162,30 @@ PredictionMarket.ClaimRefund.handler(async ({ event, context }) => {
     .concat(event.params.positionId.toString())
     .toLowerCase();
 
-  let prediction = await context.Position.get(positionId);
+  let position = await context.Position.get(positionId);
 
-  if (prediction !== undefined) {
+  if (position !== undefined) {
     context.Position.set({
-      ...prediction,
+      ...position,
       reward: event.params.stake,
       claimed: true,
     });
+
+    // update the leader board
+    const leaderboardId = position.market_id
+      .concat("#")
+      .concat(position.account)
+      .toLowerCase();
+
+    let leaderboard = await context.LeaderBoard.get(leaderboardId);
+
+    if (leaderboard !== undefined) {
+      context.LeaderBoard.set({
+        ...leaderboard,
+        rounds: leaderboard.rounds - BigInt(1),
+        shares: leaderboard.shares - event.params.stake,
+      });
+    }
   }
 });
 
@@ -267,14 +333,29 @@ PredictionMarket.Settle.handler(async ({ event, context }) => {
     .concat(event.params.positionId.toString())
     .toLowerCase();
 
-  let prediction = await context.Position.get(positionId);
+  let position = await context.Position.get(positionId);
 
-  if (prediction !== undefined) {
+  if (position !== undefined) {
     context.Position.set({
-      ...prediction,
+      ...position,
       reward: event.params.reward,
       claimed: true,
     });
+
+    // update the leader board
+    const leaderboardId = position.market_id
+      .concat("#")
+      .concat(position.account)
+      .toLowerCase();
+
+    let leaderboard = await context.LeaderBoard.get(leaderboardId);
+
+    if (leaderboard !== undefined) {
+      context.LeaderBoard.set({
+        ...leaderboard,
+        reward: leaderboard.reward + event.params.reward,
+      });
+    }
   }
 });
 

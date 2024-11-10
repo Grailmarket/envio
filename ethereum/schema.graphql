@@ -111,20 +111,10 @@ type LeaderBoard {
   account: String!
   # the market this leader board is for
   market: Market!
-  # the number of positions opened on this market
-  positionCount: BigInt!
+  # the number of rounds positions are opened
+  rounds: BigInt!
   # sum of all position stakes in this market
-  totalShares: BigInt!
-  # sum of all users bullish position stakes
-  totalBullishShares: BigInt!
-  # sum of all users bearish position stakes
-  totalBearishShares: BigInt!
+  shares: BigInt!
   # sum of all reward claimed in this market
-  totalRewardClaimed: BigInt!
-  # the average staked amount in this market
-  averageShare: BigInt!
-  # total positions settled
-  settledPositionCount: BigInt!
-  # the accounts percentage winning rate
-  winningRate: BigInt!
+  reward: BigInt!
 }
