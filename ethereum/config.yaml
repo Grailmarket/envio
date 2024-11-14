@@ -22,6 +22,7 @@ contracts:
       - event: SetMarketDuration(bytes32 indexed id, uint32 duration)
       - event: Pause(bytes32 indexed id)
       - event: UnPause(bytes32 indexed id)
+unordered_multichain_mode: true
 networks:
   - id: 296 # Hedera Testnet
     rpc_config:

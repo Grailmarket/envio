@@ -202,6 +202,7 @@ PredictionMarket.CreateMarket.handler(async ({ event, context }) => {
   if (market === undefined) {
     context.Market.set({
       id: marketId,
+      marketId: event.params.id.toLowerCase(),
       chainId: BigInt(event.chainId),
       oracleId: event.params.id.toLowerCase(),
       createdAt: BigInt(event.block.timestamp),

@@ -82,6 +82,8 @@ type Position {
 type Market {
   # chainId + market identifier
   id: ID!
+  # market identifier
+  marketId: String!
   # chain identifier
   chainId: BigInt!
   # the market Pyth oracle feed identifier
