@@ -37,6 +37,8 @@ networks:
       - name: PredictionMarket #A reference to the global contract definition
         address: 0x44b2912e0d2C3d821183C9dfB91E73805E8794cc
   - id: 534351 # Scroll Sepolia
+    rpc_config:
+      url: https://scroll-sepolia-rpc.publicnode.com
     start_block: 367801
     contracts:
       - name: PredictionMarket #A reference to the global contract definition
