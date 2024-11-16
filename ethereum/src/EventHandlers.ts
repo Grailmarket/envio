@@ -204,7 +204,7 @@ PredictionMarket.CreateMarket.handler(async ({ event, context }) => {
       id: marketId,
       marketId: event.params.id.toLowerCase(),
       chainId: BigInt(event.chainId),
-      oracleId: event.params.id.toLowerCase(),
+      oracleId: event.params.oracleId.toLowerCase(),
       createdAt: BigInt(event.block.timestamp),
       duration: event.params.duration,
       currency: event.params.currency,
