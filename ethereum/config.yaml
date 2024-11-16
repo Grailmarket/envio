@@ -36,11 +36,11 @@ networks:
     contracts:
       - name: PredictionMarket #A reference to the global contract definition
         address: 0x44b2912e0d2C3d821183C9dfB91E73805E8794cc
-  # - id: 534351 # Scroll Sepolia
-  #   start_block: 367801
-  #   contracts:
-  #     - name: PredictionMarket #A reference to the global contract definition
-  #       address: 0xdEe21B97AB77a16B4b236F952e586cf8408CF32A
+  - id: 534351 # Scroll Sepolia
+    start_block: 367801
+    contracts:
+      - name: PredictionMarket #A reference to the global contract definition
+        address: 0x7934D3e1949584426F2666BDbC54915Fa021Cfb8
   - id: 167009 # Taiko Hekla
     rpc_config:
       url: https://taiko-hekla.drpc.org
