@@ -102,6 +102,8 @@ type Market {
   incentiveFee: BigInt!
   # true if the market is paused and participation is temporarilly disabled
   paused: Boolean!
+  # the markets latest round ID
+  latestRoundId: BigInt!
   # this markets leaderboard
   leaderBoard: [LeaderBoard!]! @derivedFrom(field: "market")
 }

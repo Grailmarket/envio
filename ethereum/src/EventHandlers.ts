@@ -211,6 +211,7 @@ PredictionMarket.CreateMarket.handler(async ({ event, context }) => {
       protocolFee: DEFAULT_PROTOCOL_FEE_BPS,
       incentiveFee: DEFAULT_PROTOCOL_FEE_BPS,
       minShareAmount: BigInt(0),
+      latestRoundId: BigInt(0),
       paused: false,
     });
   }
@@ -233,7 +234,13 @@ PredictionMarket.NewRound.handler(async ({ event, context }) => {
     .concat(event.params.id.toString())
     .toLowerCase();
 
+  let market = await context.Market.get(marketId);
   let round = await context.Round.get(roundId);
+
+  if (market !== undefined) {
+    context.Market.set({ ...market, latestRoundId: event.params.roundId });
+  }
+
   if (round === undefined) {
     context.Round.set({
       id: roundId,
