@@ -150,7 +150,7 @@ PredictionMarket.CancelRound.handler(async ({ event, context }) => {
   if (round !== undefined) {
     context.Round.set({
       ...round,
-      status: "CANCELLED",
+      status: "REFUNDING",
     });
   }
 });
@@ -197,22 +197,33 @@ PredictionMarket.CreateMarket.handler(async ({ event, context }) => {
     .toLowerCase();
 
   let market = await context.Market.get(marketId);
-  const DEFAULT_PROTOCOL_FEE_BPS = BigInt(1000); // 10%
 
   if (market === undefined) {
     context.Market.set({
       id: marketId,
       marketId: event.params.id.toLowerCase(),
       chainId: BigInt(event.chainId),
-      oracleId: event.params.oracleId.toLowerCase(),
       createdAt: BigInt(event.block.timestamp),
-      duration: event.params.duration,
-      currency: event.params.currency,
-      protocolFee: DEFAULT_PROTOCOL_FEE_BPS,
-      incentiveFee: DEFAULT_PROTOCOL_FEE_BPS,
-      minShareAmount: BigInt(0),
       latestRoundId: BigInt(0),
-      paused: false,
+    });
+  }
+});
+
+PredictionMarket.OwnershipTransferred.handler(async ({ event, context }) => {
+  const configId = event.chainId.toString().concat("#config");
+
+  let config = await context.ProtocolConfig.get(configId);
+  const DEFAULT_PROTOCOL_FEE_BPS = BigInt(500); // 5%
+  const DEFAULT_DURATION = BigInt(300);
+
+  if (config === undefined) {
+    context.ProtocolConfig.set({
+      id: configId,
+      chainId: BigInt(event.chainId),
+      duration: DEFAULT_DURATION,
+      protocolFee: DEFAULT_PROTOCOL_FEE_BPS,
+      resolverFee: DEFAULT_PROTOCOL_FEE_BPS,
+      minShareAmount: BigInt(0),
     });
   }
 });
@@ -263,49 +274,25 @@ PredictionMarket.NewRound.handler(async ({ event, context }) => {
   }
 });
 
-PredictionMarket.Pause.handler(async ({ event, context }) => {
-  const marketId = event.chainId
-    .toString()
-    .concat("#")
-    .concat(event.params.id.toString())
-    .toLowerCase();
-
-  let market = await context.Market.get(marketId);
-  if (market) {
-    context.Market.set({
-      ...market,
-      paused: true,
-    });
-  }
-});
-
 PredictionMarket.SetMarketDuration.handler(async ({ event, context }) => {
-  let marketId = event.chainId
-    .toString()
-    .concat("#")
-    .concat(event.params.id.toString())
-    .toLowerCase();
+  const configId = event.chainId.toString().concat("#config");
 
-  let market = await context.Market.get(marketId);
-  if (market !== undefined) {
-    context.Market.set({
-      ...market,
+  let config = await context.ProtocolConfig.get(configId);
+  if (config !== undefined) {
+    context.ProtocolConfig.set({
+      ...config,
       duration: event.params.duration,
     });
   }
 });
 
 PredictionMarket.SetMinStakeAmount.handler(async ({ event, context }) => {
-  const marketId = event.chainId
-    .toString()
-    .concat("#")
-    .concat(event.params.id.toString())
-    .toLowerCase();
+  const configId = event.chainId.toString().concat("#config");
 
-  let market = await context.Market.get(marketId);
-  if (market !== undefined) {
-    context.Market.set({
-      ...market,
+  let config = await context.ProtocolConfig.get(configId);
+  if (config !== undefined) {
+    context.ProtocolConfig.set({
+      ...config,
       minShareAmount: event.params.minStakeAmount,
     });
   }
@@ -329,7 +316,7 @@ PredictionMarket.SetRoundPriceMark.handler(async ({ event, context }) => {
       ...round,
       priceMark: event.params.priceMark,
       closingTime: event.params.closingTime,
-      status: "ENTRY_CLOSED",
+      status: "LIVE",
     });
   }
 });
@@ -367,7 +354,7 @@ PredictionMarket.Settle.handler(async ({ event, context }) => {
   }
 });
 
-PredictionMarket.SettleRound.handler(async ({ event, context }) => {
+PredictionMarket.Resolve.handler(async ({ event, context }) => {
   const roundId = event.chainId
     .toString()
     .concat("#")
@@ -386,23 +373,36 @@ PredictionMarket.SettleRound.handler(async ({ event, context }) => {
       closingPrice: event.params.closingPrice,
       rewardPool: event.params.rewardPool,
       winningShares: event.params.totalWinningStake,
-      status: event.params.isRefunding ? "CANCELLED" : "SETTLED",
+      winningSide: event.params.isRefunding
+        ? "NONE"
+        : event.params.winningSide === BigInt(1)
+        ? "BULLISH"
+        : "BEARISH",
+      status: event.params.isRefunding ? "REFUNDING" : "RESOLVED",
     });
   }
 });
 
-PredictionMarket.UnPause.handler(async ({ event, context }) => {
-  const marketId = event.chainId
-    .toString()
-    .concat("#")
-    .concat(event.params.id.toString())
-    .toLowerCase();
+PredictionMarket.SetProtocolFee.handler(async ({ event, context }) => {
+  const configId = event.chainId.toString().concat("#config");
 
-  let market = await context.Market.get(marketId);
-  if (market) {
-    context.Market.set({
-      ...market,
-      paused: false,
+  let config = await context.ProtocolConfig.get(configId);
+  if (config !== undefined) {
+    context.ProtocolConfig.set({
+      ...config,
+      protocolFee: event.params.newFee,
+    });
+  }
+});
+
+PredictionMarket.SetResolverFee.handler(async ({ event, context }) => {
+  const configId = event.chainId.toString().concat("#config");
+
+  let config = await context.ProtocolConfig.get(configId);
+  if (config !== undefined) {
+    context.ProtocolConfig.set({
+      ...config,
+      resolverFee: event.params.newFee,
     });
   }
 });
