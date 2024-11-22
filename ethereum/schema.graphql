@@ -7,9 +7,9 @@ enum MarketOption {
 enum RoundStatus {
   NOT_OPEN
   OPEN
-  ENTRY_CLOSED
-  SETTLED
-  CANCELLED
+  LIVE
+  RESOLVED
+  REFUNDING
 }
 
 type Round {
@@ -79,6 +79,21 @@ type Position {
 #   createdAt: BigInt!
 # }
 
+type ProtocolConfig {
+  # chainId + config
+  id: ID!
+  # chain identifier
+  chainId: BigInt!
+  # the market round duration in seconds
+  duration: BigInt!
+  # the minimum amount that can be staked
+  minShareAmount: BigInt!
+  # the protocolFee charged on this market
+  protocolFee: BigInt!
+  # the incentive fee paid to round resolver
+  resolverFee: BigInt!
+}
+
 type Market {
   # chainId + market identifier
   id: ID!
@@ -86,22 +101,8 @@ type Market {
   marketId: String!
   # chain identifier
   chainId: BigInt!
-  # the market Pyth oracle feed identifier
-  oracleId: String!
   # unix timestamp when market was created
   createdAt: BigInt!
-  # the market round duration in seconds
-  duration: BigInt!
-  # the minimum amount that can be staked
-  minShareAmount: BigInt!
-  # the currency accepted in this market
-  currency: String!
-  # the protocolFee charged on this market
-  protocolFee: BigInt!
-  # the incentive fee paid to round finalizer on this market
-  incentiveFee: BigInt!
-  # true if the market is paused and participation is temporarilly disabled
-  paused: Boolean!
   # the markets latest round ID
   latestRoundId: BigInt!
   # this markets leaderboard
