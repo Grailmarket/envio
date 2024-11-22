@@ -13,48 +13,49 @@ contracts:
       - event: Bullish(bytes32 indexed id, uint256 indexed roundId, address indexed account, bytes32 positionId, uint256 stake)
       - event: Settle(bytes32 indexed id, uint256 indexed roundId, address indexed account, bytes32 positionId, uint256 reward)
       - event: ClaimRefund(bytes32 indexed id, uint256 indexed roundId, address indexed account, bytes32 positionId, uint256 stake)
-      - event: CreateMarket(bytes32 indexed id, bytes32 indexed oracleId, address indexed currency, address creator, uint256 duration)
-      - event: SetMinStakeAmount(bytes32 indexed id, uint256 minStakeAmount)
+      - event: CreateMarket(bytes32 indexed id, address creator)
+      - event: SetMinStakeAmount(uint256 minStakeAmount)
       - event: NewRound(bytes32 indexed id, uint256 indexed roundId, uint256 openingTime, uint256 closingTime)
       - event: SetRoundPriceMark(bytes32 indexed id, uint256 indexed roundId, int256 priceMark, uint256 closingTime)
-      - event: SettleRound(bytes32 indexed id, uint256 indexed roundId, uint256 rewardPool, uint256 totalWinningStake, int256 closingPrice, bool isRefunding)
+      - event: Resolve(bytes32 indexed id, uint256 indexed roundId, uint256 rewardPool, uint256 totalWinningStake, int256 closingPrice, uint256 winningSide, bool isRefunding)
       - event: CancelRound(bytes32 indexed id, uint256 indexed roundId)
-      - event: SetMarketDuration(bytes32 indexed id, uint32 duration)
-      - event: Pause(bytes32 indexed id)
-      - event: UnPause(bytes32 indexed id)
+      - event: SetMarketDuration(uint32 duration)
+      - event: OwnershipTransferred(address indexed oldOwner, address indexed newOwner)
+      - event: SetResolverFee(uint16 newFee)
+      - event: event SetProtocolFee(uint16 newFee)
 unordered_multichain_mode: true
 networks:
   - id: 296 # Hedera Testnet
     rpc_config:
       url: https://testnet.hashio.io/api
-    start_block: 11703057
+    start_block: 12138278
     contracts:
       - name: PredictionMarket #A reference to the global contract definition
-        address: 0x7934D3e1949584426F2666BDbC54915Fa021Cfb8
+        address: 0x442A6Bd228adF9E8c8F9632e1A5479E512066D3C
   - id: 2810 # Morph Testnet
-    start_block: 13041807
+    start_block: 13556734
     contracts:
       - name: PredictionMarket #A reference to the global contract definition
-        address: 0x44b2912e0d2C3d821183C9dfB91E73805E8794cc
+        address: 0x8F081377F43d44F4f190De8C7757370A995EC39A
   - id: 534351 # Scroll Sepolia
     rpc_config:
       url: https://scroll-sepolia-rpc.publicnode.com
-    start_block: 367801
+    start_block: 7352698
     contracts:
       - name: PredictionMarket #A reference to the global contract definition
-        address: 0x7934D3e1949584426F2666BDbC54915Fa021Cfb8
+        address: 0x442A6Bd228adF9E8c8F9632e1A5479E512066D3C
   - id: 167009 # Taiko Hekla
     rpc_config:
       url: https://taiko-hekla.drpc.org
-    start_block: 968803
+    start_block: 992751
+    contracts:
+      - name: PredictionMarket #A reference to the global contract definition
+        address: 0xdB823E2858Df1Ce876c8A200DEE9bef30f6C29Ea
+  - id: 1301 # Unichain Sepolia
+    start_block: 5438364
     contracts:
       - name: PredictionMarket #A reference to the global contract definition
         address: 0x7934D3e1949584426F2666BDbC54915Fa021Cfb8
-  # - id: 1301 # Unichain Sepolia
-  #   start_block: 367801
-  #   contracts:
-  #     - name: PredictionMarket #A reference to the global contract definition
-  #       address: 0xdEe21B97AB77a16B4b236F952e586cf8408CF32A
 # Rollback on reorg mode currently incurs a performance hit on historical sync
 # while developing an indexer we recommend setting this to false
 rollback_on_reorg: false
