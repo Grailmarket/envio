@@ -25,13 +25,13 @@ contracts:
       - event: event SetProtocolFee(uint16 newFee)
 unordered_multichain_mode: true
 networks:
-  # - id: 296 # Hedera Testnet
-  #   rpc_config:
-  #     url: https://testnet.hashio.io/api
-  #   start_block: 12138278
-  #   contracts:
-  #     - name: PredictionMarket #A reference to the global contract definition
-  #       address: 0x442A6Bd228adF9E8c8F9632e1A5479E512066D3C
+# - id: 296 # Hedera Testnet
+#   rpc_config:
+#     url: https://testnet.hashio.io/api
+#   start_block: 12138278
+#   contracts:
+#     - name: PredictionMarket #A reference to the global contract definition
+#       address: 0x442A6Bd228adF9E8c8F9632e1A5479E512066D3C
   - id: 2810 # Morph Testnet
     start_block: 13556734
     contracts:
