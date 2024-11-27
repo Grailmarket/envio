@@ -26,6 +26,8 @@ contracts:
 unordered_multichain_mode: true
 networks:
   - id: 296 # Hedera Testnet
+    rpc_config:
+      url: https://testnet.hashio.io/api
     start_block: 12340027
     contracts:
       - name: PredictionMarket #A reference to the global contract definition
