@@ -25,30 +25,35 @@ contracts:
       - event: event SetProtocolFee(uint16 newFee)
 unordered_multichain_mode: true
 networks:
-  - id: 2810 # Morph Testnet
-    start_block: 13556734
+  - id: 296 # Hedera Testnet
+    start_block: 12340027
     contracts:
       - name: PredictionMarket #A reference to the global contract definition
-        address: 0x8F081377F43d44F4f190De8C7757370A995EC39A
+        address: 0xFb83f2edEA044580942F9a47e77D3cA8C89061c0
+  - id: 2810 # Morph Testnet
+    start_block: 13674578
+    contracts:
+      - name: PredictionMarket #A reference to the global contract definition
+        address: 0x2cB48ab09b7AE3917cC2f905e541464d0f223827
   - id: 534351 # Scroll Sepolia
     rpc_config:
       url: https://scroll-sepolia-rpc.publicnode.com
-    start_block: 7352698
+    start_block: 7397443
     contracts:
       - name: PredictionMarket #A reference to the global contract definition
-        address: 0x442A6Bd228adF9E8c8F9632e1A5479E512066D3C
+        address: 0x89b710b7CD5f5a35913278b6A280338b8209f466
   - id: 167009 # Taiko Hekla
     rpc_config:
       url: https://taiko-hekla.drpc.org
-    start_block: 994603
+    start_block: 1004451
     contracts:
       - name: PredictionMarket #A reference to the global contract definition
-        address: 0x4A203f5Fc6AbDe7978A4A45531D0BE30678A3efB
+        address: 0x50096e53E0C6e0d124863Dc7f7997fD55B784f62
   - id: 1301 # Unichain Sepolia
-    start_block: 5438364
+    start_block: 5842382
     contracts:
       - name: PredictionMarket #A reference to the global contract definition
-        address: 0x7934D3e1949584426F2666BDbC54915Fa021Cfb8
+        address: 0x66c4e441B38877110B07BD16788E2f20F9dfFD9D
 # Rollback on reorg mode currently incurs a performance hit on historical sync
 # while developing an indexer we recommend setting this to false
 rollback_on_reorg: false
