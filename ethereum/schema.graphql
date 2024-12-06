@@ -13,8 +13,10 @@ enum RoundStatus {
 }
 
 type Round {
-  # round identifier
+  # marketId + round identifier
   id: ID!
+  # the round identifier
+  roundId: BigInt!
   # market round was opened in
   market: Market!
   # unix timestamp when round entry opened
@@ -49,7 +51,7 @@ type Position {
   # the chainId
   chainId: BigInt!
   # the address of the position owner
-  account: Account!
+  account: String!
   # the market this position was opened
   market: Market!
   # the round this position was opened
@@ -66,16 +68,16 @@ type Position {
   createdAt: BigInt!
 }
 
-type Account {
-  # account address
-  id: ID!
-  # this accounts positions
-  positions: [Position!]! @derivedFrom(field: "account")
-  # unix timestamp this account was created at
-  createdAt: BigInt!
-  # the user account balance across chains
-  balance: BigInt!
-}
+# type Account {
+#   # account address
+#   id: ID!
+#   # this accounts positions
+#   positions: [Position!]! @derivedFrom(field: "account")
+#   # unix timestamp this account was created at
+#   createdAt: BigInt!
+#   # the user account balance across chains
+#   balance: BigInt!
+# }
 
 type ProtocolConfig {
   # chainId + config

@@ -21,14 +21,11 @@ contracts:
       - event: CancelRound(bytes32 indexed id, uint256 indexed roundId)
       - event: SetMarketDuration(uint32 duration)
       - event: OwnershipTransferred(address indexed oldOwner, address indexed newOwner)
-      - event: SetResolverFee(uint16 newFee)
       - event: SetProtocolFee(uint16 newFee)
-      - event: Rebalance(uint16 indexed fromChainId, uint16 indexed toChainId, address from, address to, uint256 amount)
-      - event: ReceiveBalance(uint16 indexed fromChainId, uint256 amount)
-      - event: BridgeBalance(uint16 indexed targetChain, uint256 amount)
-      - event: BridgeDeposit(uint16 indexed sourceChain, address indexed depositor, uint256 amount)
-      - event: Deposit(address indexed depositor, uint256 amount)
-      - event: Cashout(address indexed recipient, uint256 amount)
+      # - event: BridgeBalance(uint16 indexed targetChain, uint256 amount)
+      # - event: BridgeDeposit(uint16 indexed sourceChain, address indexed depositor, uint256 amount)
+      # - event: Deposit(address indexed depositor, uint256 amount)
+      # - event: Cashout(address indexed recipient, uint256 amount)
 unordered_multichain_mode: true
 networks:
   - id: 43113 # Avalanche Fuji Testnet

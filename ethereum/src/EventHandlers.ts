@@ -1,16 +1,11 @@
-import { PredictionMarket } from "generated";
+import { GrailMarket } from "generated";
 
-PredictionMarket.Bearish.handler(async ({ event, context }) => {
-  let roundId = event.chainId
-    .toString()
+GrailMarket.Bearish.handler(async ({ event, context }) => {
+  let roundId = event.params.id
     .concat("#")
-    .concat(
-      event.params.id
-        .toString()
-        .concat("#")
-        .concat(event.params.roundId.toString())
-    )
+    .concat(event.params.roundId.toString())
     .toLowerCase();
+
   let positionId = event.chainId
     .toString()
     .concat("#")
@@ -24,7 +19,7 @@ PredictionMarket.Bearish.handler(async ({ event, context }) => {
     context.Position.set({
       id: positionId,
       chainId: BigInt(event.chainId),
-      account: event.params.account.toString().toLowerCase(),
+      account: event.params.account.toLowerCase(),
       createdAt: BigInt(event.block.timestamp),
       claimed: false,
       market_id: round.market_id,
@@ -67,17 +62,12 @@ PredictionMarket.Bearish.handler(async ({ event, context }) => {
   }
 });
 
-PredictionMarket.Bullish.handler(async ({ event, context }) => {
-  let roundId = event.chainId
-    .toString()
+GrailMarket.Bullish.handler(async ({ event, context }) => {
+  let roundId = event.params.id
     .concat("#")
-    .concat(
-      event.params.id
-        .toString()
-        .concat("#")
-        .concat(event.params.roundId.toString())
-    )
+    .concat(event.params.roundId.toString())
     .toLowerCase();
+
   let positionId = event.chainId
     .toString()
     .concat("#")
@@ -91,7 +81,7 @@ PredictionMarket.Bullish.handler(async ({ event, context }) => {
     context.Position.set({
       id: positionId,
       chainId: BigInt(event.chainId),
-      account: event.params.account.toString().toLowerCase(),
+      account: event.params.account.toLowerCase(),
       createdAt: BigInt(event.block.timestamp),
       claimed: false,
       market_id: round.market_id,
@@ -134,16 +124,10 @@ PredictionMarket.Bullish.handler(async ({ event, context }) => {
   }
 });
 
-PredictionMarket.CancelRound.handler(async ({ event, context }) => {
-  let roundId = event.chainId
-    .toString()
+GrailMarket.CancelRound.handler(async ({ event, context }) => {
+  let roundId = event.params.id
     .concat("#")
-    .concat(
-      event.params.id
-        .toString()
-        .concat("#")
-        .concat(event.params.roundId.toString())
-    )
+    .concat(event.params.roundId.toString())
     .toLowerCase();
 
   let round = await context.Round.get(roundId);
@@ -155,7 +139,7 @@ PredictionMarket.CancelRound.handler(async ({ event, context }) => {
   }
 });
 
-PredictionMarket.ClaimRefund.handler(async ({ event, context }) => {
+GrailMarket.ClaimRefund.handler(async ({ event, context }) => {
   let positionId = event.chainId
     .toString()
     .concat("#")
@@ -189,12 +173,8 @@ PredictionMarket.ClaimRefund.handler(async ({ event, context }) => {
   }
 });
 
-PredictionMarket.CreateMarket.handler(async ({ event, context }) => {
-  let marketId = event.chainId
-    .toString()
-    .concat("#")
-    .concat(event.params.id.toString())
-    .toLowerCase();
+GrailMarket.CreateMarket.handler(async ({ event, context }) => {
+  let marketId = event.params.id.toLowerCase();
 
   let market = await context.Market.get(marketId);
 
@@ -202,14 +182,13 @@ PredictionMarket.CreateMarket.handler(async ({ event, context }) => {
     context.Market.set({
       id: marketId,
       marketId: event.params.id.toLowerCase(),
-      chainId: BigInt(event.chainId),
       createdAt: BigInt(event.block.timestamp),
       latestRoundId: BigInt(0),
     });
   }
 });
 
-PredictionMarket.OwnershipTransferred.handler(async ({ event, context }) => {
+GrailMarket.OwnershipTransferred.handler(async ({ event, context }) => {
   const configId = event.chainId.toString().concat("#config");
 
   let config = await context.ProtocolConfig.get(configId);
@@ -219,31 +198,20 @@ PredictionMarket.OwnershipTransferred.handler(async ({ event, context }) => {
   if (config === undefined) {
     context.ProtocolConfig.set({
       id: configId,
-      chainId: BigInt(event.chainId),
       duration: DEFAULT_DURATION,
       protocolFee: DEFAULT_PROTOCOL_FEE_BPS,
-      resolverFee: DEFAULT_PROTOCOL_FEE_BPS,
       minShareAmount: BigInt(0),
     });
   }
 });
 
-PredictionMarket.NewRound.handler(async ({ event, context }) => {
-  let roundId = event.chainId
-    .toString()
+GrailMarket.NewRound.handler(async ({ event, context }) => {
+  let roundId = event.params.id
     .concat("#")
-    .concat(
-      event.params.id
-        .toString()
-        .concat("#")
-        .concat(event.params.roundId.toString())
-    )
+    .concat(event.params.roundId.toString())
     .toLowerCase();
-  let marketId = event.chainId
-    .toString()
-    .concat("#")
-    .concat(event.params.id.toString())
-    .toLowerCase();
+
+  let marketId = event.params.id.toLowerCase();
 
   let market = await context.Market.get(marketId);
   let round = await context.Round.get(roundId);
@@ -255,7 +223,6 @@ PredictionMarket.NewRound.handler(async ({ event, context }) => {
   if (round === undefined) {
     context.Round.set({
       id: roundId,
-      chainId: BigInt(event.chainId),
       roundId: event.params.roundId,
       market_id: marketId,
       openingTime: event.params.openingTime,
@@ -274,7 +241,7 @@ PredictionMarket.NewRound.handler(async ({ event, context }) => {
   }
 });
 
-PredictionMarket.SetMarketDuration.handler(async ({ event, context }) => {
+GrailMarket.SetMarketDuration.handler(async ({ event, context }) => {
   const configId = event.chainId.toString().concat("#config");
 
   let config = await context.ProtocolConfig.get(configId);
@@ -286,7 +253,7 @@ PredictionMarket.SetMarketDuration.handler(async ({ event, context }) => {
   }
 });
 
-PredictionMarket.SetMinStakeAmount.handler(async ({ event, context }) => {
+GrailMarket.SetMinStakeAmount.handler(async ({ event, context }) => {
   const configId = event.chainId.toString().concat("#config");
 
   let config = await context.ProtocolConfig.get(configId);
@@ -298,16 +265,10 @@ PredictionMarket.SetMinStakeAmount.handler(async ({ event, context }) => {
   }
 });
 
-PredictionMarket.SetRoundPriceMark.handler(async ({ event, context }) => {
-  const roundId = event.chainId
-    .toString()
+GrailMarket.SetRoundPriceMark.handler(async ({ event, context }) => {
+  const roundId = event.params.id
     .concat("#")
-    .concat(
-      event.params.id
-        .toString()
-        .concat("#")
-        .concat(event.params.roundId.toString())
-    )
+    .concat(event.params.roundId.toString())
     .toLowerCase();
 
   let round = await context.Round.get(roundId);
@@ -321,7 +282,7 @@ PredictionMarket.SetRoundPriceMark.handler(async ({ event, context }) => {
   }
 });
 
-PredictionMarket.Settle.handler(async ({ event, context }) => {
+GrailMarket.Settle.handler(async ({ event, context }) => {
   const positionId = event.chainId
     .toString()
     .concat("#")
@@ -354,16 +315,10 @@ PredictionMarket.Settle.handler(async ({ event, context }) => {
   }
 });
 
-PredictionMarket.Resolve.handler(async ({ event, context }) => {
-  const roundId = event.chainId
-    .toString()
+GrailMarket.Resolve.handler(async ({ event, context }) => {
+  const roundId = event.params.id
     .concat("#")
-    .concat(
-      event.params.id
-        .toString()
-        .concat("#")
-        .concat(event.params.roundId.toString())
-    )
+    .concat(event.params.roundId.toString())
     .toLowerCase();
 
   let round = await context.Round.get(roundId);
@@ -383,7 +338,7 @@ PredictionMarket.Resolve.handler(async ({ event, context }) => {
   }
 });
 
-PredictionMarket.SetProtocolFee.handler(async ({ event, context }) => {
+GrailMarket.SetProtocolFee.handler(async ({ event, context }) => {
   const configId = event.chainId.toString().concat("#config");
 
   let config = await context.ProtocolConfig.get(configId);
@@ -391,18 +346,6 @@ PredictionMarket.SetProtocolFee.handler(async ({ event, context }) => {
     context.ProtocolConfig.set({
       ...config,
       protocolFee: event.params.newFee,
-    });
-  }
-});
-
-PredictionMarket.SetResolverFee.handler(async ({ event, context }) => {
-  const configId = event.chainId.toString().concat("#config");
-
-  let config = await context.ProtocolConfig.get(configId);
-  if (config !== undefined) {
-    context.ProtocolConfig.set({
-      ...config,
-      resolverFee: event.params.newFee,
     });
   }
 });
