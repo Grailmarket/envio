@@ -13,12 +13,8 @@ enum RoundStatus {
 }
 
 type Round {
-  # chainId + market identifier
-  id: ID!
-  # the chainId
-  chainId: BigInt!
   # round identifier
-  roundId: BigInt!
+  id: ID!
   # market round was opened in
   market: Market!
   # unix timestamp when round entry opened
@@ -53,7 +49,7 @@ type Position {
   # the chainId
   chainId: BigInt!
   # the address of the position owner
-  account: String!
+  account: Account!
   # the market this position was opened
   market: Market!
   # the round this position was opened
@@ -70,28 +66,26 @@ type Position {
   createdAt: BigInt!
 }
 
-# type Account {
-#   # account address
-#   id: ID!
-#   # this accounts positions
-#   positions: [Position!]! @derivedFrom(field: "account")
-#   # unix timestamp this account was created at
-#   createdAt: BigInt!
-# }
+type Account {
+  # account address
+  id: ID!
+  # this accounts positions
+  positions: [Position!]! @derivedFrom(field: "account")
+  # unix timestamp this account was created at
+  createdAt: BigInt!
+  # the user account balance across chains
+  balance: BigInt!
+}
 
 type ProtocolConfig {
   # chainId + config
   id: ID!
-  # chain identifier
-  chainId: BigInt!
   # the market round duration in seconds
   duration: BigInt!
   # the minimum amount that can be staked
   minShareAmount: BigInt!
   # the protocolFee charged on this market
   protocolFee: BigInt!
-  # the incentive fee paid to round resolver
-  resolverFee: BigInt!
 }
 
 type Market {
@@ -99,8 +93,6 @@ type Market {
   id: ID!
   # market identifier
   marketId: String!
-  # chain identifier
-  chainId: BigInt!
   # unix timestamp when market was created
   createdAt: BigInt!
   # the markets latest round ID
