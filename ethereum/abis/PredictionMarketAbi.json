@@ -1,14 +1,5 @@
 [
   {
-    "type": "constructor",
-    "inputs": [
-      { "name": "_owner", "type": "address", "internalType": "address" },
-      { "name": "_pyth", "type": "address", "internalType": "address" },
-      { "name": "_currency", "type": "address", "internalType": "Currency" }
-    ],
-    "stateMutability": "nonpayable"
-  },
-  {
     "type": "function",
     "name": "BASIS_POINT",
     "inputs": [],
@@ -20,13 +11,6 @@
     "name": "CAN_CANCEL_AFTER",
     "inputs": [],
     "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
-    "stateMutability": "view"
-  },
-  {
-    "type": "function",
-    "name": "DEFAULT_PROTOCOL_FEE",
-    "inputs": [],
-    "outputs": [{ "name": "", "type": "uint16", "internalType": "uint16" }],
     "stateMutability": "view"
   },
   {
@@ -49,7 +33,7 @@
     "inputs": [
       { "name": "id", "type": "bytes32", "internalType": "MarketId" },
       { "name": "roundId", "type": "uint256", "internalType": "uint256" },
-      { "name": "stake", "type": "uint128", "internalType": "uint128" }
+      { "name": "stake", "type": "uint256", "internalType": "uint256" }
     ],
     "outputs": [],
     "stateMutability": "payable"
@@ -60,7 +44,7 @@
     "inputs": [
       { "name": "id", "type": "bytes32", "internalType": "MarketId" },
       { "name": "roundId", "type": "uint256", "internalType": "uint256" },
-      { "name": "stake", "type": "uint128", "internalType": "uint128" }
+      { "name": "stake", "type": "uint256", "internalType": "uint256" }
     ],
     "outputs": [],
     "stateMutability": "payable"
@@ -185,34 +169,34 @@
           { "name": "closingPrice", "type": "int64", "internalType": "int64" },
           { "name": "priceMark", "type": "int64", "internalType": "int64" },
           {
-            "name": "status",
-            "type": "uint8",
-            "internalType": "enum Market.RoundStatus"
-          },
-          {
             "name": "totalShares",
-            "type": "uint256",
-            "internalType": "uint256"
+            "type": "uint128",
+            "internalType": "uint128"
           },
           {
             "name": "bullShares",
-            "type": "uint256",
-            "internalType": "uint256"
+            "type": "uint128",
+            "internalType": "uint128"
           },
           {
             "name": "bearShares",
-            "type": "uint256",
-            "internalType": "uint256"
+            "type": "uint128",
+            "internalType": "uint128"
           },
           {
             "name": "rewardPool",
-            "type": "uint256",
-            "internalType": "uint256"
+            "type": "uint128",
+            "internalType": "uint128"
           },
           {
             "name": "winningShares",
-            "type": "uint256",
-            "internalType": "uint256"
+            "type": "uint128",
+            "internalType": "uint128"
+          },
+          {
+            "name": "status",
+            "type": "uint8",
+            "internalType": "enum Market.RoundStatus"
           }
         ]
       }
@@ -228,6 +212,16 @@
     ],
     "outputs": [],
     "stateMutability": "payable"
+  },
+  {
+    "type": "function",
+    "name": "markets",
+    "inputs": [{ "name": "id", "type": "bytes32", "internalType": "MarketId" }],
+    "outputs": [
+      { "name": "roundId", "type": "uint256", "internalType": "uint256" },
+      { "name": "oracleId", "type": "bytes32", "internalType": "bytes32" }
+    ],
+    "stateMutability": "view"
   },
   {
     "type": "function",
@@ -292,17 +286,6 @@
   },
   {
     "type": "function",
-    "name": "resolve",
-    "inputs": [
-      { "name": "id", "type": "bytes32", "internalType": "MarketId" },
-      { "name": "roundId", "type": "uint256", "internalType": "uint256" },
-      { "name": "priceUpdate", "type": "bytes", "internalType": "bytes" }
-    ],
-    "outputs": [],
-    "stateMutability": "payable"
-  },
-  {
-    "type": "function",
     "name": "setMarketDuration",
     "inputs": [
       { "name": "duration", "type": "uint32", "internalType": "uint32" }
@@ -322,13 +305,6 @@
   {
     "type": "function",
     "name": "setProtocolFee",
-    "inputs": [{ "name": "fee", "type": "uint16", "internalType": "uint16" }],
-    "outputs": [],
-    "stateMutability": "nonpayable"
-  },
-  {
-    "type": "function",
-    "name": "setResolverFee",
     "inputs": [{ "name": "fee", "type": "uint16", "internalType": "uint16" }],
     "outputs": [],
     "stateMutability": "nonpayable"
@@ -847,7 +823,6 @@
     "name": "FeeTooLarge",
     "inputs": [{ "name": "fee", "type": "uint16", "internalType": "uint16" }]
   },
-  { "type": "error", "name": "InsufficientBalance", "inputs": [] },
   { "type": "error", "name": "InsufficientFee", "inputs": [] },
   { "type": "error", "name": "InvalidRoundStatus", "inputs": [] },
   { "type": "error", "name": "MarketAlreadyExist", "inputs": [] },
