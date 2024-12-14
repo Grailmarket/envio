@@ -28,34 +28,34 @@ networks:
   - id: 296 # Hedera Testnet
     rpc_config:
       url: https://testnet.hashio.io/api
-    start_block: 12340027
+    start_block: 13084586
     contracts:
       - name: PredictionMarket #A reference to the global contract definition
-        address: 0xFb83f2edEA044580942F9a47e77D3cA8C89061c0
+        address: 0x9C13F708FcDB955eD53497B6D107994EF6A02aed
   - id: 2810 # Morph Testnet
-    start_block: 13674578
+    start_block: 14208953
     contracts:
       - name: PredictionMarket #A reference to the global contract definition
-        address: 0x2cB48ab09b7AE3917cC2f905e541464d0f223827
+        address: 0xc346d6e45C24593aa49EAbA57F7268f32b044238
   - id: 534351 # Scroll Sepolia
     rpc_config:
       url: https://scroll-sepolia-rpc.publicnode.com
-    start_block: 7397443
+    start_block: 7549038
     contracts:
       - name: PredictionMarket #A reference to the global contract definition
-        address: 0x89b710b7CD5f5a35913278b6A280338b8209f466
+        address: 0xb286f40F00c45964af8196eFeF5dB41ED2F014CB
   - id: 167009 # Taiko Hekla
     rpc_config:
       url: https://taiko-hekla.drpc.org
-    start_block: 1004451
+    start_block: 1046450
     contracts:
       - name: PredictionMarket #A reference to the global contract definition
-        address: 0x50096e53E0C6e0d124863Dc7f7997fD55B784f62
+        address: 0x61e8FC5D6be8DcA10Bc9aDC793FcA8DEadA6B29A
   - id: 1301 # Unichain Sepolia
-    start_block: 5842382
+    start_block: 7339649
     contracts:
       - name: PredictionMarket #A reference to the global contract definition
-        address: 0x66c4e441B38877110B07BD16788E2f20F9dfFD9D
+        address: 0x8A79d1a2d3D0492Cd1cf4dAd01bA20a661F672F4
 # Rollback on reorg mode currently incurs a performance hit on historical sync
 # while developing an indexer we recommend setting this to false
 rollback_on_reorg: false

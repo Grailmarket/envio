@@ -1,5 +1,14 @@
 [
   {
+    "type": "constructor",
+    "inputs": [
+      { "name": "_owner", "type": "address", "internalType": "address" },
+      { "name": "_pyth", "type": "address", "internalType": "address" },
+      { "name": "_currency", "type": "address", "internalType": "Currency" }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
     "type": "function",
     "name": "BASIS_POINT",
     "inputs": [],
@@ -156,7 +165,8 @@
     "name": "getRoundInfo",
     "inputs": [
       { "name": "id", "type": "bytes32", "internalType": "MarketId" },
-      { "name": "roundId", "type": "uint256", "internalType": "uint256" }
+      { "name": "roundId", "type": "uint256", "internalType": "uint256" },
+      { "name": "account", "type": "address", "internalType": "address" }
     ],
     "outputs": [
       {
@@ -199,19 +209,19 @@
             "internalType": "enum Market.RoundStatus"
           }
         ]
+      },
+      {
+        "name": "p",
+        "type": "tuple",
+        "internalType": "struct Position.State",
+        "components": [
+          { "name": "stake", "type": "uint240", "internalType": "uint240" },
+          { "name": "option", "type": "uint8", "internalType": "Option" },
+          { "name": "settled", "type": "bool", "internalType": "bool" }
+        ]
       }
     ],
     "stateMutability": "view"
-  },
-  {
-    "type": "function",
-    "name": "lockInitialRound",
-    "inputs": [
-      { "name": "id", "type": "bytes32", "internalType": "MarketId" },
-      { "name": "priceUpdate", "type": "bytes", "internalType": "bytes" }
-    ],
-    "outputs": [],
-    "stateMutability": "payable"
   },
   {
     "type": "function",
@@ -286,6 +296,17 @@
   },
   {
     "type": "function",
+    "name": "resolve",
+    "inputs": [
+      { "name": "id", "type": "bytes32", "internalType": "MarketId" },
+      { "name": "roundId", "type": "uint256", "internalType": "uint256" },
+      { "name": "priceUpdate", "type": "bytes", "internalType": "bytes" }
+    ],
+    "outputs": [],
+    "stateMutability": "payable"
+  },
+  {
+    "type": "function",
     "name": "setMarketDuration",
     "inputs": [
       { "name": "duration", "type": "uint32", "internalType": "uint32" }
@@ -305,6 +326,13 @@
   {
     "type": "function",
     "name": "setProtocolFee",
+    "inputs": [{ "name": "fee", "type": "uint16", "internalType": "uint16" }],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "setResolverFee",
     "inputs": [{ "name": "fee", "type": "uint16", "internalType": "uint16" }],
     "outputs": [],
     "stateMutability": "nonpayable"
@@ -337,13 +365,6 @@
       { "name": "roundId", "type": "uint256", "internalType": "uint256" },
       { "name": "account", "type": "address", "internalType": "address" }
     ],
-    "outputs": [],
-    "stateMutability": "nonpayable"
-  },
-  {
-    "type": "function",
-    "name": "startInitialRound",
-    "inputs": [{ "name": "id", "type": "bytes32", "internalType": "MarketId" }],
     "outputs": [],
     "stateMutability": "nonpayable"
   },
@@ -815,18 +836,22 @@
   },
   { "type": "error", "name": "ActionTooEarly", "inputs": [] },
   { "type": "error", "name": "AlreadyInitialized", "inputs": [] },
-  { "type": "error", "name": "CannotRunInitialRoundAgain", "inputs": [] },
+  { "type": "error", "name": "CannotRecoverCurrency", "inputs": [] },
   { "type": "error", "name": "CannotStakeZeroAmount", "inputs": [] },
+  { "type": "error", "name": "ERC20TransferFailed", "inputs": [] },
+  { "type": "error", "name": "ERC20TransferFromFailed", "inputs": [] },
   { "type": "error", "name": "EntryNotAllowed", "inputs": [] },
   {
     "type": "error",
     "name": "FeeTooLarge",
     "inputs": [{ "name": "fee", "type": "uint16", "internalType": "uint16" }]
   },
+  { "type": "error", "name": "InsufficientBalance", "inputs": [] },
   { "type": "error", "name": "InsufficientFee", "inputs": [] },
   { "type": "error", "name": "InvalidRoundStatus", "inputs": [] },
   { "type": "error", "name": "MarketAlreadyExist", "inputs": [] },
   { "type": "error", "name": "MarketDoesNotExist", "inputs": [] },
+  { "type": "error", "name": "NativeTransferFailed", "inputs": [] },
   { "type": "error", "name": "NewOwnerIsZeroAddress", "inputs": [] },
   { "type": "error", "name": "NoHandoverRequest", "inputs": [] },
   { "type": "error", "name": "PositionAlreadyExist", "inputs": [] },
