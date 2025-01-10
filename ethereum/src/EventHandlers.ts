@@ -193,7 +193,7 @@ GrailMarket.OwnershipTransferred.handler(async ({ event, context }) => {
 
   let config = await context.ProtocolConfig.get(configId);
   const DEFAULT_PROTOCOL_FEE_BPS = BigInt(500); // 5%
-  const DEFAULT_DURATION = BigInt(300);
+  const DEFAULT_DURATION = BigInt(600); // 10 minutes
 
   if (config === undefined) {
     context.ProtocolConfig.set({
