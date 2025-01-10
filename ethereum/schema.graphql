@@ -104,7 +104,7 @@ type Market {
 }
 
 type LeaderBoard {
-  # chainId + marketId + account
+  # marketId + account
   id: ID!
   # the account
   account: String!

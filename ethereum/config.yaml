@@ -29,40 +29,30 @@ contracts:
 unordered_multichain_mode: true
 networks:
   - id: 43113 # Avalanche Fuji Testnet
-    start_block: 12340027
+    start_block: 37478294
     contracts:
       - name: GrailMarket #A reference to the global contract definition
-        address: 0xFb83f2edEA044580942F9a47e77D3cA8C89061c0
+        address: 0x0496d0A03FA9c5b9Be65DB3303F084e30a3F0D88
   - id: 11155111 # Ethereum Sepolia Testnet
-    start_block: 13674578
+    start_block: 7455379
     contracts:
       - name: GrailMarket #A reference to the global contract definition
-        address: 0x2cB48ab09b7AE3917cC2f905e541464d0f223827
-  - id: 80002 # Polygon Amoy Testnet
-    start_block: 7397443
-    contracts:
-      - name: GrailMarket #A reference to the global contract definition
-        address: 0x89b710b7CD5f5a35913278b6A280338b8209f466
-  - id: 421614 # Arbitrum Sepolia
-    start_block: 1004451
-    contracts:
-      - name: GrailMarket #A reference to the global contract definition
-        address: 0x50096e53E0C6e0d124863Dc7f7997fD55B784f62
+        address: 0x4A203f5Fc6AbDe7978A4A45531D0BE30678A3efB
   - id: 11155420 # Optimism Sepolia
-    start_block: 5842382
+    start_block: 22322191
     contracts:
       - name: GrailMarket #A reference to the global contract definition
-        address: 0x66c4e441B38877110B07BD16788E2f20F9dfFD9D
+        address: 0x442A6Bd228adF9E8c8F9632e1A5479E512066D3C
   - id: 84532 # Base Sepolia
-    start_block: 5842382
+    start_block: 20342984
     contracts:
       - name: GrailMarket #A reference to the global contract definition
-        address: 0x66c4e441B38877110B07BD16788E2f20F9dfFD9D
+        address: 0x442A6Bd228adF9E8c8F9632e1A5479E512066D3C
   - id: 97 # BSC Testnet
-    start_block: 5842382
+    start_block: 47240546
     contracts:
       - name: GrailMarket #A reference to the global contract definition
-        address: 0x66c4e441B38877110B07BD16788E2f20F9dfFD9D
+        address: 0xFFf62fD80e96B681645AA3e7B0c2574F4691e425
 # Rollback on reorg mode currently incurs a performance hit on historical sync
 # while developing an indexer we recommend setting this to false
 rollback_on_reorg: false
