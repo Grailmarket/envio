@@ -32,27 +32,27 @@ networks:
     start_block: 37478294
     contracts:
       - name: GrailMarket #A reference to the global contract definition
-        address: 0x0496d0A03FA9c5b9Be65DB3303F084e30a3F0D88
+        address: 0x15d3C80Ee994804317bc29d431D4dbB0786CCD57
   - id: 11155111 # Ethereum Sepolia Testnet
     start_block: 7455379
     contracts:
       - name: GrailMarket #A reference to the global contract definition
-        address: 0x4A203f5Fc6AbDe7978A4A45531D0BE30678A3efB
+        address: 0x66a26Ecb5F71A98F820504fd10deeC4aB9D52163
   - id: 11155420 # Optimism Sepolia
     start_block: 22322191
     contracts:
       - name: GrailMarket #A reference to the global contract definition
-        address: 0x442A6Bd228adF9E8c8F9632e1A5479E512066D3C
+        address: 0x3AA3e6B100c7F7Cac63A82c1629613ACB924d68B
   - id: 84532 # Base Sepolia
     start_block: 20342984
     contracts:
       - name: GrailMarket #A reference to the global contract definition
-        address: 0x442A6Bd228adF9E8c8F9632e1A5479E512066D3C
+        address: 0x3AA3e6B100c7F7Cac63A82c1629613ACB924d68B
   - id: 97 # BSC Testnet
     start_block: 47240546
     contracts:
       - name: GrailMarket #A reference to the global contract definition
-        address: 0xFFf62fD80e96B681645AA3e7B0c2574F4691e425
+        address: 0x8dd69d80170a58265e9FA9919e29F43cc7CE6936
 # Rollback on reorg mode currently incurs a performance hit on historical sync
 # while developing an indexer we recommend setting this to false
 rollback_on_reorg: false
