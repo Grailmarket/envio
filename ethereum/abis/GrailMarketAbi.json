@@ -38,6 +38,13 @@
   },
   {
     "type": "function",
+    "name": "NULL_MARKET_ID",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "bytes32", "internalType": "bytes32" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
     "name": "bearish",
     "inputs": [
       { "name": "id", "type": "bytes32", "internalType": "MarketId" },
@@ -116,7 +123,7 @@
         "internalType": "uint176"
       },
       { "name": "duration", "type": "uint48", "internalType": "uint48" },
-      { "name": "incentiveFeeBps", "type": "uint16", "internalType": "uint16" },
+      { "name": "resolverFeeBps", "type": "uint16", "internalType": "uint16" },
       { "name": "protocolFeeBps", "type": "uint16", "internalType": "uint16" }
     ],
     "stateMutability": "view"
