@@ -38,6 +38,8 @@ networks:
       - name: GrailMarket
         address: 0x7934D3e1949584426F2666BDbC54915Fa021Cfb8
   - id: 42220 # Celo
+    rpc_config:
+      url: https://forno.celo.org
     start_block: 30111414
     contracts:
       - name: GrailMarket
