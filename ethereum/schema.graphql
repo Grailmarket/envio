@@ -85,9 +85,11 @@ type ProtocolConfig {
   # the market round duration in seconds
   duration: BigInt!
   # the minimum amount that can be staked
-  minShareAmount: BigInt!
+  minStakeAmount: BigInt!
   # the protocolFee charged on this market
   protocolFee: BigInt!
+  # true, if the peer confiiguration is locked
+  isPeerLocked: Boolean!
 }
 
 type Market {
@@ -116,4 +118,13 @@ type LeaderBoard {
   shares: BigInt!
   # sum of all reward claimed in this market
   reward: BigInt!
+}
+
+type Peer {
+  # the peer identifier
+  id: ID!
+  # the peer chain endpoint identifier
+  eid: BigInt!
+  # the peer contract address
+  address: String!
 }
