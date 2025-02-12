@@ -25,31 +25,26 @@ contracts:
       - event: AddMessagingPeer(uint32 indexed _eid, address indexed _peer)
 unordered_multichain_mode: true
 networks:
-  - id: 43113 # Avalanche
-    start_block: 37478294
+  - id: 43114 # Avalanche
+    start_block: 57204915
     contracts:
       - name: GrailMarket
-        address: 0x15d3C80Ee994804317bc29d431D4dbB0786CCD57
-  - id: 11155111 # Ethereum
-    start_block: 7455379
+        address: 0x34FA695e76eC1DE4CDc6efc9938679De80896cA7
+  - id: 42161 # Arbitrum
+    start_block: 305265448
     contracts:
       - name: GrailMarket
-        address: 0x66a26Ecb5F71A98F820504fd10deeC4aB9D52163
-  - id: 11155420 # Optimism
-    start_block: 22322191
+        address: 0x34FA695e76eC1DE4CDc6efc9938679De80896cA7
+  - id: 8453 # Base
+    start_block: 26284429
     contracts:
       - name: GrailMarket
-        address: 0x3AA3e6B100c7F7Cac63A82c1629613ACB924d68B
-  - id: 84532 # Base
-    start_block: 20342984
+        address: 0x34FA695e76eC1DE4CDc6efc9938679De80896cA7
+  - id: 81457 # Blast
+    start_block: 15274248
     contracts:
       - name: GrailMarket
-        address: 0x3AA3e6B100c7F7Cac63A82c1629613ACB924d68B
-  - id: 97 # BSC
-    start_block: 47240546
-    contracts:
-      - name: GrailMarket
-        address: 0x8dd69d80170a58265e9FA9919e29F43cc7CE6936
+        address: 0x34FA695e76eC1DE4CDc6efc9938679De80896cA7
 # Rollback on reorg mode currently incurs a performance hit on historical sync
 # while developing an indexer we recommend setting this to false
 rollback_on_reorg: false
