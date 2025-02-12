@@ -22,6 +22,12 @@
         "internalType": "address"
       },
       {
+        "name": "srcEid",
+        "type": "uint32",
+        "indexed": false,
+        "internalType": "uint32"
+      },
+      {
         "name": "positionId",
         "type": "bytes32",
         "indexed": false,
@@ -59,6 +65,12 @@
         "internalType": "address"
       },
       {
+        "name": "srcEid",
+        "type": "uint32",
+        "indexed": false,
+        "internalType": "uint32"
+      },
+      {
         "name": "positionId",
         "type": "bytes32",
         "indexed": false,
@@ -75,45 +87,7 @@
   },
   {
     "type": "event",
-    "name": "CancelRound",
-    "inputs": [
-      {
-        "name": "id",
-        "type": "bytes32",
-        "indexed": true,
-        "internalType": "MarketId"
-      },
-      {
-        "name": "roundId",
-        "type": "uint256",
-        "indexed": true,
-        "internalType": "uint256"
-      }
-    ],
-    "anonymous": false
-  },
-  {
-    "type": "event",
-    "name": "Cashout",
-    "inputs": [
-      {
-        "name": "recipient",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "amount",
-        "type": "uint256",
-        "indexed": false,
-        "internalType": "uint256"
-      }
-    ],
-    "anonymous": false
-  },
-  {
-    "type": "event",
-    "name": "ClaimRefund",
+    "name": "Settle",
     "inputs": [
       {
         "name": "id",
@@ -140,40 +114,34 @@
         "internalType": "bytes32"
       },
       {
-        "name": "stake",
+        "name": "reward",
         "type": "uint256",
         "indexed": false,
         "internalType": "uint256"
+      },
+      {
+        "name": "isRefund",
+        "type": "bool",
+        "indexed": false,
+        "internalType": "bool"
       }
     ],
     "anonymous": false
   },
   {
     "type": "event",
-    "name": "CollectFee",
+    "name": "CancelRound",
     "inputs": [
       {
-        "name": "currency",
-        "type": "address",
+        "name": "id",
+        "type": "bytes32",
         "indexed": true,
-        "internalType": "Currency"
+        "internalType": "MarketId"
       },
       {
-        "name": "collector",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "recipient",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "amount",
+        "name": "roundId",
         "type": "uint256",
-        "indexed": false,
+        "indexed": true,
         "internalType": "uint256"
       }
     ],
@@ -194,25 +162,6 @@
         "type": "address",
         "indexed": false,
         "internalType": "address"
-      }
-    ],
-    "anonymous": false
-  },
-  {
-    "type": "event",
-    "name": "Deposit",
-    "inputs": [
-      {
-        "name": "depositor",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "amount",
-        "type": "uint256",
-        "indexed": false,
-        "internalType": "uint256"
       }
     ],
     "anonymous": false
@@ -248,68 +197,7 @@
     ],
     "anonymous": false
   },
-  {
-    "type": "event",
-    "name": "Rebalance",
-    "inputs": [
-      {
-        "name": "fromChainId",
-        "type": "uint16",
-        "indexed": true,
-        "internalType": "uint16"
-      },
-      {
-        "name": "toChainId",
-        "type": "uint16",
-        "indexed": true,
-        "internalType": "uint16"
-      },
-      {
-        "name": "from",
-        "type": "address",
-        "indexed": false,
-        "internalType": "address"
-      },
-      {
-        "name": "to",
-        "type": "address",
-        "indexed": false,
-        "internalType": "address"
-      },
-      {
-        "name": "amount",
-        "type": "uint256",
-        "indexed": false,
-        "internalType": "uint256"
-      }
-    ],
-    "anonymous": false
-  },
-  {
-    "type": "event",
-    "name": "RecoverToken",
-    "inputs": [
-      {
-        "name": "currency",
-        "type": "address",
-        "indexed": true,
-        "internalType": "Currency"
-      },
-      {
-        "name": "recipient",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "amount",
-        "type": "uint256",
-        "indexed": false,
-        "internalType": "uint256"
-      }
-    ],
-    "anonymous": false
-  },
+  { "type": "event", "name": "PeersLocked", "inputs": [], "anonymous": false },
   {
     "type": "event",
     "name": "Resolve",
@@ -387,19 +275,6 @@
   },
   {
     "type": "event",
-    "name": "SetProtocolFee",
-    "inputs": [
-      {
-        "name": "newFee",
-        "type": "uint16",
-        "indexed": false,
-        "internalType": "uint16"
-      }
-    ],
-    "anonymous": false
-  },
-  {
-    "type": "event",
     "name": "SetRoundPriceMark",
     "inputs": [
       {
@@ -431,37 +306,51 @@
   },
   {
     "type": "event",
-    "name": "Settle",
+    "name": "AddMessagingPeer",
     "inputs": [
       {
-        "name": "id",
-        "type": "bytes32",
+        "name": "_eid",
+        "type": "uint32",
         "indexed": true,
-        "internalType": "MarketId"
+        "internalType": "uint32"
       },
       {
-        "name": "roundId",
-        "type": "uint256",
+        "name": "_peer",
+        "type": "address",
         "indexed": true,
-        "internalType": "uint256"
-      },
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "OwnershipTransferred",
+    "inputs": [
       {
-        "name": "account",
+        "name": "oldOwner",
         "type": "address",
         "indexed": true,
         "internalType": "address"
       },
       {
-        "name": "positionId",
-        "type": "bytes32",
-        "indexed": false,
-        "internalType": "bytes32"
-      },
+        "name": "newOwner",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "SetProtocolFee",
+    "inputs": [
       {
-        "name": "reward",
-        "type": "uint256",
+        "name": "newFee",
+        "type": "uint16",
         "indexed": false,
-        "internalType": "uint256"
+        "internalType": "uint16"
       }
     ],
     "anonymous": false

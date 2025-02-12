@@ -9,10 +9,9 @@ contracts:
     abi_file_path: ./abis/GrailMarketAbi.json
     handler: ./src/EventHandlers.ts
     events:
-      - event: Bearish(bytes32 indexed id, uint256 indexed roundId, address indexed account, bytes32 positionId, uint256 stake)
-      - event: Bullish(bytes32 indexed id, uint256 indexed roundId, address indexed account, bytes32 positionId, uint256 stake)
-      - event: Settle(bytes32 indexed id, uint256 indexed roundId, address indexed account, bytes32 positionId, uint256 reward)
-      - event: ClaimRefund(bytes32 indexed id, uint256 indexed roundId, address indexed account, bytes32 positionId, uint256 stake)
+      - event: Bearish(bytes32 indexed id, uint256 indexed roundId, address indexed account, uint32 srcEid, bytes32 positionId, uint256 stake)
+      - event: Bullish(bytes32 indexed id, uint256 indexed roundId, address indexed account, uint32 srcEid, bytes32 positionId, uint256 stake)
+      - event: Settle(bytes32 indexed id, uint256 indexed roundId, address indexed account, bytes32 positionId, uint256 reward, bool isRefund)
       - event: CreateMarket(bytes32 indexed id, address creator)
       - event: SetMinStakeAmount(uint256 minStakeAmount)
       - event: NewRound(bytes32 indexed id, uint256 indexed roundId, uint256 openingTime, uint256 closingTime)
@@ -22,36 +21,34 @@ contracts:
       - event: SetMarketDuration(uint32 duration)
       - event: OwnershipTransferred(address indexed oldOwner, address indexed newOwner)
       - event: SetProtocolFee(uint16 newFee)
-      # - event: BridgeBalance(uint16 indexed targetChain, uint256 amount)
-      # - event: BridgeDeposit(uint16 indexed sourceChain, address indexed depositor, uint256 amount)
-      # - event: Deposit(address indexed depositor, uint256 amount)
-      # - event: Cashout(address indexed recipient, uint256 amount)
+      - event: PeersLocked()
+      - event: AddMessagingPeer(uint32 indexed _eid, address indexed _peer)
 unordered_multichain_mode: true
 networks:
-  - id: 43113 # Avalanche Fuji Testnet
+  - id: 43113 # Avalanche
     start_block: 37478294
     contracts:
-      - name: GrailMarket #A reference to the global contract definition
+      - name: GrailMarket
         address: 0x15d3C80Ee994804317bc29d431D4dbB0786CCD57
-  - id: 11155111 # Ethereum Sepolia Testnet
+  - id: 11155111 # Ethereum
     start_block: 7455379
     contracts:
-      - name: GrailMarket #A reference to the global contract definition
+      - name: GrailMarket
         address: 0x66a26Ecb5F71A98F820504fd10deeC4aB9D52163
-  - id: 11155420 # Optimism Sepolia
+  - id: 11155420 # Optimism
     start_block: 22322191
     contracts:
-      - name: GrailMarket #A reference to the global contract definition
+      - name: GrailMarket
         address: 0x3AA3e6B100c7F7Cac63A82c1629613ACB924d68B
-  - id: 84532 # Base Sepolia
+  - id: 84532 # Base
     start_block: 20342984
     contracts:
-      - name: GrailMarket #A reference to the global contract definition
+      - name: GrailMarket
         address: 0x3AA3e6B100c7F7Cac63A82c1629613ACB924d68B
-  - id: 97 # BSC Testnet
+  - id: 97 # BSC
     start_block: 47240546
     contracts:
-      - name: GrailMarket #A reference to the global contract definition
+      - name: GrailMarket
         address: 0x8dd69d80170a58265e9FA9919e29F43cc7CE6936
 # Rollback on reorg mode currently incurs a performance hit on historical sync
 # while developing an indexer we recommend setting this to false

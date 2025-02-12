@@ -1,5 +1,17 @@
 import { GrailMarket } from "generated";
 
+GrailMarket.AddMessagingPeer.handler(async ({ event, context }) => {
+  let peer = await context.Peer.get(event.params._eid.toString());
+
+  if (peer === undefined) {
+    context.Peer.set({
+      id: event.params._eid.toString(),
+      eid: event.params._eid,
+      address: event.params._peer.toLowerCase(),
+    });
+  }
+});
+
 GrailMarket.Bearish.handler(async ({ event, context }) => {
   let roundId = event.params.id
     .concat("#")
@@ -139,40 +151,6 @@ GrailMarket.CancelRound.handler(async ({ event, context }) => {
   }
 });
 
-GrailMarket.ClaimRefund.handler(async ({ event, context }) => {
-  let positionId = event.chainId
-    .toString()
-    .concat("#")
-    .concat(event.params.positionId.toString())
-    .toLowerCase();
-
-  let position = await context.Position.get(positionId);
-
-  if (position !== undefined) {
-    context.Position.set({
-      ...position,
-      reward: event.params.stake,
-      claimed: true,
-    });
-
-    // update the leader board
-    const leaderboardId = position.market_id
-      .concat("#")
-      .concat(position.account)
-      .toLowerCase();
-
-    let leaderboard = await context.LeaderBoard.get(leaderboardId);
-
-    if (leaderboard !== undefined) {
-      context.LeaderBoard.set({
-        ...leaderboard,
-        rounds: leaderboard.rounds - BigInt(1),
-        shares: leaderboard.shares - event.params.stake,
-      });
-    }
-  }
-});
-
 GrailMarket.CreateMarket.handler(async ({ event, context }) => {
   let marketId = event.params.id.toLowerCase();
 
@@ -184,6 +162,18 @@ GrailMarket.CreateMarket.handler(async ({ event, context }) => {
       marketId: event.params.id.toLowerCase(),
       createdAt: BigInt(event.block.timestamp),
       latestRoundId: BigInt(0),
+    });
+  }
+});
+
+GrailMarket.PeersLocked.handler(async ({ event, context }) => {
+  const configId = event.chainId.toString().concat("#config");
+  let config = await context.ProtocolConfig.get(configId);
+
+  if (config !== undefined) {
+    context.ProtocolConfig.set({
+      ...config,
+      isPeerLocked: true,
     });
   }
 });
@@ -200,7 +190,8 @@ GrailMarket.OwnershipTransferred.handler(async ({ event, context }) => {
       id: configId,
       duration: DEFAULT_DURATION,
       protocolFee: DEFAULT_PROTOCOL_FEE_BPS,
-      minShareAmount: BigInt(0),
+      minStakeAmount: BigInt(0),
+      isPeerLocked: false,
     });
   }
 });
@@ -260,7 +251,7 @@ GrailMarket.SetMinStakeAmount.handler(async ({ event, context }) => {
   if (config !== undefined) {
     context.ProtocolConfig.set({
       ...config,
-      minShareAmount: event.params.minStakeAmount,
+      minStakeAmount: event.params.minStakeAmount,
     });
   }
 });
@@ -307,10 +298,18 @@ GrailMarket.Settle.handler(async ({ event, context }) => {
     let leaderboard = await context.LeaderBoard.get(leaderboardId);
 
     if (leaderboard !== undefined) {
-      context.LeaderBoard.set({
-        ...leaderboard,
-        reward: leaderboard.reward + event.params.reward,
-      });
+      if (event.params.isRefund) {
+        context.LeaderBoard.set({
+          ...leaderboard,
+          rounds: leaderboard.rounds - BigInt(1),
+          shares: leaderboard.shares - event.params.reward,
+        });
+      } else {
+        context.LeaderBoard.set({
+          ...leaderboard,
+          reward: leaderboard.reward + event.params.reward,
+        });
+      }
     }
   }
 });
@@ -330,7 +329,7 @@ GrailMarket.Resolve.handler(async ({ event, context }) => {
       winningShares: event.params.totalWinningStake,
       winningSide: event.params.isRefunding
         ? "NONE"
-        : event.params.winningSide === BigInt(1)
+        : event.params.winningSide === BigInt(2)
         ? "BULLISH"
         : "BEARISH",
       status: event.params.isRefunding ? "REFUNDING" : "RESOLVED",
