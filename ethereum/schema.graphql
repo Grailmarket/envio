@@ -46,10 +46,10 @@ type Round {
 }
 
 type Position {
-  # chainId + positionId
+  # positionId
   id: ID!
-  # the chainId
-  chainId: BigInt!
+  # the origin chain endpoint identifier
+  eid: BigInt!
   # the address of the position owner
   account: String!
   # the market this position was opened
@@ -62,6 +62,8 @@ type Position {
   option: MarketOption!
   # True, if the user has claimed reward or refund
   claimed: Boolean!
+  # True, if refunding stake
+  isRefund: Boolean!
   # the amount of reward or refund claimed
   reward: BigInt!
   # unix timestamp when position was created

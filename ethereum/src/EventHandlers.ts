@@ -18,11 +18,7 @@ GrailMarket.Bearish.handler(async ({ event, context }) => {
     .concat(event.params.roundId.toString())
     .toLowerCase();
 
-  let positionId = event.chainId
-    .toString()
-    .concat("#")
-    .concat(event.params.positionId.toString())
-    .toLowerCase();
+  let positionId = event.params.positionId.toLowerCase();
 
   let round = await context.Round.get(roundId);
   let position = await context.Position.get(positionId);
@@ -30,10 +26,11 @@ GrailMarket.Bearish.handler(async ({ event, context }) => {
   if (round !== undefined && position === undefined) {
     context.Position.set({
       id: positionId,
-      chainId: BigInt(event.chainId),
+      eid: event.params.srcEid,
       account: event.params.account.toLowerCase(),
       createdAt: BigInt(event.block.timestamp),
       claimed: false,
+      isRefund: event.params.isRefund,
       market_id: round.market_id,
       option: "BEARISH",
       reward: BigInt(0),
@@ -72,6 +69,10 @@ GrailMarket.Bearish.handler(async ({ event, context }) => {
       });
     }
   }
+
+  if (position !== undefined) {
+    context.Position.set({ ...position, isRefund: event.params.isRefund });
+  }
 });
 
 GrailMarket.Bullish.handler(async ({ event, context }) => {
@@ -80,11 +81,7 @@ GrailMarket.Bullish.handler(async ({ event, context }) => {
     .concat(event.params.roundId.toString())
     .toLowerCase();
 
-  let positionId = event.chainId
-    .toString()
-    .concat("#")
-    .concat(event.params.positionId.toString())
-    .toLowerCase();
+  let positionId = event.params.positionId.toLowerCase();
 
   let round = await context.Round.get(roundId);
   let position = await context.Position.get(positionId);
@@ -92,10 +89,11 @@ GrailMarket.Bullish.handler(async ({ event, context }) => {
   if (round !== undefined && position === undefined) {
     context.Position.set({
       id: positionId,
-      chainId: BigInt(event.chainId),
+      eid: event.params.srcEid,
       account: event.params.account.toLowerCase(),
       createdAt: BigInt(event.block.timestamp),
       claimed: false,
+      isRefund: event.params.isRefund,
       market_id: round.market_id,
       option: "BULLISH",
       reward: BigInt(0),
@@ -133,6 +131,10 @@ GrailMarket.Bullish.handler(async ({ event, context }) => {
         rounds: leaderboard.rounds + BigInt(1),
       });
     }
+  }
+
+  if (position !== undefined) {
+    context.Position.set({ ...position, isRefund: event.params.isRefund });
   }
 });
 
@@ -274,11 +276,7 @@ GrailMarket.SetRoundPriceMark.handler(async ({ event, context }) => {
 });
 
 GrailMarket.Settle.handler(async ({ event, context }) => {
-  const positionId = event.chainId
-    .toString()
-    .concat("#")
-    .concat(event.params.positionId.toString())
-    .toLowerCase();
+  const positionId = event.params.positionId.toLowerCase();
 
   let position = await context.Position.get(positionId);
 
@@ -321,18 +319,20 @@ GrailMarket.Resolve.handler(async ({ event, context }) => {
     .toLowerCase();
 
   let round = await context.Round.get(roundId);
+
   if (round !== undefined) {
     context.Round.set({
       ...round,
       closingPrice: event.params.closingPrice,
       rewardPool: event.params.rewardPool,
       winningShares: event.params.totalWinningStake,
-      winningSide: event.params.isRefunding
-        ? "NONE"
-        : event.params.winningSide === BigInt(2)
-        ? "BULLISH"
-        : "BEARISH",
-      status: event.params.isRefunding ? "REFUNDING" : "RESOLVED",
+      winningSide:
+        event.params.winningSide === BigInt(0)
+          ? "NONE"
+          : event.params.winningSide === BigInt(2)
+          ? "BULLISH"
+          : "BEARISH",
+      status: event.params.winningSide === BigInt(0) ? "REFUNDING" : "RESOLVED",
     });
   }
 });

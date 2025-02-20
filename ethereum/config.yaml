@@ -9,14 +9,14 @@ contracts:
     abi_file_path: ./abis/GrailMarketAbi.json
     handler: ./src/EventHandlers.ts
     events:
-      - event: Bearish(bytes32 indexed id, uint256 indexed roundId, address indexed account, uint32 srcEid, bytes32 positionId, uint256 stake)
-      - event: Bullish(bytes32 indexed id, uint256 indexed roundId, address indexed account, uint32 srcEid, bytes32 positionId, uint256 stake)
+      - event: Bearish(bytes32 indexed id, uint256 indexed roundId, address indexed account, uint32 srcEid, bytes32 positionId, uint256 stake, bool isRefund)
+      - event: Bullish(bytes32 indexed id, uint256 indexed roundId, address indexed account, uint32 srcEid, bytes32 positionId, uint256 stake, bool isRefund)
       - event: Settle(bytes32 indexed id, uint256 indexed roundId, address indexed account, bytes32 positionId, uint256 reward, bool isRefund)
       - event: CreateMarket(bytes32 indexed id, address creator)
       - event: SetMinStakeAmount(uint256 minStakeAmount)
       - event: NewRound(bytes32 indexed id, uint256 indexed roundId, uint256 openingTime, uint256 closingTime)
       - event: SetRoundPriceMark(bytes32 indexed id, uint256 indexed roundId, int256 priceMark, uint256 closingTime)
-      - event: Resolve(bytes32 indexed id, uint256 indexed roundId, uint256 rewardPool, uint256 totalWinningStake, int256 closingPrice, uint256 winningSide, bool isRefunding)
+      - event: Resolve(bytes32 indexed id, uint256 indexed roundId, uint256 rewardPool, uint256 totalWinningStake, int256 closingPrice, uint256 winningSide)
       - event: CancelRound(bytes32 indexed id, uint256 indexed roundId)
       - event: SetMarketDuration(uint32 duration)
       - event: OwnershipTransferred(address indexed oldOwner, address indexed newOwner)
@@ -29,22 +29,22 @@ networks:
     start_block: 38080455
     contracts:
       - name: GrailMarket
-        address: 0xd83ED35c12394030D90b9FA9F3769C99B64c274e
+        address: 0x853E3C203CcCE9183b52f9C2370cE72d918d5FEA
   - id: 421614 # Arbitrum Sepolia
     start_block: 124996529
     contracts:
       - name: GrailMarket
-        address: 0x442a6bd228adf9e8c8f9632e1a5479e512066d3c
+        address: 0x4A203f5Fc6AbDe7978A4A45531D0BE30678A3efB
   - id: 84532 # Base Sepolia
     start_block: 22064534
     contracts:
       - name: GrailMarket
-        address: 0x2b395241182f76a7C69f27D930e18599b12099Ea
+        address: 0xc72f677dD5dA318F371bF2dEDe335d75bF6E2513
   - id: 97 # BSC Testnet
     start_block: 48390685
     contracts:
       - name: GrailMarket
-        address: 0x0496d0A03FA9c5b9Be65DB3303F084e30a3F0D88
+        address: 0x7eDA7aBC3E84D0Eb301b70CE45Ba11551817e472
 # Rollback on reorg mode currently incurs a performance hit on historical sync
 # while developing an indexer we recommend setting this to false
 rollback_on_reorg: false
