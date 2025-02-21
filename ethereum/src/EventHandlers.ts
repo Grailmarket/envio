@@ -163,14 +163,12 @@ GrailMarket.CreateMarket.handler(async ({ event, context }) => {
       id: marketId,
       marketId: event.params.id.toLowerCase(),
       createdAt: BigInt(event.block.timestamp),
-      latestRoundId: BigInt(0),
     });
   }
 });
 
 GrailMarket.PeersLocked.handler(async ({ event, context }) => {
-  const configId = event.chainId.toString().concat("#config");
-  let config = await context.ProtocolConfig.get(configId);
+  let config = await context.ProtocolConfig.get("config");
 
   if (config !== undefined) {
     context.ProtocolConfig.set({
@@ -181,15 +179,13 @@ GrailMarket.PeersLocked.handler(async ({ event, context }) => {
 });
 
 GrailMarket.OwnershipTransferred.handler(async ({ event, context }) => {
-  const configId = event.chainId.toString().concat("#config");
-
-  let config = await context.ProtocolConfig.get(configId);
+  let config = await context.ProtocolConfig.get("config");
   const DEFAULT_PROTOCOL_FEE_BPS = BigInt(500); // 5%
   const DEFAULT_DURATION = BigInt(600); // 10 minutes
 
   if (config === undefined) {
     context.ProtocolConfig.set({
-      id: configId,
+      id: "config",
       duration: DEFAULT_DURATION,
       protocolFee: DEFAULT_PROTOCOL_FEE_BPS,
       minStakeAmount: BigInt(0),
@@ -206,38 +202,78 @@ GrailMarket.NewRound.handler(async ({ event, context }) => {
 
   let marketId = event.params.id.toLowerCase();
 
-  let market = await context.Market.get(marketId);
+  let config = await context.ProtocolConfig.get("config");
   let round = await context.Round.get(roundId);
 
-  if (market !== undefined) {
-    context.Market.set({ ...market, latestRoundId: event.params.roundId });
-  }
+  if (config !== undefined) {
+    if (round === undefined) {
+      context.Round.set({
+        id: roundId,
+        roundId: event.params.roundId,
+        market_id: marketId,
+        openingTime: event.params.openingTime,
+        closingTime: event.params.closingTime,
+        priceMark: BigInt(0),
+        closingPrice: BigInt(0),
+        bearishShares: BigInt(0),
+        bullishShares: BigInt(0),
+        totalShares: BigInt(0),
+        winningShares: BigInt(0),
+        rewardPool: BigInt(0),
+        createdAt: BigInt(event.block.timestamp),
+        status: "OPEN",
+        winningSide: "NONE",
+      });
 
-  if (round === undefined) {
-    context.Round.set({
-      id: roundId,
-      roundId: event.params.roundId,
-      market_id: marketId,
-      openingTime: event.params.openingTime,
-      closingTime: event.params.closingTime,
-      priceMark: BigInt(0),
-      closingPrice: BigInt(0),
-      bearishShares: BigInt(0),
-      bullishShares: BigInt(0),
-      totalShares: BigInt(0),
-      winningShares: BigInt(0),
-      rewardPool: BigInt(0),
-      createdAt: BigInt(event.block.timestamp),
-      status: "OPEN",
-      winningSide: "NONE",
-    });
+      context.Round.set({
+        id: roundId,
+        roundId: event.params.roundId + BigInt(1),
+        market_id: marketId,
+        openingTime: event.params.openingTime + config.duration,
+        closingTime: event.params.closingTime + config.duration,
+        priceMark: BigInt(0),
+        closingPrice: BigInt(0),
+        bearishShares: BigInt(0),
+        bullishShares: BigInt(0),
+        totalShares: BigInt(0),
+        winningShares: BigInt(0),
+        rewardPool: BigInt(0),
+        createdAt: BigInt(event.block.timestamp),
+        status: "NOT_OPEN",
+        winningSide: "NONE",
+      });
+    } else {
+      context.Round.set({
+        ...round,
+        openingTime: event.params.openingTime,
+        closingTime: event.params.closingTime,
+        createdAt: BigInt(event.block.timestamp),
+        status: "OPEN",
+      });
+
+      context.Round.set({
+        id: roundId,
+        roundId: event.params.roundId + BigInt(1),
+        market_id: marketId,
+        openingTime: event.params.openingTime + config.duration,
+        closingTime: event.params.closingTime + config.duration,
+        priceMark: BigInt(0),
+        closingPrice: BigInt(0),
+        bearishShares: BigInt(0),
+        bullishShares: BigInt(0),
+        totalShares: BigInt(0),
+        winningShares: BigInt(0),
+        rewardPool: BigInt(0),
+        createdAt: BigInt(event.block.timestamp),
+        status: "NOT_OPEN",
+        winningSide: "NONE",
+      });
+    }
   }
 });
 
 GrailMarket.SetMarketDuration.handler(async ({ event, context }) => {
-  const configId = event.chainId.toString().concat("#config");
-
-  let config = await context.ProtocolConfig.get(configId);
+  let config = await context.ProtocolConfig.get("config");
   if (config !== undefined) {
     context.ProtocolConfig.set({
       ...config,
@@ -247,9 +283,7 @@ GrailMarket.SetMarketDuration.handler(async ({ event, context }) => {
 });
 
 GrailMarket.SetMinStakeAmount.handler(async ({ event, context }) => {
-  const configId = event.chainId.toString().concat("#config");
-
-  let config = await context.ProtocolConfig.get(configId);
+  let config = await context.ProtocolConfig.get("config");
   if (config !== undefined) {
     context.ProtocolConfig.set({
       ...config,
@@ -277,7 +311,6 @@ GrailMarket.SetRoundPriceMark.handler(async ({ event, context }) => {
 
 GrailMarket.Settle.handler(async ({ event, context }) => {
   const positionId = event.params.positionId.toLowerCase();
-
   let position = await context.Position.get(positionId);
 
   if (position !== undefined) {
@@ -285,6 +318,7 @@ GrailMarket.Settle.handler(async ({ event, context }) => {
       ...position,
       reward: event.params.reward,
       claimed: true,
+      isRefund: event.params.isRefund,
     });
 
     // update the leader board
@@ -332,15 +366,13 @@ GrailMarket.Resolve.handler(async ({ event, context }) => {
           : event.params.winningSide === BigInt(2)
           ? "BULLISH"
           : "BEARISH",
-      status: event.params.winningSide === BigInt(0) ? "REFUNDING" : "RESOLVED",
+      status: "RESOLVED",
     });
   }
 });
 
 GrailMarket.SetProtocolFee.handler(async ({ event, context }) => {
-  const configId = event.chainId.toString().concat("#config");
-
-  let config = await context.ProtocolConfig.get(configId);
+  let config = await context.ProtocolConfig.get("config");
   if (config !== undefined) {
     context.ProtocolConfig.set({
       ...config,
