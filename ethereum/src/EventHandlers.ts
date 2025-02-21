@@ -226,7 +226,10 @@ GrailMarket.NewRound.handler(async ({ event, context }) => {
       });
 
       context.Round.set({
-        id: roundId,
+        id: event.params.id
+          .concat("#")
+          .concat((event.params.roundId + BigInt(1)).toString())
+          .toLowerCase(),
         roundId: event.params.roundId + BigInt(1),
         market_id: marketId,
         openingTime: event.params.openingTime + config.duration,
@@ -252,7 +255,10 @@ GrailMarket.NewRound.handler(async ({ event, context }) => {
       });
 
       context.Round.set({
-        id: roundId,
+        id: event.params.id
+          .concat("#")
+          .concat((event.params.roundId + BigInt(1)).toString())
+          .toLowerCase(),
         roundId: event.params.roundId + BigInt(1),
         market_id: marketId,
         openingTime: event.params.openingTime + config.duration,
