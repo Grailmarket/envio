@@ -106,8 +106,10 @@ type Market {
 }
 
 type LeaderBoard {
-  # marketId + account
+  # marketId + account + eid
   id: ID!
+  # the endpoint identifier
+  eid: BigInt!
   # the account
   account: String!
   # the market this leader board is for

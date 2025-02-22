@@ -48,6 +48,8 @@ GrailMarket.Bearish.handler(async ({ event, context }) => {
     const leaderboardId = round.market_id
       .concat("#")
       .concat(event.params.account.toLowerCase())
+      .concat("#")
+      .concat(event.params.srcEid.toString())
       .toLowerCase();
 
     let leaderboard = await context.LeaderBoard.get(leaderboardId);
@@ -55,6 +57,7 @@ GrailMarket.Bearish.handler(async ({ event, context }) => {
     if (leaderboard === undefined) {
       context.LeaderBoard.set({
         id: leaderboardId,
+        eid: event.params.srcEid,
         account: event.params.account.toLowerCase(),
         market_id: round.market_id,
         rounds: BigInt(1),
@@ -111,6 +114,8 @@ GrailMarket.Bullish.handler(async ({ event, context }) => {
     const leaderboardId = round.market_id
       .concat("#")
       .concat(event.params.account.toLowerCase())
+      .concat("#")
+      .concat(event.params.srcEid.toString())
       .toLowerCase();
 
     let leaderboard = await context.LeaderBoard.get(leaderboardId);
@@ -118,6 +123,7 @@ GrailMarket.Bullish.handler(async ({ event, context }) => {
     if (leaderboard === undefined) {
       context.LeaderBoard.set({
         id: leaderboardId,
+        eid: event.params.srcEid,
         account: event.params.account.toLowerCase(),
         market_id: round.market_id,
         rounds: BigInt(1),
@@ -274,6 +280,27 @@ GrailMarket.NewRound.handler(async ({ event, context }) => {
         status: "NOT_OPEN",
         winningSide: "NONE",
       });
+
+      context.Round.set({
+        id: event.params.id
+          .concat("#")
+          .concat((event.params.roundId + BigInt(2)).toString())
+          .toLowerCase(),
+        roundId: event.params.roundId + BigInt(2),
+        market_id: marketId,
+        openingTime: event.params.openingTime,
+        closingTime: event.params.closingTime,
+        priceMark: BigInt(0),
+        closingPrice: BigInt(0),
+        bearishShares: BigInt(0),
+        bullishShares: BigInt(0),
+        totalShares: BigInt(0),
+        winningShares: BigInt(0),
+        rewardPool: BigInt(0),
+        createdAt: BigInt(event.block.timestamp),
+        status: "NOT_OPEN",
+        winningSide: "NONE",
+      });
     }
   }
 });
@@ -330,7 +357,9 @@ GrailMarket.Settle.handler(async ({ event, context }) => {
     // update the leader board
     const leaderboardId = position.market_id
       .concat("#")
-      .concat(position.account)
+      .concat(event.params.account.toLowerCase())
+      .concat("#")
+      .concat(position.eid.toString())
       .toLowerCase();
 
     let leaderboard = await context.LeaderBoard.get(leaderboardId);
