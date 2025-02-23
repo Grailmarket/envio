@@ -101,6 +101,8 @@ type Market {
   marketId: String!
   # unix timestamp when market was created
   createdAt: BigInt!
+   # the markets latest round ID
+  latestRoundId: BigInt!
   # this markets leaderboard
   leaderBoard: [LeaderBoard!]! @derivedFrom(field: "market")
 }

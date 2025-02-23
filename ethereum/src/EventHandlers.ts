@@ -169,6 +169,7 @@ GrailMarket.CreateMarket.handler(async ({ event, context }) => {
       id: marketId,
       marketId: event.params.id.toLowerCase(),
       createdAt: BigInt(event.block.timestamp),
+      latestRoundId: BigInt(2),
     });
   }
 });
@@ -210,6 +211,11 @@ GrailMarket.NewRound.handler(async ({ event, context }) => {
 
   let config = await context.ProtocolConfig.get("config");
   let round = await context.Round.get(roundId);
+  let market = await context.Market.get(marketId);
+
+  if (market !== undefined) {
+    context.Market.set({ ...market, latestRoundId: event.params.roundId });
+  }
 
   if (config !== undefined) {
     if (round === undefined) {
