@@ -237,77 +237,78 @@ GrailMarket.NewRound.handler(async ({ event, context }) => {
         winningSide: "NONE",
       });
 
-      context.Round.set({
-        id: event.params.id
-          .concat("#")
-          .concat((event.params.roundId + BigInt(1)).toString())
-          .toLowerCase(),
-        roundId: event.params.roundId + BigInt(1),
-        market_id: marketId,
-        openingTime: event.params.openingTime - config.duration,
-        closingTime: event.params.closingTime - config.duration,
-        priceMark: BigInt(0),
-        closingPrice: BigInt(0),
-        bearishShares: BigInt(0),
-        bullishShares: BigInt(0),
-        totalShares: BigInt(0),
-        winningShares: BigInt(0),
-        rewardPool: BigInt(0),
-        createdAt: BigInt(event.block.timestamp),
-        status: "NOT_OPEN",
-        winningSide: "NONE",
-      });
-    } else {
-      context.Round.set({
-        ...round,
-        openingTime: event.params.openingTime,
-        closingTime: event.params.closingTime,
-        createdAt: BigInt(event.block.timestamp),
-        status: "OPEN",
-      });
-
-      context.Round.set({
-        id: event.params.id
-          .concat("#")
-          .concat((event.params.roundId + BigInt(1)).toString())
-          .toLowerCase(),
-        roundId: event.params.roundId + BigInt(1),
-        market_id: marketId,
-        openingTime: event.params.openingTime - config.duration,
-        closingTime: event.params.closingTime - config.duration,
-        priceMark: BigInt(0),
-        closingPrice: BigInt(0),
-        bearishShares: BigInt(0),
-        bullishShares: BigInt(0),
-        totalShares: BigInt(0),
-        winningShares: BigInt(0),
-        rewardPool: BigInt(0),
-        createdAt: BigInt(event.block.timestamp),
-        status: "NOT_OPEN",
-        winningSide: "NONE",
-      });
-
-      context.Round.set({
-        id: event.params.id
-          .concat("#")
-          .concat((event.params.roundId + BigInt(2)).toString())
-          .toLowerCase(),
-        roundId: event.params.roundId + BigInt(2),
-        market_id: marketId,
-        openingTime: event.params.openingTime,
-        closingTime: event.params.closingTime,
-        priceMark: BigInt(0),
-        closingPrice: BigInt(0),
-        bearishShares: BigInt(0),
-        bullishShares: BigInt(0),
-        totalShares: BigInt(0),
-        winningShares: BigInt(0),
-        rewardPool: BigInt(0),
-        createdAt: BigInt(event.block.timestamp),
-        status: "NOT_OPEN",
-        winningSide: "NONE",
-      });
+      // context.Round.set({
+      //   id: event.params.id
+      //     .concat("#")
+      //     .concat((event.params.roundId + BigInt(1)).toString())
+      //     .toLowerCase(),
+      //   roundId: event.params.roundId + BigInt(1),
+      //   market_id: marketId,
+      //   openingTime: event.params.openingTime - config.duration,
+      //   closingTime: event.params.closingTime - config.duration,
+      //   priceMark: BigInt(0),
+      //   closingPrice: BigInt(0),
+      //   bearishShares: BigInt(0),
+      //   bullishShares: BigInt(0),
+      //   totalShares: BigInt(0),
+      //   winningShares: BigInt(0),
+      //   rewardPool: BigInt(0),
+      //   createdAt: BigInt(event.block.timestamp),
+      //   status: "NOT_OPEN",
+      //   winningSide: "NONE",
+      // });
     }
+    //  else {
+    //   context.Round.set({
+    //     ...round,
+    //     openingTime: event.params.openingTime,
+    //     closingTime: event.params.closingTime,
+    //     createdAt: BigInt(event.block.timestamp),
+    //     status: "OPEN",
+    //   });
+
+    //   context.Round.set({
+    //     id: event.params.id
+    //       .concat("#")
+    //       .concat((event.params.roundId + BigInt(1)).toString())
+    //       .toLowerCase(),
+    //     roundId: event.params.roundId + BigInt(1),
+    //     market_id: marketId,
+    //     openingTime: event.params.openingTime - config.duration,
+    //     closingTime: event.params.closingTime - config.duration,
+    //     priceMark: BigInt(0),
+    //     closingPrice: BigInt(0),
+    //     bearishShares: BigInt(0),
+    //     bullishShares: BigInt(0),
+    //     totalShares: BigInt(0),
+    //     winningShares: BigInt(0),
+    //     rewardPool: BigInt(0),
+    //     createdAt: BigInt(event.block.timestamp),
+    //     status: "NOT_OPEN",
+    //     winningSide: "NONE",
+    //   });
+
+    //   context.Round.set({
+    //     id: event.params.id
+    //       .concat("#")
+    //       .concat((event.params.roundId + BigInt(2)).toString())
+    //       .toLowerCase(),
+    //     roundId: event.params.roundId + BigInt(2),
+    //     market_id: marketId,
+    //     openingTime: event.params.openingTime,
+    //     closingTime: event.params.closingTime,
+    //     priceMark: BigInt(0),
+    //     closingPrice: BigInt(0),
+    //     bearishShares: BigInt(0),
+    //     bullishShares: BigInt(0),
+    //     totalShares: BigInt(0),
+    //     winningShares: BigInt(0),
+    //     rewardPool: BigInt(0),
+    //     createdAt: BigInt(event.block.timestamp),
+    //     status: "NOT_OPEN",
+    //     winningSide: "NONE",
+    //   });
+    // }
   }
 });
 
