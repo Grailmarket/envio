@@ -1,24 +1,15 @@
 import { GrailMarket } from "generated";
 
-GrailMarket.AddMessagingPeer.handler(async ({ event, context }) => {
-  let peer = await context.Peer.get(event.params._eid.toString());
-
-  if (peer === undefined) {
-    context.Peer.set({
-      id: event.params._eid.toString(),
-      eid: event.params._eid,
-      address: event.params._peer.toLowerCase(),
-    });
-  }
-});
-
 GrailMarket.Bearish.handler(async ({ event, context }) => {
   let roundId = event.params.id
     .concat("#")
     .concat(event.params.roundId.toString())
     .toLowerCase();
 
-  let positionId = event.params.positionId.toLowerCase();
+  let positionId = event.chainId
+    .toString()
+    .concat("#")
+    .concat(event.params.positionId.toLowerCase());
 
   let round = await context.Round.get(roundId);
   let position = await context.Position.get(positionId);
@@ -26,7 +17,7 @@ GrailMarket.Bearish.handler(async ({ event, context }) => {
   if (round !== undefined && position === undefined) {
     context.Position.set({
       id: positionId,
-      eid: event.params.srcEid,
+      chainId: BigInt(event.chainId),
       account: event.params.account.toLowerCase(),
       createdAt: BigInt(event.block.timestamp),
       claimed: false,
@@ -47,17 +38,13 @@ GrailMarket.Bearish.handler(async ({ event, context }) => {
     // update the leader board
     const leaderboardId = round.market_id
       .concat("#")
-      .concat(event.params.account.toLowerCase())
-      .concat("#")
-      .concat(event.params.srcEid.toString())
-      .toLowerCase();
+      .concat(event.params.account.toLowerCase());
 
     let leaderboard = await context.LeaderBoard.get(leaderboardId);
 
     if (leaderboard === undefined) {
       context.LeaderBoard.set({
         id: leaderboardId,
-        eid: event.params.srcEid,
         account: event.params.account.toLowerCase(),
         market_id: round.market_id,
         rounds: BigInt(1),
@@ -84,7 +71,10 @@ GrailMarket.Bullish.handler(async ({ event, context }) => {
     .concat(event.params.roundId.toString())
     .toLowerCase();
 
-  let positionId = event.params.positionId.toLowerCase();
+  let positionId = event.chainId
+    .toString()
+    .concat("#")
+    .concat(event.params.positionId.toLowerCase());
 
   let round = await context.Round.get(roundId);
   let position = await context.Position.get(positionId);
@@ -92,7 +82,7 @@ GrailMarket.Bullish.handler(async ({ event, context }) => {
   if (round !== undefined && position === undefined) {
     context.Position.set({
       id: positionId,
-      eid: event.params.srcEid,
+      chainId: BigInt(event.chainId),
       account: event.params.account.toLowerCase(),
       createdAt: BigInt(event.block.timestamp),
       claimed: false,
@@ -113,17 +103,13 @@ GrailMarket.Bullish.handler(async ({ event, context }) => {
     // update the leader board
     const leaderboardId = round.market_id
       .concat("#")
-      .concat(event.params.account.toLowerCase())
-      .concat("#")
-      .concat(event.params.srcEid.toString())
-      .toLowerCase();
+      .concat(event.params.account.toLowerCase());
 
     let leaderboard = await context.LeaderBoard.get(leaderboardId);
 
     if (leaderboard === undefined) {
       context.LeaderBoard.set({
         id: leaderboardId,
-        eid: event.params.srcEid,
         account: event.params.account.toLowerCase(),
         market_id: round.market_id,
         rounds: BigInt(1),
@@ -174,33 +160,6 @@ GrailMarket.CreateMarket.handler(async ({ event, context }) => {
   }
 });
 
-GrailMarket.PeersLocked.handler(async ({ event, context }) => {
-  let config = await context.ProtocolConfig.get("config");
-
-  if (config !== undefined) {
-    context.ProtocolConfig.set({
-      ...config,
-      isPeerLocked: true,
-    });
-  }
-});
-
-GrailMarket.OwnershipTransferred.handler(async ({ event, context }) => {
-  let config = await context.ProtocolConfig.get("config");
-  const DEFAULT_PROTOCOL_FEE_BPS = BigInt(500); // 5%
-  const DEFAULT_DURATION = BigInt(600); // 10 minutes
-
-  if (config === undefined) {
-    context.ProtocolConfig.set({
-      id: "config",
-      duration: DEFAULT_DURATION,
-      protocolFee: DEFAULT_PROTOCOL_FEE_BPS,
-      minStakeAmount: BigInt(0),
-      isPeerLocked: false,
-    });
-  }
-});
-
 GrailMarket.NewRound.handler(async ({ event, context }) => {
   let roundId = event.params.id
     .concat("#")
@@ -209,7 +168,6 @@ GrailMarket.NewRound.handler(async ({ event, context }) => {
 
   let marketId = event.params.id.toLowerCase();
 
-  let config = await context.ProtocolConfig.get("config");
   let round = await context.Round.get(roundId);
   let market = await context.Market.get(marketId);
 
@@ -217,98 +175,24 @@ GrailMarket.NewRound.handler(async ({ event, context }) => {
     context.Market.set({ ...market, latestRoundId: event.params.roundId });
   }
 
-  if (config !== undefined) {
-    if (round === undefined) {
-      context.Round.set({
-        id: roundId,
-        roundId: event.params.roundId,
-        market_id: marketId,
-        openingTime: event.params.openingTime,
-        closingTime: event.params.closingTime,
-        priceMark: BigInt(0),
-        closingPrice: BigInt(0),
-        bearishShares: BigInt(0),
-        bullishShares: BigInt(0),
-        totalShares: BigInt(0),
-        winningShares: BigInt(0),
-        rewardPool: BigInt(0),
-        createdAt: BigInt(event.block.timestamp),
-        status: "OPEN",
-        winningSide: "NONE",
-      });
-
-      // context.Round.set({
-      //   id: event.params.id
-      //     .concat("#")
-      //     .concat((event.params.roundId + BigInt(1)).toString())
-      //     .toLowerCase(),
-      //   roundId: event.params.roundId + BigInt(1),
-      //   market_id: marketId,
-      //   openingTime: event.params.openingTime - config.duration,
-      //   closingTime: event.params.closingTime - config.duration,
-      //   priceMark: BigInt(0),
-      //   closingPrice: BigInt(0),
-      //   bearishShares: BigInt(0),
-      //   bullishShares: BigInt(0),
-      //   totalShares: BigInt(0),
-      //   winningShares: BigInt(0),
-      //   rewardPool: BigInt(0),
-      //   createdAt: BigInt(event.block.timestamp),
-      //   status: "NOT_OPEN",
-      //   winningSide: "NONE",
-      // });
-    }
-    //  else {
-    //   context.Round.set({
-    //     ...round,
-    //     openingTime: event.params.openingTime,
-    //     closingTime: event.params.closingTime,
-    //     createdAt: BigInt(event.block.timestamp),
-    //     status: "OPEN",
-    //   });
-
-    //   context.Round.set({
-    //     id: event.params.id
-    //       .concat("#")
-    //       .concat((event.params.roundId + BigInt(1)).toString())
-    //       .toLowerCase(),
-    //     roundId: event.params.roundId + BigInt(1),
-    //     market_id: marketId,
-    //     openingTime: event.params.openingTime - config.duration,
-    //     closingTime: event.params.closingTime - config.duration,
-    //     priceMark: BigInt(0),
-    //     closingPrice: BigInt(0),
-    //     bearishShares: BigInt(0),
-    //     bullishShares: BigInt(0),
-    //     totalShares: BigInt(0),
-    //     winningShares: BigInt(0),
-    //     rewardPool: BigInt(0),
-    //     createdAt: BigInt(event.block.timestamp),
-    //     status: "NOT_OPEN",
-    //     winningSide: "NONE",
-    //   });
-
-    //   context.Round.set({
-    //     id: event.params.id
-    //       .concat("#")
-    //       .concat((event.params.roundId + BigInt(2)).toString())
-    //       .toLowerCase(),
-    //     roundId: event.params.roundId + BigInt(2),
-    //     market_id: marketId,
-    //     openingTime: event.params.openingTime,
-    //     closingTime: event.params.closingTime,
-    //     priceMark: BigInt(0),
-    //     closingPrice: BigInt(0),
-    //     bearishShares: BigInt(0),
-    //     bullishShares: BigInt(0),
-    //     totalShares: BigInt(0),
-    //     winningShares: BigInt(0),
-    //     rewardPool: BigInt(0),
-    //     createdAt: BigInt(event.block.timestamp),
-    //     status: "NOT_OPEN",
-    //     winningSide: "NONE",
-    //   });
-    // }
+  if (round === undefined) {
+    context.Round.set({
+      id: roundId,
+      roundId: event.params.roundId,
+      market_id: marketId,
+      openingTime: event.params.openingTime,
+      closingTime: event.params.closingTime,
+      priceMark: BigInt(0),
+      closingPrice: BigInt(0),
+      bearishShares: BigInt(0),
+      bullishShares: BigInt(0),
+      totalShares: BigInt(0),
+      winningShares: BigInt(0),
+      rewardPool: BigInt(0),
+      createdAt: BigInt(event.block.timestamp),
+      status: "OPEN",
+      winningSide: "NONE",
+    });
   }
 });
 
@@ -318,6 +202,14 @@ GrailMarket.SetMarketDuration.handler(async ({ event, context }) => {
     context.ProtocolConfig.set({
       ...config,
       duration: event.params.duration,
+    });
+  } else {
+    context.ProtocolConfig.set({
+      id: "config",
+      duration: event.params.duration,
+      protocolFee: BigInt(500),
+      mintFee: BigInt(300),
+      minStakeAmount: BigInt(0),
     });
   }
 });
@@ -364,10 +256,7 @@ GrailMarket.Settle.handler(async ({ event, context }) => {
     // update the leader board
     const leaderboardId = position.market_id
       .concat("#")
-      .concat(event.params.account.toLowerCase())
-      .concat("#")
-      .concat(position.eid.toString())
-      .toLowerCase();
+      .concat(event.params.account.toLowerCase());
 
     let leaderboard = await context.LeaderBoard.get(leaderboardId);
 
@@ -419,6 +308,14 @@ GrailMarket.SetProtocolFee.handler(async ({ event, context }) => {
     context.ProtocolConfig.set({
       ...config,
       protocolFee: event.params.newFee,
+    });
+  } else {
+    context.ProtocolConfig.set({
+      id: "config",
+      duration: BigInt(600),
+      protocolFee: event.params.newFee,
+      mintFee: BigInt(300),
+      minStakeAmount: BigInt(0),
     });
   }
 });

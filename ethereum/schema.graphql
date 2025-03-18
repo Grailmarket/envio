@@ -46,10 +46,10 @@ type Round {
 }
 
 type Position {
-  # positionId
+  # chainId + positionId
   id: ID!
-  # the origin chain endpoint identifier
-  eid: BigInt!
+  # the origin chain identifier
+  chainId: BigInt!
   # the address of the position owner
   account: String!
   # the market this position was opened
@@ -82,7 +82,7 @@ type Position {
 # }
 
 type ProtocolConfig {
-  # chainId + config
+  # config
   id: ID!
   # the market round duration in seconds
   duration: BigInt!
@@ -90,8 +90,8 @@ type ProtocolConfig {
   minStakeAmount: BigInt!
   # the protocolFee charged on this market
   protocolFee: BigInt!
-  # true, if the peer confiiguration is locked
-  isPeerLocked: Boolean!
+  # the minting fee to mint GUSD
+  mintFee: BigInt!
 }
 
 type Market {
@@ -101,17 +101,15 @@ type Market {
   marketId: String!
   # unix timestamp when market was created
   createdAt: BigInt!
-   # the markets latest round ID
+  # the markets latest round ID
   latestRoundId: BigInt!
   # this markets leaderboard
   leaderBoard: [LeaderBoard!]! @derivedFrom(field: "market")
 }
 
 type LeaderBoard {
-  # marketId + account + eid
+  # marketId + account
   id: ID!
-  # the endpoint identifier
-  eid: BigInt!
   # the account
   account: String!
   # the market this leader board is for
@@ -122,13 +120,4 @@ type LeaderBoard {
   shares: BigInt!
   # sum of all reward claimed in this market
   reward: BigInt!
-}
-
-type Peer {
-  # the peer identifier
-  id: ID!
-  # the peer chain endpoint identifier
-  eid: BigInt!
-  # the peer contract address
-  address: String!
 }

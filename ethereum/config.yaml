@@ -9,8 +9,8 @@ contracts:
     abi_file_path: ./abis/GrailMarketAbi.json
     handler: ./src/EventHandlers.ts
     events:
-      - event: Bearish(bytes32 indexed id, uint256 indexed roundId, address indexed account, uint32 srcEid, bytes32 positionId, uint256 stake, bool isRefund)
-      - event: Bullish(bytes32 indexed id, uint256 indexed roundId, address indexed account, uint32 srcEid, bytes32 positionId, uint256 stake, bool isRefund)
+      - event: Bearish(bytes32 indexed id, uint256 indexed roundId, address indexed account, bytes32 positionId, uint256 stake, bool isRefund)
+      - event: Bullish(bytes32 indexed id, uint256 indexed roundId, address indexed account, bytes32 positionId, uint256 stake, bool isRefund)
       - event: Settle(bytes32 indexed id, uint256 indexed roundId, address indexed account, bytes32 positionId, uint256 reward, bool isRefund)
       - event: CreateMarket(bytes32 indexed id, address creator)
       - event: SetMinStakeAmount(uint256 minStakeAmount)
@@ -19,10 +19,8 @@ contracts:
       - event: Resolve(bytes32 indexed id, uint256 indexed roundId, uint256 rewardPool, uint256 totalWinningStake, int256 closingPrice, uint256 winningSide)
       - event: CancelRound(bytes32 indexed id, uint256 indexed roundId)
       - event: SetMarketDuration(uint32 duration)
-      - event: OwnershipTransferred(address indexed oldOwner, address indexed newOwner)
       - event: SetProtocolFee(uint16 newFee)
-      - event: PeersLocked()
-      - event: AddMessagingPeer(uint32 indexed _eid, address indexed _peer)
+      - event: SetMintFee(uint16 newFee)
 unordered_multichain_mode: true
 networks:
   - id: 43113 # Avalanche Fuji
