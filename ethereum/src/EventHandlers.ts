@@ -21,7 +21,7 @@ GrailMarket.Bearish.handler(async ({ event, context }) => {
       account: event.params.account.toLowerCase(),
       createdAt: BigInt(event.block.timestamp),
       claimed: false,
-      isRefund: event.params.isRefund,
+      isRefund: false,
       market_id: round.market_id,
       option: "BEARISH",
       reward: BigInt(0),
@@ -59,10 +59,6 @@ GrailMarket.Bearish.handler(async ({ event, context }) => {
       });
     }
   }
-
-  if (position !== undefined) {
-    context.Position.set({ ...position, isRefund: event.params.isRefund });
-  }
 });
 
 GrailMarket.Bullish.handler(async ({ event, context }) => {
@@ -86,7 +82,7 @@ GrailMarket.Bullish.handler(async ({ event, context }) => {
       account: event.params.account.toLowerCase(),
       createdAt: BigInt(event.block.timestamp),
       claimed: false,
-      isRefund: event.params.isRefund,
+      isRefund: false,
       market_id: round.market_id,
       option: "BULLISH",
       reward: BigInt(0),
@@ -123,10 +119,6 @@ GrailMarket.Bullish.handler(async ({ event, context }) => {
         rounds: leaderboard.rounds + BigInt(1),
       });
     }
-  }
-
-  if (position !== undefined) {
-    context.Position.set({ ...position, isRefund: event.params.isRefund });
   }
 });
 
