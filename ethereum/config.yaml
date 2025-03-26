@@ -9,8 +9,8 @@ contracts:
     abi_file_path: ./abis/GrailMarketAbi.json
     handler: ./src/EventHandlers.ts
     events:
-      - event: Bearish(bytes32 indexed id, uint256 indexed roundId, address indexed account, bytes32 positionId, uint256 stake, bool isRefund)
-      - event: Bullish(bytes32 indexed id, uint256 indexed roundId, address indexed account, bytes32 positionId, uint256 stake, bool isRefund)
+      - event: Bearish(bytes32 indexed id, uint256 indexed roundId, address indexed account, bytes32 positionId, uint256 stake)
+      - event: Bullish(bytes32 indexed id, uint256 indexed roundId, address indexed account, bytes32 positionId, uint256 stake)
       - event: Settle(bytes32 indexed id, uint256 indexed roundId, address indexed account, bytes32 positionId, uint256 reward, bool isRefund)
       - event: CreateMarket(bytes32 indexed id, address creator)
       - event: SetMinStakeAmount(uint256 minStakeAmount)
@@ -20,24 +20,55 @@ contracts:
       - event: CancelRound(bytes32 indexed id, uint256 indexed roundId)
       - event: SetMarketDuration(uint32 duration)
       - event: SetProtocolFee(uint16 newFee)
-      - event: SetMintFee(uint16 newFee)
 unordered_multichain_mode: true
 networks:
   - id: 43113 # Avalanche Fuji
     start_block: 38187796
     contracts:
       - name: GrailMarket
-        address: 0x33566f3f3Df2c6c3D275e11D2960e3567a374BB9
+        address: 0x359f3b29d5Ec17393d42717e9eA4704DFeFA60C2
   - id: 421614 # Arbitrum Sepolia
     start_block: 124996529
     contracts:
       - name: GrailMarket
-        address: 0x45C9c647206c86A0Ad5448aE2712Af168DEc3867
+        address: 0x359f3b29d5Ec17393d42717e9eA4704DFeFA60C2
   - id: 84532 # Base Sepolia
     start_block: 22064534
     contracts:
       - name: GrailMarket
-        address: 0x6C9900a6709b4FD696f2FCE14ddF959a93daaEf4
+        address: 0x359f3b29d5Ec17393d42717e9eA4704DFeFA60C2
+  - id: 97 # Bsc Testnet
+    start_block: 22064534
+    contracts:
+      - name: GrailMarket
+        address: 0x359f3b29d5Ec17393d42717e9eA4704DFeFA60C2
+  - id: 44787 # Celo Alfojores
+    rpc_config:
+      url: https://alfajores-forno.celo-testnet.org
+    start_block: 22064534
+    contracts:
+      - name: GrailMarket
+        address: 0x359f3b29d5Ec17393d42717e9eA4704DFeFA60C2
+  - id: 11155111 # Ethereum Sepolia
+    start_block: 22064534
+    contracts:
+      - name: GrailMarket
+        address: 0x359f3b29d5Ec17393d42717e9eA4704DFeFA60C2
+  - id: 11155420 # Optimism Sepolia
+    start_block: 22064534
+    contracts:
+      - name: GrailMarket
+        address: 0x359f3b29d5Ec17393d42717e9eA4704DFeFA60C2
+  - id: 80002 # Polygon Amoy
+    start_block: 22064534
+    contracts:
+      - name: GrailMarket
+        address: 0x359f3b29d5Ec17393d42717e9eA4704DFeFA60C2
+  - id: 1301 # Unichain Sepolia
+    start_block: 22064534
+    contracts:
+      - name: GrailMarket
+        address: 0x217dc94990C67885BA4b87CdBa345422376A9Ac3
 # Rollback on reorg mode currently incurs a performance hit on historical sync
 # while developing an indexer we recommend setting this to false
 rollback_on_reorg: false
