@@ -26,49 +26,49 @@ networks:
     start_block: 38187796
     contracts:
       - name: GrailMarket
-        address: 0x359f3b29d5Ec17393d42717e9eA4704DFeFA60C2
+        address: 0x09791631F856B699aCEE7C66FB54e0D4aCaF56e5
   - id: 421614 # Arbitrum Sepolia
     start_block: 124996529
     contracts:
       - name: GrailMarket
-        address: 0x359f3b29d5Ec17393d42717e9eA4704DFeFA60C2
+        address: 0x09791631F856B699aCEE7C66FB54e0D4aCaF56e5
   - id: 84532 # Base Sepolia
     start_block: 22064534
     contracts:
       - name: GrailMarket
-        address: 0x359f3b29d5Ec17393d42717e9eA4704DFeFA60C2
+        address: 0x09791631F856B699aCEE7C66FB54e0D4aCaF56e5
   - id: 97 # Bsc Testnet
     start_block: 22064534
     contracts:
       - name: GrailMarket
-        address: 0x359f3b29d5Ec17393d42717e9eA4704DFeFA60C2
+        address: 0x09791631F856B699aCEE7C66FB54e0D4aCaF56e5
   - id: 44787 # Celo Alfojores
     rpc_config:
       url: https://alfajores-forno.celo-testnet.org
     start_block: 22064534
     contracts:
       - name: GrailMarket
-        address: 0x359f3b29d5Ec17393d42717e9eA4704DFeFA60C2
+        address: 0x09791631F856B699aCEE7C66FB54e0D4aCaF56e5
   - id: 11155111 # Ethereum Sepolia
     start_block: 22064534
     contracts:
       - name: GrailMarket
-        address: 0x359f3b29d5Ec17393d42717e9eA4704DFeFA60C2
+        address: 0x09791631F856B699aCEE7C66FB54e0D4aCaF56e5
   - id: 11155420 # Optimism Sepolia
     start_block: 22064534
     contracts:
       - name: GrailMarket
-        address: 0x359f3b29d5Ec17393d42717e9eA4704DFeFA60C2
+        address: 0x09791631F856B699aCEE7C66FB54e0D4aCaF56e5
   - id: 80002 # Polygon Amoy
     start_block: 22064534
     contracts:
       - name: GrailMarket
-        address: 0x359f3b29d5Ec17393d42717e9eA4704DFeFA60C2
+        address: 0x09791631F856B699aCEE7C66FB54e0D4aCaF56e5
   - id: 1301 # Unichain Sepolia
     start_block: 22064534
     contracts:
       - name: GrailMarket
-        address: 0x217dc94990C67885BA4b87CdBa345422376A9Ac3
+        address: 0x8970b5ae725bb4ad0ffb6756e3A0899D404920f4
 # Rollback on reorg mode currently incurs a performance hit on historical sync
 # while developing an indexer we recommend setting this to false
 rollback_on_reorg: false
