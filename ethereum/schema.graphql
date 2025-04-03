@@ -21,8 +21,6 @@ type Round {
   market: Market!
   # unix timestamp when round entry opened
   openingTime: BigInt!
-  # unix timestamp when entry is not allowed
-  entryCloseTime: BigInt!
   # unix timestamp when round entry closes
   closingTime: BigInt!
   # the underlying market asset strike price
@@ -96,8 +94,6 @@ type ProtocolConfig {
   minStakeAmount: BigInt!
   # the protocolFee charged on this market
   protocolFee: BigInt!
-  # the minting fee to mint GUSD
-  mintFee: BigInt!
 }
 
 type Market {

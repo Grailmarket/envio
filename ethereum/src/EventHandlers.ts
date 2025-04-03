@@ -183,7 +183,6 @@ GrailMarket.NewRound.handler(async ({ event, context }) => {
       market_id: marketId,
       openingTime: event.params.openingTime,
       closingTime: event.params.closingTime,
-      entryCloseTime: event.params.closingTime - MARKET_DURATION,
       priceMark: BigInt(0),
       closingPrice: BigInt(0),
       bearishShares: BigInt(0),
@@ -212,7 +211,6 @@ GrailMarket.SetMarketDuration.handler(async ({ event, context }) => {
       id: "config",
       duration: event.params.duration,
       protocolFee: BigInt(500),
-      mintFee: BigInt(300),
       minStakeAmount: BigInt(0),
     });
   }
@@ -246,7 +244,10 @@ GrailMarket.SetRoundPriceMark.handler(async ({ event, context }) => {
 });
 
 GrailMarket.Settle.handler(async ({ event, context }) => {
-  const positionId = event.params.positionId.toLowerCase();
+  let positionId = event.chainId
+    .toString()
+    .concat("#")
+    .concat(event.params.positionId.toLowerCase());
   let position = await context.Position.get(positionId);
 
   if (position !== undefined) {
@@ -325,7 +326,6 @@ GrailMarket.SetProtocolFee.handler(async ({ event, context }) => {
       id: "config",
       duration: MARKET_DURATION,
       protocolFee: event.params.newFee,
-      mintFee: BigInt(300),
       minStakeAmount: BigInt(0),
     });
   }
