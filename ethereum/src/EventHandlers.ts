@@ -1,4 +1,7 @@
 import { GrailMarket } from "generated";
+import { getRoundState } from "./getRoundState";
+
+const MARKET_DURATION = BigInt(600);
 
 GrailMarket.Bearish.handler(async ({ event, context }) => {
   let roundId = event.params.id
@@ -167,6 +170,12 @@ GrailMarket.NewRound.handler(async ({ event, context }) => {
     context.Market.set({ ...market, latestRoundId: event.params.roundId });
   }
 
+  const { response } = await getRoundState(
+    event.params.id,
+    event.params.roundId,
+    event.block.number
+  );
+
   if (round === undefined) {
     context.Round.set({
       id: roundId,
@@ -174,6 +183,7 @@ GrailMarket.NewRound.handler(async ({ event, context }) => {
       market_id: marketId,
       openingTime: event.params.openingTime,
       closingTime: event.params.closingTime,
+      entryCloseTime: event.params.closingTime - MARKET_DURATION,
       priceMark: BigInt(0),
       closingPrice: BigInt(0),
       bearishShares: BigInt(0),
@@ -184,6 +194,8 @@ GrailMarket.NewRound.handler(async ({ event, context }) => {
       createdAt: BigInt(event.block.timestamp),
       status: "OPEN",
       winningSide: "NONE",
+      openRoundState: response,
+      resolvedRoundState: "",
     });
   }
 });
@@ -277,6 +289,12 @@ GrailMarket.Resolve.handler(async ({ event, context }) => {
 
   let round = await context.Round.get(roundId);
 
+  const { response } = await getRoundState(
+    event.params.id,
+    event.params.roundId,
+    event.block.number
+  );
+
   if (round !== undefined) {
     context.Round.set({
       ...round,
@@ -290,6 +308,7 @@ GrailMarket.Resolve.handler(async ({ event, context }) => {
           ? "BULLISH"
           : "BEARISH",
       status: "RESOLVED",
+      resolvedRoundState: response,
     });
   }
 });
@@ -304,7 +323,7 @@ GrailMarket.SetProtocolFee.handler(async ({ event, context }) => {
   } else {
     context.ProtocolConfig.set({
       id: "config",
-      duration: BigInt(600),
+      duration: MARKET_DURATION,
       protocolFee: event.params.newFee,
       mintFee: BigInt(300),
       minStakeAmount: BigInt(0),

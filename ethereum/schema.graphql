@@ -21,6 +21,8 @@ type Round {
   market: Market!
   # unix timestamp when round entry opened
   openingTime: BigInt!
+  # unix timestamp when entry is not allowed
+  entryCloseTime: BigInt!
   # unix timestamp when round entry closes
   closingTime: BigInt!
   # the underlying market asset strike price
@@ -43,6 +45,10 @@ type Round {
   winningSide: MarketOption
   # unix timestamp when the market round was created
   createdAt: BigInt!
+  # the rounds open state
+  openRoundState: String!
+  # the rounds resolved state
+  resolvedRoundState: String!
 }
 
 type Position {
