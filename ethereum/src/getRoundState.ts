@@ -51,9 +51,9 @@ const abi = [
 // const WORMHOLE_QUERY_ENDPOINT = String(process.env.WORMHOLE_QUERY_ENDPOINT);
 // const WORMHOLE_QUERY_API_KEY = String(process.env.WORMHOLE_QUERY_API_KEY);
 
-const GRAIL_MARKET_MANAGER_ADDRESS = "0x09791631F856B699aCEE7C66FB54e0D4aCaF56e5";
-const WORMHOLE_QUERY_ENDPOINT = "https://testnet.query.wormhole.com/v1/query";
-const WORMHOLE_QUERY_API_KEY = "48a688a0-8096-4ebb-ba14-6bcdce107e3c";
+const GRAIL_MARKET_MANAGER_ADDRESS = "0x59991336716e607Dfc24853A4df98Acb707Cb94f";
+const WORMHOLE_QUERY_ENDPOINT = "https://query.wormhole.com/v1/query";
+const WORMHOLE_QUERY_API_KEY = "9907dd24-77b9-494d-8571-6cb14ef3fb90";
 
 export async function getRoundState(
   marketId: string,
