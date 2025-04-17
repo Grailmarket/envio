@@ -1,5 +1,5 @@
 import { GrailMarket } from "generated";
-import { getRoundState } from "./getRoundState";
+// import { getRoundState } from "./getRoundState";
 
 const MARKET_DURATION = BigInt(600);
 
@@ -170,11 +170,11 @@ GrailMarket.NewRound.handler(async ({ event, context }) => {
     context.Market.set({ ...market, latestRoundId: event.params.roundId });
   }
 
-  const { response } = await getRoundState(
-    event.params.id,
-    event.params.roundId,
-    event.block.number
-  );
+  // const { response } = await getRoundState(
+  //   event.params.id,
+  //   event.params.roundId,
+  //   event.block.number
+  // );
 
   if (round === undefined) {
     context.Round.set({
@@ -193,7 +193,7 @@ GrailMarket.NewRound.handler(async ({ event, context }) => {
       createdAt: BigInt(event.block.timestamp),
       status: "OPEN",
       winningSide: "NONE",
-      openRoundState: response,
+      openRoundState: "",
       resolvedRoundState: "",
     });
   }
@@ -290,11 +290,11 @@ GrailMarket.Resolve.handler(async ({ event, context }) => {
 
   let round = await context.Round.get(roundId);
 
-  const { response } = await getRoundState(
-    event.params.id,
-    event.params.roundId,
-    event.block.number
-  );
+  // const { response } = await getRoundState(
+  //   event.params.id,
+  //   event.params.roundId,
+  //   event.block.number
+  // );
 
   if (round !== undefined) {
     context.Round.set({
@@ -309,7 +309,7 @@ GrailMarket.Resolve.handler(async ({ event, context }) => {
           ? "BULLISH"
           : "BEARISH",
       status: "RESOLVED",
-      resolvedRoundState: response,
+      resolvedRoundState: "",
     });
   }
 });
