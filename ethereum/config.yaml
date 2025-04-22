@@ -48,7 +48,7 @@ networks:
     start_block: 17073180
     contracts:
       - name: GrailMarket
-        address: 0xaC9983D6c72da360dF63626fC7A4B56319460915
+        address: 0x8F8E80e9CA0BbdF6b46a89AC75157Ac88a5006Ff
 # - id: 534352 # Scroll
 #   start_block: 13054624
 #   contracts:
