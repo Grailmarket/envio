@@ -13,7 +13,7 @@ enum RoundStatus {
 }
 
 type Round {
-  # chainId + market identifier
+  # chainId # market identifier # roundId
   id: ID!
   # the chainId
   chainId: BigInt!
@@ -21,9 +21,9 @@ type Round {
   roundId: BigInt!
   # market round was opened in
   market: Market!
-  # unix timestamp when round entry opened
-  openingTime: BigInt!
   # unix timestamp when round entry closes
+  lockTime: BigInt!
+  # unix timestamp when round can be resolved
   closingTime: BigInt!
   # the underlying market asset strike price
   priceMark: BigInt!
@@ -80,14 +80,14 @@ type Position {
 # }
 
 type ProtocolConfig {
-  # chainId + config
+  # chainId
   id: ID!
   # chain identifier
   chainId: BigInt!
   # the market round duration in seconds
   duration: BigInt!
   # the minimum amount that can be staked
-  minShareAmount: BigInt!
+  minStakeAmount: BigInt!
   # the protocolFee charged on this market
   protocolFee: BigInt!
   # the incentive fee paid to round resolver
@@ -95,7 +95,7 @@ type ProtocolConfig {
 }
 
 type Market {
-  # chainId + market identifier
+  # chainId # market identifier
   id: ID!
   # market identifier
   marketId: String!
@@ -103,14 +103,12 @@ type Market {
   chainId: BigInt!
   # unix timestamp when market was created
   createdAt: BigInt!
-  # the markets latest round ID
-  latestRoundId: BigInt!
   # this markets leaderboard
   leaderBoard: [LeaderBoard!]! @derivedFrom(field: "market")
 }
 
 type LeaderBoard {
-  # chainId + marketId + account
+  # chainId # marketId # account
   id: ID!
   # the account
   account: String!

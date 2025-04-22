@@ -11,56 +11,54 @@ contracts:
     events:
       - event: Bearish(bytes32 indexed id, uint256 indexed roundId, address indexed account, bytes32 positionId, uint256 stake)
       - event: Bullish(bytes32 indexed id, uint256 indexed roundId, address indexed account, bytes32 positionId, uint256 stake)
-      - event: Settle(bytes32 indexed id, uint256 indexed roundId, address indexed account, bytes32 positionId, uint256 reward)
-      - event: ClaimRefund(bytes32 indexed id, uint256 indexed roundId, address indexed account, bytes32 positionId, uint256 stake)
+      - event: Settle(bytes32 indexed id, uint256 indexed roundId, address indexed account, bytes32 positionId, uint256 reward, bool isRefund)
       - event: CreateMarket(bytes32 indexed id, address creator)
       - event: SetMinStakeAmount(uint256 minStakeAmount)
-      - event: NewRound(bytes32 indexed id, uint256 indexed roundId, uint256 openingTime, uint256 closingTime)
+      - event: NewRound(bytes32 indexed id, uint256 indexed roundId, uint256 lockTime, uint256 closingTime)
       - event: SetRoundPriceMark(bytes32 indexed id, uint256 indexed roundId, int256 priceMark, uint256 closingTime)
-      - event: Resolve(bytes32 indexed id, uint256 indexed roundId, uint256 rewardPool, uint256 totalWinningStake, int256 closingPrice, uint256 winningSide, bool isRefunding)
+      - event: Resolve(bytes32 indexed id, uint256 indexed roundId, uint256 rewardPool, uint256 totalWinningStake, int256 closingPrice, uint256 winningSide)
       - event: CancelRound(bytes32 indexed id, uint256 indexed roundId)
       - event: SetMarketDuration(uint32 duration)
-      - event: OwnershipTransferred(address indexed oldOwner, address indexed newOwner)
       - event: SetResolverFee(uint16 newFee)
-      - event: event SetProtocolFee(uint16 newFee)
+      - event: SetProtocolFee(uint16 newFee)
 unordered_multichain_mode: true
 networks:
-  - id: 2741 # Abstract
-    rpc_config:
-      url: https://api.mainnet.abs.xyz
-    start_block: 414268
+# - id: 2741 # Abstract
+#   rpc_config:
+#     url: https://api.mainnet.abs.xyz
+#   start_block: 414268
+#   contracts:
+#     - name: GrailMarket
+#       address: 0xDCdf9C9A370EdE475D5d19C84E30625e80BDbCEd
+# - id: 81457 # Blast
+#   start_block: 14671859
+#   contracts:
+#     - name: GrailMarket
+#       address: 0x7934D3e1949584426F2666BDbC54915Fa021Cfb8
+# - id: 42220 # Celo
+#   rpc_config:
+#     url: https://forno.celo.org
+#   start_block: 30111414
+#   contracts:
+#     - name: GrailMarket
+#       address: 0x442a6bd228adf9e8c8f9632e1a5479e512066d3c
+  - id: 2810 # Morph
+    start_block: 17073180
     contracts:
       - name: GrailMarket
-        address: 0xDCdf9C9A370EdE475D5d19C84E30625e80BDbCEd
-  - id: 81457 # Blast
-    start_block: 14671859
-    contracts:
-      - name: GrailMarket
-        address: 0x7934D3e1949584426F2666BDbC54915Fa021Cfb8
-  - id: 42220 # Celo
-    rpc_config:
-      url: https://forno.celo.org
-    start_block: 30111414
-    contracts:
-      - name: GrailMarket
-        address: 0x442a6bd228adf9e8c8f9632e1a5479e512066d3c
-  - id: 2818 # Morph
-    start_block: 4146428
-    contracts:
-      - name: GrailMarket
-        address: 0x7934D3e1949584426F2666BDbC54915Fa021Cfb8
-  - id: 534352 # Scroll
-    start_block: 13054624
-    contracts:
-      - name: GrailMarket
-        address: 0x442A6Bd228adF9E8c8F9632e1A5479E512066D3C
-  - id: 167000 # Taiko
-    rpc_config:
-      url: https://taiko-mainnet.gateway.tenderly.co
-    start_block: 804937
-    contracts:
-      - name: GrailMarket
-        address: 0x7934D3e1949584426F2666BDbC54915Fa021Cfb8
+        address: 0x8d8272A689Acb052Bf3F0a273495B4Ef976629A7
+# - id: 534352 # Scroll
+#   start_block: 13054624
+#   contracts:
+#     - name: GrailMarket
+#       address: 0x442A6Bd228adF9E8c8F9632e1A5479E512066D3C
+# - id: 167000 # Taiko
+#   rpc_config:
+#     url: https://taiko-mainnet.gateway.tenderly.co
+#   start_block: 804937
+#   contracts:
+#     - name: GrailMarket
+#       address: 0x7934D3e1949584426F2666BDbC54915Fa021Cfb8
 # Rollback on reorg mode currently incurs a performance hit on historical sync
 # while developing an indexer we recommend setting this to false
 rollback_on_reorg: false
