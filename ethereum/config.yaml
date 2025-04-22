@@ -16,39 +16,39 @@ contracts:
       - event: SetMinStakeAmount(uint256 minStakeAmount)
       - event: NewRound(bytes32 indexed id, uint256 indexed roundId, uint256 lockTime, uint256 closingTime)
       - event: SetRoundPriceMark(bytes32 indexed id, uint256 indexed roundId, int256 priceMark, uint256 closingTime)
-      - event: Resolve(bytes32 indexed id, uint256 indexed roundId, uint256 rewardPool, uint256 totalWinningStake, int256 closingPrice, uint256 winningSide)
+      - event: Resolve(bytes32 indexed id, uint256 indexed roundId, uint256 rewardPool, uint256 totalWinningStake, int256 closingPrice, uint256 winningSide, uint256 resolverReward)
       - event: CancelRound(bytes32 indexed id, uint256 indexed roundId)
       - event: SetMarketDuration(uint32 duration)
       - event: SetResolverFee(uint16 newFee)
       - event: SetProtocolFee(uint16 newFee)
 unordered_multichain_mode: true
 networks:
-# - id: 2741 # Abstract
-#   rpc_config:
-#     url: https://api.mainnet.abs.xyz
-#   start_block: 414268
-#   contracts:
-#     - name: GrailMarket
-#       address: 0xDCdf9C9A370EdE475D5d19C84E30625e80BDbCEd
-# - id: 81457 # Blast
-#   start_block: 14671859
-#   contracts:
-#     - name: GrailMarket
-#       address: 0x7934D3e1949584426F2666BDbC54915Fa021Cfb8
-# - id: 42220 # Celo
-#   rpc_config:
-#     url: https://forno.celo.org
-#   start_block: 30111414
-#   contracts:
-#     - name: GrailMarket
-#       address: 0x442a6bd228adf9e8c8f9632e1a5479e512066d3c
+  # - id: 2741 # Abstract
+  #   rpc_config:
+  #     url: https://api.mainnet.abs.xyz
+  #   start_block: 414268
+  #   contracts:
+  #     - name: GrailMarket
+  #       address: 0xDCdf9C9A370EdE475D5d19C84E30625e80BDbCEd
+  # - id: 81457 # Blast
+  #   start_block: 14671859
+  #   contracts:
+  #     - name: GrailMarket
+  #       address: 0x7934D3e1949584426F2666BDbC54915Fa021Cfb8
+  # - id: 42220 # Celo
+  #   rpc_config:
+  #     url: https://forno.celo.org
+  #   start_block: 30111414
+  #   contracts:
+  #     - name: GrailMarket
+  #       address: 0x442a6bd228adf9e8c8f9632e1a5479e512066d3c
   - id: 2810 # Morph
     rpc_config:
       url: https://rpc-holesky.morphl2.io
     start_block: 17073180
     contracts:
       - name: GrailMarket
-        address: 0x8d8272A689Acb052Bf3F0a273495B4Ef976629A7
+        address: 0xaC9983D6c72da360dF63626fC7A4B56319460915
 # - id: 534352 # Scroll
 #   start_block: 13054624
 #   contracts:
