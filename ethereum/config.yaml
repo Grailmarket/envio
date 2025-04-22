@@ -43,6 +43,8 @@ networks:
 #     - name: GrailMarket
 #       address: 0x442a6bd228adf9e8c8f9632e1a5479e512066d3c
   - id: 2810 # Morph
+    rpc_config:
+      url: https://rpc-holesky.morphl2.io
     start_block: 17073180
     contracts:
       - name: GrailMarket
