@@ -234,7 +234,7 @@ GrailMarket.Resolve.handler(async ({ event, context }) => {
       closingPrice: event.params.closingPrice,
       rewardPool: event.params.rewardPool,
       winningShares: event.params.totalWinningStake,
-      winningSide: event.params.winningSide === BigInt(1)
+      winningSide: event.params.winningSide === BigInt(2)
         ? "BULLISH"
         : "BEARISH",
       status: "RESOLVED",
