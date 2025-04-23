@@ -135,6 +135,13 @@ networks:
     contracts:
       - name: GrailMarket
         address: 0x45C9c647206c86A0Ad5448aE2712Af168DEc3867
+  - id: 10143 # Monad Testnet
+    rpc_config:
+      url: https://testnet-rpc.monad.xyz
+    start_block: 13608793
+    contracts:
+      - name: GrailMarket
+        address: 0x7934D3e1949584426F2666BDbC54915Fa021Cfb8
 # Rollback on reorg mode currently incurs a performance hit on historical sync
 # while developing an indexer we recommend setting this to false
 rollback_on_reorg: false
