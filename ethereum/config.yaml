@@ -23,52 +23,52 @@ contracts:
 unordered_multichain_mode: true
 networks:
   - id: 43114 # Avalanche
-    start_block: 60286303
+    start_block: 60926206
     contracts:
       - name: GrailMarket
-        address: 0x59991336716e607Dfc24853A4df98Acb707Cb94f
+        address: 0x7e36E038B51511A0Bff7FD5b4149eA2d29EE224E
   - id: 42161 # Arbitrum
-    start_block: 326409030 
+    start_block: 331110369 
     contracts:
       - name: GrailMarket
-        address: 0x59991336716e607Dfc24853A4df98Acb707Cb94f
+        address: 0x7e36E038B51511A0Bff7FD5b4149eA2d29EE224E
   - id: 8453 # Base
-    start_block: 28938461
+    start_block: 29404035
     contracts:
       - name: GrailMarket
-        address: 0x59991336716e607Dfc24853A4df98Acb707Cb94f
-  - id: 56 # Bsc
-    start_block: 48383901
+        address: 0x7e36E038B51511A0Bff7FD5b4149eA2d29EE224E
+  - id: 81457 # Blast
+    start_block: 18394495
     contracts:
       - name: GrailMarket
-        address: 0x59991336716e607Dfc24853A4df98Acb707Cb94f
+        address: 0x7e36E038B51511A0Bff7FD5b4149eA2d29EE224E
   - id: 42220 # Celo
     rpc_config:
       url: https://forno.celo.org
-    start_block: 32766200
+    start_block: 33697731
     contracts:
       - name: GrailMarket
-        address: 0x59991336716e607Dfc24853A4df98Acb707Cb94f
-  - id: 2818 # Morph
-    start_block: 9294343
+        address: 0x7e36E038B51511A0Bff7FD5b4149eA2d29EE224E
+  - id: 100 # Gnosis
+    start_block: 39744578
     contracts:
       - name: GrailMarket
-        address: 0x2f39eeb3919c1C8f79519f26d6bb9623f3631c7A
+        address: 0x7e36E038B51511A0Bff7FD5b4149eA2d29EE224E
   - id: 10 # Optimism
-    start_block: 134559595
+    start_block: 135001747
     contracts:
       - name: GrailMarket
-        address: 0x59991336716e607Dfc24853A4df98Acb707Cb94f
+        address: 0x7e36E038B51511A0Bff7FD5b4149eA2d29EE224E
   - id: 137 # Polygon
-    start_block: 70330522
+    start_block: 70744800
     contracts:
       - name: GrailMarket
-        address: 0x59991336716e607Dfc24853A4df98Acb707Cb94f
+        address: 0x7e36E038B51511A0Bff7FD5b4149eA2d29EE224E
   - id: 130 # Unichain
-    start_block: 13973988
+    start_block: 14855444
     contracts:
       - name: GrailMarket
-        address: 0xD90fd4C9c21C7d4f6531EC955931B58438b69aCD
+        address: 0x90C03D28F09EbB9fF561a2cd9b3e2Bb40e008Afd
 # Rollback on reorg mode currently incurs a performance hit on historical sync
 # while developing an indexer we recommend setting this to false
 rollback_on_reorg: false

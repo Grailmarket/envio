@@ -1,18 +1,12 @@
 import { GrailMarket } from "generated";
-// import { getRoundState } from "./getRoundState";
+import { getRoundState } from "./getRoundState";
 
 const MARKET_DURATION = BigInt(600);
+const MANAGER_CHAIN_ID = 43114;
 
 GrailMarket.Bearish.handler(async ({ event, context }) => {
-  let roundId = event.params.id
-    .concat("#")
-    .concat(event.params.roundId.toString())
-    .toLowerCase();
-
-  let positionId = event.chainId
-    .toString()
-    .concat("#")
-    .concat(event.params.positionId.toLowerCase());
+  const roundId = `${event.params.id}#${event.params.roundId.toString()}`.toLowerCase();
+  const positionId = `${event.chainId}#${event.params.positionId}`.toLowerCase();
 
   let round = await context.Round.get(roundId);
   let position = await context.Position.get(positionId);
@@ -32,17 +26,22 @@ GrailMarket.Bearish.handler(async ({ event, context }) => {
       share: event.params.stake,
     });
 
-    context.Round.set({
-      ...round,
-      bearishShares: round.bearishShares + event.params.stake,
-      totalShares: round.totalShares + event.params.stake,
-    });
+    if (event.chainId === MANAGER_CHAIN_ID) {
+      context.Round.set({
+        ...round,
+        bearishShares: round.bearishShares + event.params.stake,
+        totalShares: round.totalShares + event.params.stake,
+      });
+    } else {
+      context.Round.set({
+        ...round,
+        routerBearishShares: round.routerBearishShares + event.params.stake,
+        totalShares: round.totalShares + event.params.stake,
+      });
+    }
 
     // update the leader board
-    const leaderboardId = round.market_id
-      .concat("#")
-      .concat(event.params.account.toLowerCase());
-
+    const leaderboardId = `${round.market_id}#${event.params.account}`.toLowerCase();
     let leaderboard = await context.LeaderBoard.get(leaderboardId);
 
     if (leaderboard === undefined) {
@@ -65,15 +64,8 @@ GrailMarket.Bearish.handler(async ({ event, context }) => {
 });
 
 GrailMarket.Bullish.handler(async ({ event, context }) => {
-  let roundId = event.params.id
-    .concat("#")
-    .concat(event.params.roundId.toString())
-    .toLowerCase();
-
-  let positionId = event.chainId
-    .toString()
-    .concat("#")
-    .concat(event.params.positionId.toLowerCase());
+  const roundId = `${event.params.id}#${event.params.roundId.toString()}`.toLowerCase();
+  const positionId = `${event.chainId}#${event.params.positionId}`.toLowerCase();
 
   let round = await context.Round.get(roundId);
   let position = await context.Position.get(positionId);
@@ -93,17 +85,22 @@ GrailMarket.Bullish.handler(async ({ event, context }) => {
       share: event.params.stake,
     });
 
-    context.Round.set({
-      ...round,
-      bullishShares: round.bullishShares + event.params.stake,
-      totalShares: round.totalShares + event.params.stake,
-    });
+    if (event.chainId === MANAGER_CHAIN_ID) {
+      context.Round.set({
+        ...round,
+        bullishShares: round.bullishShares + event.params.stake,
+        totalShares: round.totalShares + event.params.stake,
+      });
+    } else {
+      context.Round.set({
+        ...round,
+        routerBullishShares: round.routerBullishShares + event.params.stake,
+        totalShares: round.totalShares + event.params.stake,
+      });
+    }
 
     // update the leader board
-    const leaderboardId = round.market_id
-      .concat("#")
-      .concat(event.params.account.toLowerCase());
-
+    const leaderboardId = `${round.market_id}#${event.params.account}`.toLowerCase();
     let leaderboard = await context.LeaderBoard.get(leaderboardId);
 
     if (leaderboard === undefined) {
@@ -126,12 +123,9 @@ GrailMarket.Bullish.handler(async ({ event, context }) => {
 });
 
 GrailMarket.CancelRound.handler(async ({ event, context }) => {
-  let roundId = event.params.id
-    .concat("#")
-    .concat(event.params.roundId.toString())
-    .toLowerCase();
-
+  const roundId = `${event.params.id}#${event.params.roundId.toString()}`.toLowerCase();
   let round = await context.Round.get(roundId);
+
   if (round !== undefined) {
     context.Round.set({
       ...round,
@@ -141,8 +135,7 @@ GrailMarket.CancelRound.handler(async ({ event, context }) => {
 });
 
 GrailMarket.CreateMarket.handler(async ({ event, context }) => {
-  let marketId = event.params.id.toLowerCase();
-
+  const marketId = event.params.id.toLowerCase();
   let market = await context.Market.get(marketId);
 
   if (market === undefined) {
@@ -156,12 +149,8 @@ GrailMarket.CreateMarket.handler(async ({ event, context }) => {
 });
 
 GrailMarket.NewRound.handler(async ({ event, context }) => {
-  let roundId = event.params.id
-    .concat("#")
-    .concat(event.params.roundId.toString())
-    .toLowerCase();
-
-  let marketId = event.params.id.toLowerCase();
+  const roundId = `${event.params.id}#${event.params.roundId.toString()}`.toLowerCase();
+  const marketId = event.params.id.toLowerCase();
 
   let round = await context.Round.get(roundId);
   let market = await context.Market.get(marketId);
@@ -170,11 +159,10 @@ GrailMarket.NewRound.handler(async ({ event, context }) => {
     context.Market.set({ ...market, latestRoundId: event.params.roundId });
   }
 
-  // const { response } = await getRoundState(
-  //   event.params.id,
-  //   event.params.roundId,
-  //   event.block.number
-  // );
+  const { response } = await getRoundState(
+    event.params.id,
+    event.params.roundId
+  );
 
   if (round === undefined) {
     context.Round.set({
@@ -187,13 +175,15 @@ GrailMarket.NewRound.handler(async ({ event, context }) => {
       closingPrice: BigInt(0),
       bearishShares: BigInt(0),
       bullishShares: BigInt(0),
+      routerBearishShares: BigInt(0),
+      routerBullishShares: BigInt(0),
       totalShares: BigInt(0),
       winningShares: BigInt(0),
       rewardPool: BigInt(0),
       createdAt: BigInt(event.block.timestamp),
       status: "OPEN",
       winningSide: "NONE",
-      openRoundState: "",
+      openRoundState: response,
       resolvedRoundState: "",
     });
   }
@@ -227,12 +217,9 @@ GrailMarket.SetMinStakeAmount.handler(async ({ event, context }) => {
 });
 
 GrailMarket.SetRoundPriceMark.handler(async ({ event, context }) => {
-  const roundId = event.params.id
-    .concat("#")
-    .concat(event.params.roundId.toString())
-    .toLowerCase();
-
+  const roundId = `${event.params.id}#${event.params.roundId.toString()}`.toLowerCase();
   let round = await context.Round.get(roundId);
+
   if (round !== undefined) {
     context.Round.set({
       ...round,
@@ -244,10 +231,7 @@ GrailMarket.SetRoundPriceMark.handler(async ({ event, context }) => {
 });
 
 GrailMarket.Settle.handler(async ({ event, context }) => {
-  let positionId = event.chainId
-    .toString()
-    .concat("#")
-    .concat(event.params.positionId.toLowerCase());
+  const positionId = `${event.chainId}#${event.params.positionId}`.toLowerCase();
   let position = await context.Position.get(positionId);
 
   if (position !== undefined) {
@@ -259,10 +243,7 @@ GrailMarket.Settle.handler(async ({ event, context }) => {
     });
 
     // update the leader board
-    const leaderboardId = position.market_id
-      .concat("#")
-      .concat(event.params.account.toLowerCase());
-
+    const leaderboardId = `${position.market_id}#${event.params.account}`.toLowerCase();
     let leaderboard = await context.LeaderBoard.get(leaderboardId);
 
     if (leaderboard !== undefined) {
@@ -283,18 +264,13 @@ GrailMarket.Settle.handler(async ({ event, context }) => {
 });
 
 GrailMarket.Resolve.handler(async ({ event, context }) => {
-  const roundId = event.params.id
-    .concat("#")
-    .concat(event.params.roundId.toString())
-    .toLowerCase();
-
+  const roundId = `${event.params.id}#${event.params.roundId.toString()}`.toLowerCase();
   let round = await context.Round.get(roundId);
 
-  // const { response } = await getRoundState(
-  //   event.params.id,
-  //   event.params.roundId,
-  //   event.block.number
-  // );
+  const { response } = await getRoundState(
+    event.params.id,
+    event.params.roundId
+  );
 
   if (round !== undefined) {
     context.Round.set({
@@ -306,10 +282,10 @@ GrailMarket.Resolve.handler(async ({ event, context }) => {
         event.params.winningSide === BigInt(0)
           ? "NONE"
           : event.params.winningSide === BigInt(2)
-          ? "BULLISH"
-          : "BEARISH",
+            ? "BULLISH"
+            : "BEARISH",
       status: "RESOLVED",
-      resolvedRoundState: "",
+      resolvedRoundState: response,
     });
   }
 });

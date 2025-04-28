@@ -31,10 +31,14 @@ type Round {
   totalShares: BigInt!
   # sum of all winning side shares
   winningShares: BigInt!
-  # sum of all bullish position shares
+  # sum of all bullish position in market manager
   bullishShares: BigInt!
-  # sum of all bearish position shares
+  # sum of all bearish position in market manager
   bearishShares: BigInt!
+  # sum of all bullish position shares in routers
+  routerBullishShares: BigInt!
+  # sum of all bearish position shares in routers
+  routerBearishShares: BigInt!
   # the reward available for distribution
   rewardPool: BigInt!
   # the state of the round

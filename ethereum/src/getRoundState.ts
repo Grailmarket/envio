@@ -54,11 +54,11 @@ const abi = [
 const GRAIL_MARKET_MANAGER_ADDRESS = "0x59991336716e607Dfc24853A4df98Acb707Cb94f";
 const WORMHOLE_QUERY_ENDPOINT = "https://query.wormhole.com/v1/query";
 const WORMHOLE_QUERY_API_KEY = "9907dd24-77b9-494d-8571-6cb14ef3fb90";
+const WORMHOLE_QUERY_MESSAGE_ENDPOINT = "https://europe-west3-wormhole-message-db-mainnet.cloudfunctions.net/get-quorum-height?chainId=6"
 
 export async function getRoundState(
   marketId: string,
-  roundId: bigint,
-  blockNum: number
+  roundId: bigint
 ) {
   const callData: EthCallData = {
     to: GRAIL_MARKET_MANAGER_ADDRESS,
@@ -69,10 +69,18 @@ export async function getRoundState(
     }),
   };
 
+  const getQuorumHeight = async () => {
+    const res = await axios.get<{ finalized: string }>(WORMHOLE_QUERY_MESSAGE_ENDPOINT);
+    return res.data.finalized;
+  }
+
+  const quorumHeight = await getQuorumHeight();
+  const blockHex = `0x${BigInt(quorumHeight).toString(16)}`;
+
   const qrs = new QueryRequest(1, [
     new PerChainQueryRequest(
       6, // wormhole chainId for Avalanche
-      new EthCallQueryRequest(blockNum, [callData])
+      new EthCallQueryRequest(blockHex, [callData])
     ),
   ]);
 
