@@ -35,6 +35,7 @@ GrailMarket.Bearish.handler(async ({ event, context }) => {
     } else {
       context.Round.set({
         ...round,
+        bearishShares: round.bearishShares + event.params.stake,
         routerBearishShares: round.routerBearishShares + event.params.stake,
         totalShares: round.totalShares + event.params.stake,
       });
@@ -94,6 +95,7 @@ GrailMarket.Bullish.handler(async ({ event, context }) => {
     } else {
       context.Round.set({
         ...round,
+        bullishShares: round.bullishShares + event.params.stake,
         routerBullishShares: round.routerBullishShares + event.params.stake,
         totalShares: round.totalShares + event.params.stake,
       });
