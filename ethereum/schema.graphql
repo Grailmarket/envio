@@ -51,6 +51,8 @@ type Round {
   openRoundState: String!
   # the rounds resolved state
   resolvedRoundState: String!
+  # the positions in rounds
+  positions: [Position!]! @derivedFrom(field: "round")
 }
 
 type Position {
