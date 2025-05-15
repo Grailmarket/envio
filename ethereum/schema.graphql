@@ -28,17 +28,13 @@ type Round {
   # the underlying market asset closing price
   closingPrice: BigInt!
   # sum of all position shares in round
-  totalShares: BigInt!
+  combinedPool: BigInt!
   # sum of all winning side shares
   winningShares: BigInt!
   # sum of all bullish position in market manager
-  bullishShares: BigInt!
+  bullPool: BigInt!
   # sum of all bearish position in market manager
-  bearishShares: BigInt!
-  # sum of all bullish position shares in routers
-  routerBullishShares: BigInt!
-  # sum of all bearish position shares in routers
-  routerBearishShares: BigInt!
+  bearPool: BigInt!
   # the reward available for distribution
   rewardPool: BigInt!
   # the state of the round
@@ -67,7 +63,7 @@ type Position {
   # the round this position was opened
   round: Round!
   # the market round position share amount
-  share: BigInt!
+  stake: BigInt!
   # the users position on the market
   option: MarketOption!
   # True, if the user has claimed reward or refund
@@ -127,7 +123,7 @@ type LeaderBoard {
   # the number of rounds positions are opened
   rounds: BigInt!
   # sum of all position stakes in this market
-  shares: BigInt!
+  stake: BigInt!
   # sum of all reward claimed in this market
   reward: BigInt!
 }

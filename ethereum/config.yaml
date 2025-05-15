@@ -14,61 +14,68 @@ contracts:
       - event: Settle(bytes32 indexed id, uint256 indexed roundId, address indexed account, bytes32 positionId, uint256 reward, bool isRefund)
       - event: CreateMarket(bytes32 indexed id, address creator)
       - event: SetMinStakeAmount(uint256 minStakeAmount)
-      - event: NewRound(bytes32 indexed id, uint256 indexed roundId, uint256 openingTime, uint256 closingTime)
+      - event: NewRound(bytes32 indexed id, uint256 indexed roundId, uint256 openingTime, uint256 closingTime, uint64 sequenceId)
       - event: SetRoundPriceMark(bytes32 indexed id, uint256 indexed roundId, int256 priceMark, uint256 closingTime)
-      - event: Resolve(bytes32 indexed id, uint256 indexed roundId, uint256 rewardPool, uint256 totalWinningStake, int256 closingPrice, uint256 winningSide)
+      - event: Resolve(bytes32 indexed id, uint256 indexed roundId, uint256 rewardPool, uint256 totalWinningStake, int256 closingPrice, uint256 winningSide, uint64 sequenceId)
       - event: CancelRound(bytes32 indexed id, uint256 indexed roundId)
       - event: SetMarketDuration(uint32 duration)
       - event: SetProtocolFee(uint16 newFee)
 unordered_multichain_mode: true
 networks:
   - id: 43114 # Avalanche
-    start_block: 60926206
+    start_block: 62019127
     contracts:
       - name: GrailMarket
-        address: 0x7e36E038B51511A0Bff7FD5b4149eA2d29EE224E
+        address: 0xDD1b2F2D4D04eeb992225F54ca174FD2B0E46a5D
   - id: 42161 # Arbitrum
-    start_block: 331110369 
+    start_block: 336609818
     contracts:
       - name: GrailMarket
-        address: 0x7e36E038B51511A0Bff7FD5b4149eA2d29EE224E
+        address: 0xDD1b2F2D4D04eeb992225F54ca174FD2B0E46a5D
   - id: 8453 # Base
-    start_block: 29404035
+    start_block: 30220509
     contracts:
       - name: GrailMarket
-        address: 0x7e36E038B51511A0Bff7FD5b4149eA2d29EE224E
+        address: 0xDD1b2F2D4D04eeb992225F54ca174FD2B0E46a5D
   - id: 81457 # Blast
-    start_block: 18394495
+    start_block: 19210382
     contracts:
       - name: GrailMarket
-        address: 0x7e36E038B51511A0Bff7FD5b4149eA2d29EE224E
+        address: 0xDD1b2F2D4D04eeb992225F54ca174FD2B0E46a5D
   - id: 42220 # Celo
     rpc_config:
       url: https://forno.celo.org
-    start_block: 33697731
+    start_block: 35329933
     contracts:
       - name: GrailMarket
-        address: 0x7e36E038B51511A0Bff7FD5b4149eA2d29EE224E
+        address: 0xDD1b2F2D4D04eeb992225F54ca174FD2B0E46a5D
   - id: 100 # Gnosis
-    start_block: 39744578
+    start_block: 40058948
     contracts:
       - name: GrailMarket
-        address: 0x7e36E038B51511A0Bff7FD5b4149eA2d29EE224E
+        address: 0xDD1b2F2D4D04eeb992225F54ca174FD2B0E46a5D
+  - id: 2818 # Morph
+    rpc_config:
+      url: https://rpc.morphl2.io
+    start_block: 10237474
+    contracts:
+      - name: GrailMarket
+        address: 0x875b7Cf273910A2783d19ABd3fb4F99543d1Db6a
   - id: 10 # Optimism
-    start_block: 135001747
+    start_block: 135816825
     contracts:
       - name: GrailMarket
-        address: 0x7e36E038B51511A0Bff7FD5b4149eA2d29EE224E
+        address: 0xDD1b2F2D4D04eeb992225F54ca174FD2B0E46a5D
   - id: 137 # Polygon
-    start_block: 70744800
+    start_block: 71509293
     contracts:
       - name: GrailMarket
-        address: 0x7e36E038B51511A0Bff7FD5b4149eA2d29EE224E
+        address: 0xDD1b2F2D4D04eeb992225F54ca174FD2B0E46a5D
   - id: 130 # Unichain
-    start_block: 14855444
+    start_block: 16507484
     contracts:
       - name: GrailMarket
-        address: 0x90C03D28F09EbB9fF561a2cd9b3e2Bb40e008Afd
+        address: 0x28f539A99224F2Ad76F9E695F95f06B3c8022390
 # Rollback on reorg mode currently incurs a performance hit on historical sync
 # while developing an indexer we recommend setting this to false
 rollback_on_reorg: false
