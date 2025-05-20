@@ -31,15 +31,15 @@ networks:
   #     - name: GrailMarket
   #       address: 0xDCdf9C9A370EdE475D5d19C84E30625e80BDbCEd
   - id: 42161 # Arbitrum
-    start_block: 338720973
+    start_block: 338761118
     contracts:
       - name: GrailMarket
-        address: 0x2F46973bF4F16fBB075Bf37846AEcf3724C7d8C6
+        address: 0x9C13F708FcDB955eD53497B6D107994EF6A02aed
   - id: 43114 # Avalanche
-    start_block: 62398422
+    start_block: 62406145
     contracts:
       - name: GrailMarket
-        address: 0x0496d0A03FA9c5b9Be65DB3303F084e30a3F0D88
+        address: 0xd83ED35c12394030D90b9FA9F3769C99B64c274e
   # - id: 8453 # Base
   #   start_block: 29311407
   #   contracts:
@@ -48,29 +48,29 @@ networks:
   - id: 80094 # Berachain
     rpc_config:
       url: https://berachain-rpc.publicnode.com
-    start_block: 5263209
+    start_block: 5278771
     contracts:
       - name: GrailMarket
-        address: 0x6a889a715c59a2c719a1920bd9c56aa68190afc2
+        address: 0x3D9e829E9c4018B05b1fe595f771c4D7346A989B
   - id: 81457 # Blast
     rpc_config:
       url: https://blast-rpc.publicnode.com
-    start_block: 19474471
+    start_block: 19480648
     contracts:
       - name: GrailMarket
-        address: 0x66c4e441B38877110B07BD16788E2f20F9dfFD9D
+        address: 0x1AeA0284F33846f7eF48f6962E45F175B28F4F92
   - id: 56 # BSC
-    start_block: 50010309
+    start_block: 50018521
     contracts:
       - name: GrailMarket
-        address: 0x66a26Ecb5F71A98F820504fd10deeC4aB9D52163
+        address: 0x2b395241182f76a7C69f27D930e18599b12099Ea
   - id: 42220 # Celo
     rpc_config:
       url: https://forno.celo.org
-    start_block: 35858339
+    start_block: 35870498
     contracts:
       - name: GrailMarket
-        address: 0xb9b367969De3b871686f07aD75f60Ae36D812121
+        address: 0xc72f677dD5dA318F371bF2dEDe335d75bF6E2513
   # - id: 1116 # CoreDao
   #   rpc_config:
   #     url: https://rpc.coredao.org
@@ -88,39 +88,39 @@ networks:
   - id: 2818 # Morph
     rpc_config:
       url: https://rpc.morphl2.io
-    start_block: 10420041
-    contracts:
-      - name: GrailMarket
-        address: 0x89b710b7CD5f5a35913278b6A280338b8209f466
-  - id: 10 # Optimism
-    start_block: 136080326
-    contracts:
-      - name: GrailMarket
-        address: 0x89b710b7CD5f5a35913278b6A280338b8209f466
-  - id: 137 # Polygon
-    start_block: 71755790
-    contracts:
-      - name: GrailMarket
-        address: 0x9C13F708FcDB955eD53497B6D107994EF6A02aed
-  - id: 534352 # Scroll
-    start_block: 15688401
-    contracts:
-      - name: GrailMarket
-        address: 0x2F46973bF4F16fBB075Bf37846AEcf3724C7d8C6
-  - id: 1329 # SEI
-    rpc_config:
-      url: https://sei.drpc.org
-    start_block: 148250509
-    contracts:
-      - name: GrailMarket
-        address: 0x50096e53E0C6e0d124863Dc7f7997fD55B784f62
-  - id: 146 # Sonic
-    rpc_config:
-      url: https://sonic-rpc.publicnode.com
-    start_block: 28285962
+    start_block: 10422622
     contracts:
       - name: GrailMarket
         address: 0xAc4F7F2E3f2EB476Ca65F3036230a0A44b457c3d
+  - id: 10 # Optimism
+    start_block: 136086315
+    contracts:
+      - name: GrailMarket
+        address: 0xAc4F7F2E3f2EB476Ca65F3036230a0A44b457c3d
+  - id: 137 # Polygon
+    start_block: 71761331
+    contracts:
+      - name: GrailMarket
+        address: 0xb9b367969De3b871686f07aD75f60Ae36D812121
+  - id: 534352 # Scroll
+    start_block: 15693727
+    contracts:
+      - name: GrailMarket
+        address: 0x9C13F708FcDB955eD53497B6D107994EF6A02aed
+  - id: 1329 # SEI
+    rpc_config:
+      url: https://sei.drpc.org
+    start_block: 148272186
+    contracts:
+      - name: GrailMarket
+        address: 0x66c4e441B38877110B07BD16788E2f20F9dfFD9D
+  - id: 146 # Sonic
+    rpc_config:
+      url: https://sonic-rpc.publicnode.com
+    start_block: 28320438
+    contracts:
+      - name: GrailMarket
+        address: 0x50096e53E0C6e0d124863Dc7f7997fD55B784f62
   # - id: 1868 # Soneium
   #   rpc_config:
   #     url: https://rpc.soneium.org
@@ -131,17 +131,17 @@ networks:
   - id: 167000 # Taiko
     rpc_config:
       url: https://taiko-rpc.publicnode.com
-    start_block: 1164272
+    start_block: 1164440
     contracts:
       - name: GrailMarket
-        address: 0x50096e53E0C6e0d124863Dc7f7997fD55B784f62
+        address: 0x66c4e441B38877110B07BD16788E2f20F9dfFD9D
   - id: 10143 # Monad Testnet
     rpc_config:
       url: https://testnet-rpc.monad.xyz
-    start_block: 13608793
+    start_block: 17768926
     contracts:
       - name: GrailMarket
-        address: 0x7934D3e1949584426F2666BDbC54915Fa021Cfb8
+        address: 0xdB823E2858Df1Ce876c8A200DEE9bef30f6C29Ea
 # Rollback on reorg mode currently incurs a performance hit on historical sync
 # while developing an indexer we recommend setting this to false
 rollback_on_reorg: false
