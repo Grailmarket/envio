@@ -23,21 +23,29 @@ contracts:
 unordered_multichain_mode: true
 networks:
   - id: 43114 # Avalanche
+    rpc_config:
+      url: https://avalanche-c-chain-rpc.publicnode.com
     start_block: 63949727
     contracts:
       - name: GrailMarket
         address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
   - id: 42161 # Arbitrum
+    rpc_config:
+      url: https://arbitrum-one-rpc.publicnode.com
     start_block: 347938530
     contracts:
       - name: GrailMarket
         address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
   - id: 8453 # Base
+    rpc_config:
+      url: https://base-rpc.publicnode.com
     start_block: 31642231
     contracts:
       - name: GrailMarket
         address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
   - id: 81457 # Blast
+    rpc_config:
+      url: https://blast-rpc.publicnode.com
     start_block: 20632021
     contracts:
       - name: GrailMarket
@@ -50,11 +58,15 @@ networks:
       - name: GrailMarket
         address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
   - id: 1313161554 # Aurora
+    rpc_config:
+      url: https://mainnet.aurora.dev
     start_block: 151351150
     contracts:
       - name: GrailMarket
         address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
   - id: 80094 # Berachain
+    rpc_config:
+      url: https://berachain-rpc.publicnode.com
     start_block: 6461833
     contracts:
       - name: GrailMarket
@@ -81,6 +93,8 @@ networks:
       - name: GrailMarket
         address: 0x2d1B9c87216d1a6138f76E73F1d32cca8FeADb97
   - id: 100 # Gnosis
+    rpc_config:
+      url: https://gnosis-rpc.publicnode.com
     start_block: 40613449
     contracts:
       - name: GrailMarket
@@ -100,16 +114,22 @@ networks:
       - name: GrailMarket
         address: 0x03dc4f4eD715c7b75A4e7dD1Bc6C7A41d4123e18
   - id: 10 # Optimism
+    rpc_config:
+      url: https://optimism-rpc.publicnode.com
     start_block: 137238979
     contracts:
       - name: GrailMarket
         address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
   - id: 137 # Polygon
+    rpc_config:
+      url: https://polygon-bor-rpc.publicnode.com
     start_block: 72838832
     contracts:
       - name: GrailMarket
         address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
   - id: 130 # Unichain
+    rpc_config:
+      url: https://unichain-rpc.publicnode.com
     start_block: 19328490
     contracts:
       - name: GrailMarket
