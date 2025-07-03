@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@wormhole-foundation/wormhole-query-sdk": "^0.0.14",
-    "envio": "2.22.2"
+    "envio": "2.24.0"
   },
   "optionalDependencies": {
     "generated": "link:generated"

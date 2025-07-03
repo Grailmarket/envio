@@ -23,211 +23,383 @@ contracts:
 unordered_multichain_mode: true
 networks:
   - id: 43114 # Avalanche
-    rpc_config:
-      url: https://avalanche-c-chain-rpc.publicnode.com
+    rpc:
+      - url: https://avalanche-c-chain-rpc.publicnode.com
+        for: sync
+      - url: https://avax-pokt.nodies.app/ext/bc/C/rpc
+        for: fallback
+      - url: https://endpoints.omniatech.io/v1/avax/mainnet/public
+        for: fallback
     start_block: 63949727
     contracts:
       - name: GrailMarket
         address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
   - id: 42161 # Arbitrum
-    rpc_config:
-      url: https://arbitrum-one-rpc.publicnode.com
+    rpc:
+      - url: https://arbitrum-one-rpc.publicnode.com
+        for: sync
+      - url: https://arb-pokt.nodies.app
+        for: fallback
     start_block: 347938530
     contracts:
       - name: GrailMarket
         address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
   - id: 8453 # Base
-    rpc_config:
-      url: https://base-rpc.publicnode.com
+    rpc:
+      - url: https://base-rpc.publicnode.com
+        for: sync
+      - url: https://base.meowrpc.com
+        for: fallback
+      - url: https://endpoints.omniatech.io/v1/base/mainnet/public
+        for: fallback
     start_block: 31642231
     contracts:
       - name: GrailMarket
         address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
   - id: 81457 # Blast
-    rpc_config:
-      url: https://blast-rpc.publicnode.com
+    rpc:
+      - url: https://blast-rpc.publicnode.com
+        for: sync
+      - url: https://blast.drpc.org
+        for: fallback
+      - url: https://endpoints.omniatech.io/v1/blast/mainnet/public
+        for: fallback
     start_block: 20632021
     contracts:
       - name: GrailMarket
         address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
   - id: 56 # BNB
-    rpc_config:
-      url: https://bsc-dataseed2.bnbchain.org
+    rpc:
+      - url: https://bsc-dataseed2.bnbchain.org
+        for: sync
+      - url: https://bsc-rpc.publicnode.com
+        for: fallback
+      - url: https://bsc.meowrpc.com
+        for: fallback
+      - url: https://bsc-pokt.nodies.app
+        for: fallback
     start_block: 51557147
     contracts:
       - name: GrailMarket
         address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
   - id: 1313161554 # Aurora
-    rpc_config:
-      url: https://mainnet.aurora.dev
+    rpc:
+      - url: https://mainnet.aurora.dev
+        for: sync
+      - url: https://1rpc.io/aurora
+        for: fallback
+      - url: https://endpoints.omniatech.io/v1/aurora/mainnet/public
+        for: fallback
     start_block: 151351150
     contracts:
       - name: GrailMarket
         address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
   - id: 80094 # Berachain
-    rpc_config:
-      url: https://berachain-rpc.publicnode.com
+    rpc:
+      - url: https://berachain-rpc.publicnode.com
+        for: sync
+      - url: https://rpc.berachain-apis.com
+        for: fallback
+      - url: https://rpc.berachain.com
+        for: fallback
+      - url: https://berachain.drpc.org
+        for: fallback
     start_block: 6461833
     contracts:
       - name: GrailMarket
         address: 0x52eA8a14448302a6941327c719A593396df73BeC
   - id: 42220 # Celo
-    rpc_config:
-      url: https://forno.celo.org
+    rpc:
+      - url: https://celo-rpc.publicnode.com
+        for: sync
+      - url: https://celo.drpc.org
+        for: fallback
+      - url: https://rpc.ankr.com/celo
+        for: fallback
+      - url: https://forno.celo.org
+        for: fallback
     start_block: 38173182
     contracts:
       - name: GrailMarket
         address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
   - id: 1116 # Core
-    rpc_config:
-      url: https://rpc.coredao.org
+    rpc:
+      - url: https://rpc.coredao.org
+        for: sync
+      - url: https://1rpc.io/core
+        for: fallback
+      - url: https://rpc-core.icecreamswap.com
+        for: fallback
     start_block: 25590213
     contracts:
       - name: GrailMarket
         address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
   - id: 25 # Cronos
-    rpc_config:
-      url: https://evm.cronos.org
+    rpc:
+      - url: https://evm.cronos.org
+        for: sync
+      - url: https://cronos-evm-rpc.publicnode.com
+        for: fallback
+      - url: https://endpoints.omniatech.io/v1/cronos/mainnet/public
+        for: fallback
+      - url: https://1rpc.io/cro
+        for: fallback
     start_block: 20002726
     contracts:
       - name: GrailMarket
         address: 0x2d1B9c87216d1a6138f76E73F1d32cca8FeADb97
   - id: 100 # Gnosis
-    rpc_config:
-      url: https://gnosis-rpc.publicnode.com
+    rpc:
+      - url: https://gnosis-rpc.publicnode.com
+        for: sync
+      - url: https://gnosis.drpc.org
+        for: fallback
+      - url: https://gnosis-pokt.nodies.app
+        for: fallback
+      - url: https://endpoints.omniatech.io/v1/gnosis/mainnet/public
+        for: fallback
     start_block: 40613449
     contracts:
       - name: GrailMarket
         address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
   - id: 2818 # Morph
-    rpc_config:
-      url: https://rpc.morphl2.io
+    rpc:
+      - url: https://rpc.morphl2.io
+        for: sync
+      - url: https://rpc-quicknode.morphl2.io
+        for: fallback
     start_block: 11003993
     contracts:
       - name: GrailMarket
         address: 0x4640294869A15C589faA1e81C65E3155E03ff009
   - id: 57073 # Ink
-    rpc_config:
-      url: https://rpc-qnd.inkonchain.com
+    rpc:
+      - url: https://ink.drpc.org
+        for: sync
+      - url: https://rpc-qnd.inkonchain.com
+        for: fallback
+      - url: https://rpc-gel.inkonchain.com
+        for: fallback
     start_block: 16577699
     contracts:
       - name: GrailMarket
         address: 0x03dc4f4eD715c7b75A4e7dD1Bc6C7A41d4123e18
   - id: 10 # Optimism
-    rpc_config:
-      url: https://optimism-rpc.publicnode.com
+    rpc:
+      - url: https://optimism-rpc.publicnode.com
+        for: sync
+      - url: https://optimism.drpc.org
+        for: fallback
+      - url: https://endpoints.omniatech.io/v1/op/mainnet/public
+        for: fallback
+      - url: https://1rpc.io/op
+        for: fallback
+      - url: https://op-pokt.nodies.app
+        for: fallback
     start_block: 137238979
     contracts:
       - name: GrailMarket
         address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
   - id: 137 # Polygon
-    rpc_config:
-      url: https://polygon-bor-rpc.publicnode.com
+    rpc:
+      - url: https://polygon-bor-rpc.publicnode.com
+        for: sync
+      - url: https://polygon-pokt.nodies.app
+        for: fallback
+      - url: https://endpoints.omniatech.io/v1/matic/mainnet/public
+        for: fallback
+      - url: https://polygon.drpc.org
+        for: fallback
     start_block: 72838832
     contracts:
       - name: GrailMarket
         address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
   - id: 130 # Unichain
-    rpc_config:
-      url: https://unichain-rpc.publicnode.com
+    rpc:
+      - url: https://unichain-rpc.publicnode.com
+        for: sync
+      - url: https://unichain.drpc.org
+        for: fallback
+      - url: https://rpc.therpc.io/unichain
+        for: fallback
+      - url: https://unichain.api.onfinality.io/public
+        for: fallback
     start_block: 19328490
     contracts:
       - name: GrailMarket
         address: 0xB08269B1984a981Ff111e4ab9cdf6BdeD2e16030
   - id: 1284 # Moonbeam
-    rpc_config:
-      url: https://rpc.api.moonbeam.network
+    rpc:
+      - url: https://moonbeam-rpc.publicnode.com
+        for: sync
+      - url: https://moonbeam.drpc.org
+        for: fallback
+      - url: https://rpc.api.moonbeam.network
+        for: fallback
+      - url: https://1rpc.io/glmr
+        for: fallback
     start_block: 11327992
     contracts:
       - name: GrailMarket
         address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
   - id: 59144 # Linea
-    rpc_config:
-      url: https://rpc.linea.build
+    rpc:
+      - url: https://linea.drpc.org
+        for: sync
+      - url: https://linea-rpc.publicnode.com
+        for: fallback
+      - url: https://1rpc.io/linea
+        for: fallback
+      - url: https://rpc.linea.build
+        for: fallback
     start_block: 20063679
     contracts:
       - name: GrailMarket
         address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
   - id: 169 # Manta
-    rpc_config:
-      url: https://manta-pacific.drpc.org
+    rpc:
+      - url: https://manta-pacific.drpc.org
+        for: sync
+      - url: https://manta-atlantic-rpc.publicnode.com
+        for: fallback
+      - url: https://1rpc.io/manta
+        for: fallback
+      - url: https://endpoints.omniatech.io/v1/manta-pacific/mainnet/public
+        for: fallback
     start_block: 5585352
     contracts:
       - name: GrailMarket
         address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
   - id: 5000 # Mantle
-    rpc_config:
-      url: https://rpc.mantle.xyz
+    rpc:
+      - url: https://mantle-rpc.publicnode.com
+        for: sync
+      - url: https://mantle.drpc.org
+        for: fallback
+      - url: https://1rpc.io/mantle
+        for: fallback
+      - url: https://rpc.mantle.xyz
+        for: fallback
     start_block: 80973675
     contracts:
       - name: GrailMarket
         address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
   - id: 34443 # Mode
-    rpc_config:
-      url: https://mainnet.mode.network
+    rpc:
+      - url: https://1rpc.io/mode
+        for: sync
+      - url: https://mode.drpc.org
+        for: fallback
+      - url: https://mainnet.mode.network
+        for: fallback
     start_block: 24955113
     contracts:
       - name: GrailMarket
         address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
   - id: 204 # OpBNB
-    rpc_config:
-      url: https://opbnb-rpc.publicnode.com
+    rpc:
+      - url: https://opbnb-rpc.publicnode.com
+        for: sync
+      - url: https://1rpc.io/opbnb
+        for: fallback
+      - url: https://opbnb.drpc.org
+        for: fallback
     start_block: 63198076
     contracts:
       - name: GrailMarket
         address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
   - id: 534352 # Scroll
-    rpc_config:
-      url: https://rpc.scroll.io
+    rpc:
+      - url: https://scroll.drpc.org
+        for: sync
+      - url: https://scroll-rpc.publicnode.com
+        for: fallback
+      - url: https://1rpc.io/scroll
+        for: fallback
     start_block: 16511716
     contracts:
       - name: GrailMarket
         address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
   - id: 146 # Sonic
-    rpc_config:
-      url: https://rpc.soniclabs.com
+    rpc:
+      - url: https://sonic.drpc.org
+        for: sync
+      - url: https://sonic-rpc.publicnode.com
+        for: fallback
+      - url: https://rpc.soniclabs.com
+        for: fallback
     start_block: 34318693
     contracts:
       - name: GrailMarket
         address: 0xB08269B1984a981Ff111e4ab9cdf6BdeD2e16030
   - id: 1868 # Sonieum
-    rpc_config:
-      url: https://rpc.soneium.org
+    rpc:
+      - url: https://rpc.soneium.org
+        for: sync
+      - url: https://soneium.drpc.org
+        for: fallback
     start_block: 8472016
     contracts:
       - name: GrailMarket
         address: 0x03dc4f4eD715c7b75A4e7dD1Bc6C7A41d4123e18
   - id: 167000 # Taiko
-    rpc_config:
-      url: https://taiko-rpc.publicnode.com
+    rpc:
+      - url: https://taiko-rpc.publicnode.com
+        for: sync
+      - url: https://taiko.drpc.org
+        for: fallback
+      - url: https://rpc.mainnet.taiko.xyz
+        for: fallback
+      - url: https://rpc.ankr.com/taiko
+        for: fallback
     start_block: 1209756
     contracts:
       - name: GrailMarket
         address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
   - id: 1329 # Sei
-    rpc_config:
-      url: https://sei.drpc.org
+    rpc:
+      - url: https://sei.drpc.org
+        for: sync
+      - url: https://sei-evm-rpc.publicnode.com
+        for: fallback
+      - url: https://evm-rpc.sei-apis.com
+        for: fallback
     start_block: 152539705
     contracts:
       - name: GrailMarket
         address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
   - id: 4200 # Merlin
-    rpc_config:
-      url: https://rpc.merlinchain.io
+    rpc:
+      - url: https://merlin.drpc.org
+        for: sync
+      - url: https://endpoints.omniatech.io/v1/merlin/mainnet/public
+        for: fallback
+      - url: https://rpc.merlinchain.io
+        for: fallback
     start_block: 22344672
     contracts:
       - name: GrailMarket
         address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
   - id: 480 # Worldchain
-    rpc_config:
-      url: https://worldchain-mainnet.g.alchemy.com/public
+    rpc:
+      - url: https://worldchain.drpc.org
+        for: sync
+      - url: https://sparkling-autumn-dinghy.worldchain-mainnet.quiknode.pro
+        for: fallback
+      - url: https://worldchain-mainnet.g.alchemy.com/public
+        for: fallback
     start_block: 15373532
     contracts:
       - name: GrailMarket
         address: 0x4640294869A15C589faA1e81C65E3155E03ff009
   - id: 196 # XLayer
-    rpc_config:
-      url: https://rpc.xlayer.tech
+    rpc:
+      - url: https://rpc.xlayer.tech
+        for: sync
+      - url: https://xlayer.drpc.org
+        for: fallback
+      - url: https://endpoints.omniatech.io/v1/xlayer/mainnet/public
+        for: fallback
     start_block: 18297607
     contracts:
       - name: GrailMarket
