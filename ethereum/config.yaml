@@ -30,20 +30,20 @@ networks:
         for: fallback
       - url: https://endpoints.omniatech.io/v1/avax/mainnet/public
         for: fallback
-    start_block: 63949727
+    start_block: 64989093
     contracts:
       - name: GrailMarket
-        address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
+        address: 0x49be7D3Df665f864Ee3348d79EAF6d9230379625
   - id: 42161 # Arbitrum
     rpc:
       - url: https://arbitrum-one-rpc.publicnode.com
         for: sync
       - url: https://arb-pokt.nodies.app
         for: fallback
-    start_block: 347938530
+    start_block: 354540190
     contracts:
       - name: GrailMarket
-        address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
+        address: 0x49be7D3Df665f864Ee3348d79EAF6d9230379625
   - id: 8453 # Base
     rpc:
       - url: https://base-rpc.publicnode.com
@@ -52,10 +52,10 @@ networks:
         for: fallback
       - url: https://endpoints.omniatech.io/v1/base/mainnet/public
         for: fallback
-    start_block: 31642231
+    start_block: 32469342
     contracts:
       - name: GrailMarket
-        address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
+        address: 0x49be7D3Df665f864Ee3348d79EAF6d9230379625
   - id: 81457 # Blast
     rpc:
       - url: https://blast-rpc.publicnode.com
@@ -64,10 +64,10 @@ networks:
         for: fallback
       - url: https://endpoints.omniatech.io/v1/blast/mainnet/public
         for: fallback
-    start_block: 20632021
+    start_block: 21459187
     contracts:
       - name: GrailMarket
-        address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
+        address: 0x49be7D3Df665f864Ee3348d79EAF6d9230379625
   - id: 56 # BNB
     rpc:
       - url: https://bsc-dataseed2.bnbchain.org
@@ -78,10 +78,10 @@ networks:
         for: fallback
       - url: https://bsc-pokt.nodies.app
         for: fallback
-    start_block: 51557147
+    start_block: 52973914
     contracts:
       - name: GrailMarket
-        address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
+        address: 0x49be7D3Df665f864Ee3348d79EAF6d9230379625
   - id: 1313161554 # Aurora
     rpc:
       - url: https://mainnet.aurora.dev
@@ -90,10 +90,10 @@ networks:
         for: fallback
       - url: https://endpoints.omniatech.io/v1/aurora/mainnet/public
         for: fallback
-    start_block: 151351150
+    start_block: 154111109
     contracts:
       - name: GrailMarket
-        address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
+        address: 0x49be7D3Df665f864Ee3348d79EAF6d9230379625
   - id: 80094 # Berachain
     rpc:
       - url: https://berachain-rpc.publicnode.com
@@ -104,10 +104,10 @@ networks:
         for: fallback
       - url: https://berachain.drpc.org
         for: fallback
-    start_block: 6461833
+    start_block: 7318431
     contracts:
       - name: GrailMarket
-        address: 0x52eA8a14448302a6941327c719A593396df73BeC
+        address: 0xAc55CA9B1F55D447DaD511b6BdE190BaBf8329ce
   - id: 42220 # Celo
     rpc:
       - url: https://celo-rpc.publicnode.com
@@ -118,10 +118,10 @@ networks:
         for: fallback
       - url: https://forno.celo.org
         for: fallback
-    start_block: 38173182
+    start_block: 39827541
     contracts:
       - name: GrailMarket
-        address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
+        address: 0x49be7D3Df665f864Ee3348d79EAF6d9230379625
   - id: 1116 # Core
     rpc:
       - url: https://rpc.coredao.org
@@ -130,10 +130,10 @@ networks:
         for: fallback
       - url: https://rpc-core.icecreamswap.com
         for: fallback
-    start_block: 25590213
+    start_block: 26146979
     contracts:
       - name: GrailMarket
-        address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
+        address: 0x49be7D3Df665f864Ee3348d79EAF6d9230379625
   - id: 25 # Cronos
     rpc:
       - url: https://evm.cronos.org
@@ -144,10 +144,10 @@ networks:
         for: fallback
       - url: https://1rpc.io/cro
         for: fallback
-    start_block: 20002726
+    start_block: 20674648
     contracts:
       - name: GrailMarket
-        address: 0x2d1B9c87216d1a6138f76E73F1d32cca8FeADb97
+        address: 0x2DEcf56904348c815Ba237687Df4a23ff2ACd921
   - id: 100 # Gnosis
     rpc:
       - url: https://gnosis-rpc.publicnode.com
@@ -158,20 +158,20 @@ networks:
         for: fallback
       - url: https://endpoints.omniatech.io/v1/gnosis/mainnet/public
         for: fallback
-    start_block: 40613449
+    start_block: 40938972
     contracts:
       - name: GrailMarket
-        address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
+        address: 0x49be7D3Df665f864Ee3348d79EAF6d9230379625
   - id: 2818 # Morph
     rpc:
       - url: https://rpc.morphl2.io
         for: sync
       - url: https://rpc-quicknode.morphl2.io
         for: fallback
-    start_block: 11003993
+    start_block: 11810275
     contracts:
       - name: GrailMarket
-        address: 0x4640294869A15C589faA1e81C65E3155E03ff009
+        address: 0x93fD9459B178fc96fF80cf4e7235D6BB83004bAd
   - id: 57073 # Ink
     rpc:
       - url: https://ink.drpc.org
@@ -183,7 +183,7 @@ networks:
     start_block: 16577699
     contracts:
       - name: GrailMarket
-        address: 0x03dc4f4eD715c7b75A4e7dD1Bc6C7A41d4123e18
+        address: 0xdc5BcC1c78eC000Ab94666aF9Cbd826a737e6e58
   - id: 10 # Optimism
     rpc:
       - url: https://optimism-rpc.publicnode.com
@@ -196,10 +196,10 @@ networks:
         for: fallback
       - url: https://op-pokt.nodies.app
         for: fallback
-    start_block: 137238979
+    start_block: 138065515
     contracts:
       - name: GrailMarket
-        address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
+        address: 0x49be7D3Df665f864Ee3348d79EAF6d9230379625
   - id: 137 # Polygon
     rpc:
       - url: https://polygon-bor-rpc.publicnode.com
@@ -210,10 +210,24 @@ networks:
         for: fallback
       - url: https://polygon.drpc.org
         for: fallback
-    start_block: 72838832
+    start_block: 73613130
     contracts:
       - name: GrailMarket
-        address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
+        address: 0x49be7D3Df665f864Ee3348d79EAF6d9230379625
+  - id: 1101 # PolygonZkEVM
+    rpc:
+      - url: https://polygon-zkevm.drpc.org
+        for: sync
+      - url: https://endpoints.omniatech.io/v1/polygon-zkevm/mainnet/public
+        for: fallback
+      - url: https://1rpc.io/polygon/zkevm
+        for: fallback
+      - url: https://zkevm-rpc.com
+        for: fallback
+    start_block: 73613130
+    contracts:
+      - name: GrailMarket
+        address: 0x49be7D3Df665f864Ee3348d79EAF6d9230379625
   - id: 130 # Unichain
     rpc:
       - url: https://unichain-rpc.publicnode.com
@@ -224,10 +238,10 @@ networks:
         for: fallback
       - url: https://unichain.api.onfinality.io/public
         for: fallback
-    start_block: 19328490
+    start_block: 20981781
     contracts:
       - name: GrailMarket
-        address: 0xB08269B1984a981Ff111e4ab9cdf6BdeD2e16030
+        address: 0x85ad1bEC9f7BAA5A79b4c383b72002c22629b788
   - id: 1284 # Moonbeam
     rpc:
       - url: https://moonbeam-rpc.publicnode.com
@@ -238,10 +252,10 @@ networks:
         for: fallback
       - url: https://1rpc.io/glmr
         for: fallback
-    start_block: 11327992
+    start_block: 11597826
     contracts:
       - name: GrailMarket
-        address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
+        address: 0x49be7D3Df665f864Ee3348d79EAF6d9230379625
   - id: 59144 # Linea
     rpc:
       - url: https://linea.drpc.org
@@ -252,10 +266,10 @@ networks:
         for: fallback
       - url: https://rpc.linea.build
         for: fallback
-    start_block: 20063679
+    start_block: 20609246
     contracts:
       - name: GrailMarket
-        address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
+        address: 0x49be7D3Df665f864Ee3348d79EAF6d9230379625
   - id: 169 # Manta
     rpc:
       - url: https://manta-pacific.drpc.org
@@ -266,10 +280,10 @@ networks:
         for: fallback
       - url: https://endpoints.omniatech.io/v1/manta-pacific/mainnet/public
         for: fallback
-    start_block: 5585352
+    start_block: 5752517
     contracts:
       - name: GrailMarket
-        address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
+        address: 0x49be7D3Df665f864Ee3348d79EAF6d9230379625
   - id: 5000 # Mantle
     rpc:
       - url: https://mantle-rpc.publicnode.com
@@ -280,10 +294,10 @@ networks:
         for: fallback
       - url: https://rpc.mantle.xyz
         for: fallback
-    start_block: 80973675
+    start_block: 81799662
     contracts:
       - name: GrailMarket
-        address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
+        address: 0x49be7D3Df665f864Ee3348d79EAF6d9230379625
   - id: 34443 # Mode
     rpc:
       - url: https://1rpc.io/mode
@@ -292,10 +306,10 @@ networks:
         for: fallback
       - url: https://mainnet.mode.network
         for: fallback
-    start_block: 24955113
+    start_block: 25790853
     contracts:
       - name: GrailMarket
-        address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
+        address: 0x49be7D3Df665f864Ee3348d79EAF6d9230379625
   - id: 204 # OpBNB
     rpc:
       - url: https://opbnb-rpc.publicnode.com
@@ -304,10 +318,10 @@ networks:
         for: fallback
       - url: https://opbnb.drpc.org
         for: fallback
-    start_block: 63198076
+    start_block: 66541169
     contracts:
       - name: GrailMarket
-        address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
+        address: 0x49be7D3Df665f864Ee3348d79EAF6d9230379625
   - id: 534352 # Scroll
     rpc:
       - url: https://scroll.drpc.org
@@ -316,10 +330,10 @@ networks:
         for: fallback
       - url: https://1rpc.io/scroll
         for: fallback
-    start_block: 16511716
+    start_block: 16988546
     contracts:
       - name: GrailMarket
-        address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
+        address: 0x49be7D3Df665f864Ee3348d79EAF6d9230379625
   - id: 146 # Sonic
     rpc:
       - url: https://sonic.drpc.org
@@ -328,20 +342,20 @@ networks:
         for: fallback
       - url: https://rpc.soniclabs.com
         for: fallback
-    start_block: 34318693
+    start_block: 37286468
     contracts:
       - name: GrailMarket
-        address: 0xB08269B1984a981Ff111e4ab9cdf6BdeD2e16030
+        address: 0x85ad1bEC9f7BAA5A79b4c383b72002c22629b788
   - id: 1868 # Sonieum
     rpc:
       - url: https://rpc.soneium.org
         for: sync
       - url: https://soneium.drpc.org
         for: fallback
-    start_block: 8472016
+    start_block: 9307565
     contracts:
       - name: GrailMarket
-        address: 0x03dc4f4eD715c7b75A4e7dD1Bc6C7A41d4123e18
+        address: 0xdc5BcC1c78eC000Ab94666aF9Cbd826a737e6e58
   - id: 167000 # Taiko
     rpc:
       - url: https://taiko-rpc.publicnode.com
@@ -352,10 +366,10 @@ networks:
         for: fallback
       - url: https://rpc.ankr.com/taiko
         for: fallback
-    start_block: 1209756
+    start_block: 1245353
     contracts:
       - name: GrailMarket
-        address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
+        address: 0x49be7D3Df665f864Ee3348d79EAF6d9230379625
   - id: 1329 # Sei
     rpc:
       - url: https://sei.drpc.org
@@ -364,22 +378,22 @@ networks:
         for: fallback
       - url: https://evm-rpc.sei-apis.com
         for: fallback
-    start_block: 152539705
+    start_block: 155770029
     contracts:
       - name: GrailMarket
-        address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
-  - id: 4200 # Merlin
-    rpc:
-      - url: https://merlin.drpc.org
-        for: sync
-      - url: https://endpoints.omniatech.io/v1/merlin/mainnet/public
-        for: fallback
-      - url: https://rpc.merlinchain.io
-        for: fallback
-    start_block: 22344672
-    contracts:
-      - name: GrailMarket
-        address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
+        address: 0x49be7D3Df665f864Ee3348d79EAF6d9230379625
+  # - id: 4200 # Merlin
+  #   rpc:
+  #     - url: https://merlin.drpc.org
+  #       for: sync
+  #     - url: https://endpoints.omniatech.io/v1/merlin/mainnet/public
+  #       for: fallback
+  #     - url: https://rpc.merlinchain.io
+  #       for: fallback
+  #   start_block: 22344672
+  #   contracts:
+  #     - name: GrailMarket
+  #       address: 0x49be7D3Df665f864Ee3348d79EAF6d9230379625
   - id: 480 # Worldchain
     rpc:
       - url: https://worldchain.drpc.org
@@ -388,10 +402,10 @@ networks:
         for: fallback
       - url: https://worldchain-mainnet.g.alchemy.com/public
         for: fallback
-    start_block: 15373532
+    start_block: 16197339
     contracts:
       - name: GrailMarket
-        address: 0x4640294869A15C589faA1e81C65E3155E03ff009
+        address: 0x93fD9459B178fc96fF80cf4e7235D6BB83004bAd
   - id: 196 # XLayer
     rpc:
       - url: https://rpc.xlayer.tech
@@ -400,10 +414,10 @@ networks:
         for: fallback
       - url: https://endpoints.omniatech.io/v1/xlayer/mainnet/public
         for: fallback
-    start_block: 18297607
+    start_block: 22302408
     contracts:
       - name: GrailMarket
-        address: 0x27FFd98bF28Bef70e1297a051e589248BBa9F00d
+        address: 0x49be7D3Df665f864Ee3348d79EAF6d9230379625
 # Rollback on reorg mode currently incurs a performance hit on historical sync
 # while developing an indexer we recommend setting this to false
 rollback_on_reorg: false
